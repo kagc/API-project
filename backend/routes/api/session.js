@@ -28,11 +28,7 @@ router.post(
         user
       });
     }
-<<<<<<< HEAD
   );
-=======
-  ); 
->>>>>>> login
 
   // Log out
 router.delete(
