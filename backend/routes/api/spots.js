@@ -80,20 +80,6 @@ router.get("/", async (req, res, next) => {
     }]
   });
 
-//   spots.forEach(spot => {
-//     spotReviews.push(spot.toJSON())
-//   })
-
-//   spotReviews.forEach(spot => {
-//       let totalStars = 0
-//     spot.Reviews.forEach(review => {
-//         totalStars += review.stars
-//         console.log(totalStars)
-//     })
-//     spots.avgRating = totalStars/spotReviews.length
-//     delete spot.Reviews
-//   })
-
   let spotList = []
   spots.forEach(spot => {
     spotList.push(spot.toJSON())
@@ -124,5 +110,95 @@ router.get("/", async (req, res, next) => {
     Spots: spotList,
   });
 });
+
+// GET all spots owned by current user
+router.get('/current', requireAuth, async (req, res, next) => {
+    const { user } = req;
+    let currUserId
+    if (user) {
+        currUserId = user.toSafeObject().id
+    } else return res.json({});
+
+    let spots = await Spot.findAll({
+        where: {
+            ownerId: currUserId
+        },
+        include: [{
+            model: Review
+        },{
+            model: SpotImage
+        }]
+    })
+
+
+    let spotList = []
+    spots.forEach(spot => {
+      spotList.push(spot.toJSON())
+    })
+  
+    spotList.forEach(spot => {
+        let totalStars = 0
+      spot.Reviews.forEach(review => {
+          totalStars += review.stars
+      })
+      spot.avgRating = totalStars/spot.Reviews.length
+      delete spot.Reviews
+    })
+  
+    spotList.forEach(spot => {
+      spot.SpotImages.forEach(image => {
+          if (image.preview === true){
+              spot.previewImage = image.url
+          }
+      })
+      if (!spot.previewImage){
+          spot.previewImage = 'No preview image found :('
+      }
+      delete spot.SpotImages
+    })
+
+    res.json({
+        Spots: spotList,
+      });
+})
+
+// GET details of spot from ID
+router.get('/:spotId', async (req, res, next) => {
+    let { spotId } = req.params
+    const spot = await Spot.findByPk(spotId, {
+        include: [{
+            model: Review
+        }, {
+            model: SpotImage
+        }, {
+            model: User,
+            as: 'Owner'
+        }]
+    })
+
+    if(!spot){
+        return res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+          })
+    }
+
+    let pojoSpot = spot.toJSON()
+    let totalStars = 0
+    pojoSpot.Reviews.forEach(review => {
+        totalStars += review.stars
+    })
+    pojoSpot.numReviews = pojoSpot.Reviews.length
+    pojoSpot.avgRating = totalStars/pojoSpot.Reviews.length
+    delete pojoSpot.Reviews
+
+    pojoSpot.SpotImages.forEach(image => {
+        delete image.spotId
+    })
+
+    delete pojoSpot.Owner.username
+
+    res.json(pojoSpot);
+})
 
 module.exports = router;
