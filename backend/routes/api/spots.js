@@ -186,7 +186,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         url,
         preview
     })
-    
+
         res.status(200).json({
             id: spotImage.id,
             url: spotImage.url,
@@ -231,6 +231,42 @@ router.get('/:spotId', async (req, res, next) => {
     delete pojoSpot.Owner.username
 
     res.json(pojoSpot);
+})
+
+// Edit a spot
+router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
+    let { spotId } = req.params
+    let { address, city, state, country, lat, lng, name, description, price } = req.body
+    const spot = await Spot.findByPk(spotId)
+
+
+    if(!spot){
+        res.status(404).json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+          })
+    }
+    
+    if(spot.ownerId !== req.user.id){
+        res.status(401).json({
+            message: "Unauthorized user",
+            statusCode: 401
+          })
+    } 
+
+    const updated = await spot.update({
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    })
+
+    res.status(200).json(updated)
 })
 
 
