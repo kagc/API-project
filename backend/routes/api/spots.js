@@ -157,6 +157,42 @@ router.get('/current', requireAuth, async (req, res, next) => {
       });
 })
 
+// Add an Image to a Spot based on the Spot's id
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+    let { url, preview } = req.query
+    let { spotId } = req.params
+
+    const spot = await Spot.findByPk(spotId)
+
+    if(!spot){
+        res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+          })
+    }
+
+    let userSpotId
+    // console.log(spot)
+    if(spot.ownerId === req.user.id){
+        userSpotId = spotId
+    } else {
+        res.status(401).json({
+            message: "Unauthorized user",
+            statusCode: 401
+          })
+    }
+    const spotImage = await SpotImage.create({
+        spotId: userSpotId,
+        url: url,
+        preview: preview,
+    })
+        res.status(200).json({
+            id: spotImage.id,
+            url: spotImage.url,
+            preview: spotImage.preview
+        })
+})
+
 // GET details of spot from ID
 router.get('/:spotId', async (req, res, next) => {
     let { spotId } = req.params
@@ -195,5 +231,7 @@ router.get('/:spotId', async (req, res, next) => {
 
     res.json(pojoSpot);
 })
+
+
 
 module.exports = router;

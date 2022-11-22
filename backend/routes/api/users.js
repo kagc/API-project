@@ -40,8 +40,14 @@ router.post("/", validateSignup, async (req, res) => {
   // try {
     const { email, password, username, firstName, lastName } = req.body;
 
-    const usernameExists = await User.findOne({ username });
-    const emailExists = await User.findOne({ email });
+    const usernameExists = await User.findOne({ 
+      where: {
+        username: username }
+      });
+    const emailExists = await User.findOne({ 
+      where: {
+        email: email }
+      });
    
     
     if (emailExists) {
@@ -63,6 +69,7 @@ router.post("/", validateSignup, async (req, res) => {
           }
         })
       }
+
     const user = await User.signup({
       firstName,
       lastName,
@@ -80,28 +87,7 @@ router.post("/", validateSignup, async (req, res) => {
       email: user.email,
       token: token,
     });
-  // } catch (error) {
-    // if (error.name === 'SequelizeUniqueConstraintError') {
-    //   error.status = 403
-    //   return res.json({
-    //     message: "User already exists",
-    //     statusCode: error.status,
-    //     errors: {
-    //       email: "User with that email already exists"
-    //     }
-    //   })
-    // }
-  //   if (errType === "username") {
-  //     error.message = {
-  //       username: "User with that username already exists",
-  //     };
-  //     return res.json({
-  //       message: "User already exists",
-  //       statusCode: res.status,
-  //       errors: error.message,
-  //     });
-  //   }
-  // }
+
 });
 
 module.exports = router;
