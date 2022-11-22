@@ -5,6 +5,7 @@ const { User, Spot, Review, SpotImage } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { getMaxListeners } = require("../../app");
+const { route } = require("./users");
 
 const router = express.Router();
 
@@ -43,6 +44,19 @@ const validateSpot = [
     .withMessage("price: Price per day is required"),
   handleValidationErrors,
 ];
+
+const validateReview = [
+    check('review')
+    .exists({ checkFalsy: true })
+    .withMessage('review: Review text is required'),
+    check('stars')
+    .exists({ checkFalsy: true })
+    .withMessage('stars: Rating is required'),
+    check('stars')
+    .isIn([1, 2, 3, 4, 5])
+    .withMessage('stars: Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+]
 
 // Create a Spot
 router.post("/", requireAuth, validateSpot, async (req, res, next) => {
@@ -105,6 +119,56 @@ router.get("/", async (req, res, next) => {
     Spots: spotList,
   });
 });
+
+// CREATE a review
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+    let { spotId } = req.params
+    let { review, stars } = req.body
+
+    const spot = await Spot.findByPk(spotId)
+
+    if(!spot){
+        return res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+          })
+    }
+
+    let userSpotId
+    // console.log(spot)
+    if(spot.ownerId === req.user.id){
+        userSpotId = spotId
+    } else {
+        return res.status(401).json({
+            message: "Unauthorized user",
+            statusCode: 401
+          })
+    }
+
+    const alreadyReviewed = await Review.findAll({
+        where: {
+            userId: req.user.id,
+            spotId: spotId
+        }
+    })
+
+    if(alreadyReviewed){
+        return res.status(403).json({
+            "message": "User already has a review for this spot",
+            "statusCode": 403
+          })
+    }
+
+    const newReview = await Review.create({
+        userId: userSpotId,
+        spotId,
+        review,
+        stars
+    })
+
+    res.status(201).json(newReview)
+
+})
 
 // GET all spots owned by current user
 router.get('/current', requireAuth, async (req, res, next) => {
@@ -267,6 +331,35 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     })
 
     res.status(200).json(updated)
+})
+
+// DELETE an existing spot
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+    let { spotId } = req.params
+
+    const spot = await Spot.findByPk(spotId)
+
+     if(!spot){
+        res.status(404).json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+          })
+    }
+
+    if(spot.ownerId !== req.user.id){
+        res.status(401).json({
+            message: "Unauthorized user",
+            statusCode: 401
+          })
+    } else {
+        spot.destroy() // kabooom
+    }
+
+    res.status(200).json({
+        message: "Successfully deleted",
+        statusCode: 200
+      })
+
 })
 
 
