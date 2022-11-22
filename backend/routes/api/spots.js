@@ -19,13 +19,13 @@ const validateSpot = [
     .withMessage("country: Country is required"),
   check("lat")
     .exists({ checkFalsy: true })
-    .withMessage("lat: Latitude is required"),
-    check("lat", "lng")
-    .isLatLong()
-    .withMessage("lat/lng: Invalid coordinates"),
+    .withMessage("lat: Latitude is not valid"),
+    // check("lat","lng")
+    // .isLatLong()
+    // .withMessage("lat/lng: Invalid coordinates"),
   check("lng")
     .exists({ checkFalsy: true })
-    .withMessage("lng: Longitude is required"),
+    .withMessage("lng: Longitude is not valid"),
     // check("lng")
     // .isLatLong()
     // .withMessage("lng: Longitude is not valid"),
@@ -159,7 +159,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
 // Add an Image to a Spot based on the Spot's id
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
-    let { url, preview } = req.query
+    let { url, preview } = req.body
     let { spotId } = req.params
 
     const spot = await Spot.findByPk(spotId)
@@ -183,9 +183,10 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     }
     const spotImage = await SpotImage.create({
         spotId: userSpotId,
-        url: url,
-        preview: preview,
+        url,
+        preview
     })
+    
         res.status(200).json({
             id: spotImage.id,
             url: spotImage.url,
