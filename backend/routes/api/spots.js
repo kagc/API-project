@@ -11,28 +11,36 @@ const router = express.Router();
 const validateSpot = [
   check("address")
     .exists({ checkFalsy: true })
-    .withMessage("Street address is required"),
-  check("city").exists({ checkFalsy: true }).withMessage("City is required"),
-  check("state").exists({ checkFalsy: true }).withMessage("State is required"),
+    .withMessage("street: Street address is required"),
+  check("city").exists({ checkFalsy: true }).withMessage("city City is required"),
+  check("state").exists({ checkFalsy: true }).withMessage("state: State is required"),
   check("country")
     .exists({ checkFalsy: true })
-    .withMessage("Country is required"),
+    .withMessage("country: Country is required"),
   check("lat")
     .exists({ checkFalsy: true })
-    .withMessage("Latitude is not valid"),
+    .withMessage("lat: Latitude is required"),
+    check("lat", "lng")
+    .isLatLong()
+    .withMessage("lat/lng: Invalid coordinates"),
   check("lng")
     .exists({ checkFalsy: true })
-    .withMessage("Longitude is not valid"),
+    .withMessage("lng: Longitude is required"),
+    // check("lng")
+    // .isLatLong()
+    // .withMessage("lng: Longitude is not valid"),
   check("name")
     .exists({ checkFalsy: true })
+    .withMessage("name: Name is required"),
+    check("name")
     .isLength({ max: 50 })
-    .withMessage("Name must be less than 50 characters"),
+    .withMessage("name: Name must be less than 50 characters"),
   check("description")
     .exists({ checkFalsy: true })
-    .withMessage("Description is required"),
+    .withMessage("description: Description is required"),
   check("price")
     .exists({ checkFalsy: true })
-    .withMessage("Price per day is required"),
+    .withMessage("price: Price per day is required"),
   handleValidationErrors,
 ];
 
@@ -42,6 +50,7 @@ router.post("/", requireAuth, validateSpot, async (req, res, next) => {
     req.body;
 
   const spot = await Spot.create({
+    ownerId: req.user.id,
     address,
     city,
     state,
@@ -51,23 +60,9 @@ router.post("/", requireAuth, validateSpot, async (req, res, next) => {
     name,
     description,
     price,
-    ownerId: req.user.id,
   });
 
-  res.json((res.status = 201), {
-    id: spot.id,
-    address: spot.address,
-    city: spot.city,
-    state: spot.state,
-    country: spot.country,
-    lat: spot.lat,
-    lng: spot.lng,
-    name: spot.name,
-    description: spot.description,
-    price: spot.price,
-    createdAt: spot.createdAt,
-    updatedAt: spot.updatedAt,
-  });
+  res.json((res.status = 201), spot);
 });
 
 // Get all spots
@@ -113,15 +108,15 @@ router.get("/", async (req, res, next) => {
 
 // GET all spots owned by current user
 router.get('/current', requireAuth, async (req, res, next) => {
-    const { user } = req;
-    let currUserId
-    if (user) {
-        currUserId = user.toSafeObject().id
-    } else return res.json({});
+    // const { user } = req;
+    // let currUserId
+    // if (user) {
+    //     currUserId = user.toSafeObject().id
+    // } else return res.json({});
 
     let spots = await Spot.findAll({
         where: {
-            ownerId: currUserId
+            ownerId: req.user.id
         },
         include: [{
             model: Review
