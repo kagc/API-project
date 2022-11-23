@@ -22,6 +22,70 @@ const validateReview = [
     handleValidationErrors
 ]
 
+//Get all reviews of current user
+router.get('/current', requireAuth, async (req, res, next) => {
+    const reviews = await Review.findAll({
+        where: {
+            userId: req.user.id
+        },
+        include: [{
+            model: User
+        },{
+            model: Spot,
+            include: {
+                model: SpotImage
+            }
+        }, {
+            model: ReviewImage
+        }]
+    })
+
+    if(reviews.length === 0){
+        return res.status(404).json({
+            message: "No reviews found",
+            statusCode: 404
+          })
+    }
+
+    if(reviews.userId !== req.user.id){
+        return res.status(401).json({
+            message: "Unauthorized user",
+            statusCode: 401
+          })
+        }
+
+    let reviewList = []
+    reviews.forEach(review => {
+        reviewList.push(review.toJSON())
+    })
+
+    reviewList.forEach(review => {
+        delete review.User.username
+        delete review.Spot.description
+        delete review.Spot.createdAt
+        delete review.Spot.updatedAt
+
+        review.Spot.SpotImages.forEach(image => {
+            if (image.preview === true){
+                review.Spot.previewImage = image.url
+            }
+        })
+        if (!review.Spot.previewImage){
+            review.Spot.previewImage = 'No preview image found :('
+        } 
+        delete review.Spot.SpotImages
+
+        review.ReviewImages.forEach(image => {
+            delete image.reviewId
+            delete image.createdAt
+            delete image.updatedAt
+        })
+        
+    })
+
+    return res.status(200).json({Reviews: reviewList})
+})
+
 // Add an Image to a Review based on the Review's id
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     let { reviewId } = req.params
@@ -96,6 +160,32 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => 
     return res.status(200).json(updatedReview)
 })
 
+// Delete a review
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
+    let { reviewId } = req.params
+    
+    const review = await Review.findByPk(reviewId)
 
+    if(!review){
+        return res.status(404).json({
+            message: "Review couldn't be found",
+            statusCode: 404
+          })
+    }
+
+    if(review.userId !== req.user.id){
+        return res.status(403).json({
+            message: "Unauthorized user",
+            statusCode: 403
+          })
+    } else {
+        review.destroy()
+    }
+
+    return res.status(200).json({
+        message: "Successfully deleted",
+        statusCode: 200
+      })
+})
 
 module.exports = router;
