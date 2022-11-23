@@ -81,12 +81,35 @@ router.post("/", requireAuth, validateSpot, async (req, res, next) => {
 
 // Get all spots
 router.get("/", async (req, res, next) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
+
+    if(!page){
+        page = 1
+    }
+    if(page >= 10){
+        page = 10
+    }
+    if(!size || size >= 20){
+        size = 20
+    }
+    let pagination = {}
+    page = parseInt(page)
+    size = parseInt(size)
+    if(page >= 1 && size >= 1){
+        pagination.limit = size,
+        pagination.offset = size*(page-1)
+    }
+
+    let where = {}
+    
+
   let spots = await Spot.findAll({
     include: [{
         model: Review
     },{
         model: SpotImage
-    }]
+    }],
+    ...pagination
   });
 
   let spotList = []
@@ -117,6 +140,8 @@ router.get("/", async (req, res, next) => {
 
   return res.json({
     Spots: spotList,
+    page,
+    size
   });
 });
 
