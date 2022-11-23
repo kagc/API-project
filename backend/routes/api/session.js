@@ -72,8 +72,11 @@ router.get(
         user.toSafeObject()
       );
     } else return res.status(401).json({
-      message: 'Not a valid user',
-      statusCode: 401
+      message: "Unauthorized",
+    statusCode: 401,
+    errors: [
+        "Unauthorized"
+    ]
     });
   }
 );

@@ -11,7 +11,7 @@ const {
 } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const { getMaxListeners } = require("../../app");
+// const { getMaxListeners } = require("../../app");
 const { route } = require("./users");
 
 const router = express.Router();
@@ -89,7 +89,7 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
 
   if (booking.userId !== req.user.id) {
     res.status(403).json({
-      message: "Unauthorized user",
+      message: "Forbidden",
       statusCode: 403,
     });
   }
@@ -138,7 +138,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
 
     if(booking.userId !== req.user.id){
         return res.status(401).json({
-                    message: "Unauthorized user",
+                    message: "Forbidden",
                     statusCode: 401
                   })
     }
