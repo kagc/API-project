@@ -145,7 +145,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
           })
     }
 
-    const alreadyReviewed = await Review.findAll({
+    const alreadyReviewed = await Review.findOne({
         where: {
             userId: req.user.id,
             spotId: spotId
@@ -340,14 +340,14 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     const spot = await Spot.findByPk(spotId)
 
      if(!spot){
-        res.status(404).json({
+       return res.status(404).json({
             "message": "Spot couldn't be found",
             "statusCode": 404
           })
     }
 
     if(spot.ownerId !== req.user.id){
-        res.status(401).json({
+       return res.status(401).json({
             message: "Unauthorized user",
             statusCode: 401
           })
