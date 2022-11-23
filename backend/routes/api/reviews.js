@@ -9,6 +9,19 @@ const { route } = require("./users");
 
 const router = express.Router();
 
+const validateReview = [
+    check('review')
+    .exists({ checkFalsy: true })
+    .withMessage('review: Review text is required'),
+    check('stars')
+    .exists({ checkFalsy: true })
+    .withMessage('stars: Rating is required'),
+    check('stars')
+    .isIn([1, 2, 3, 4, 5])
+    .withMessage('stars: Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+]
+
 // Add an Image to a Review based on the Review's id
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     let { reviewId } = req.params
@@ -52,6 +65,35 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         id: addImage.id,
         url: addImage.url
     })
+})
+
+// Edit a Review
+router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => {
+    let { reviewId } = req.params
+    let { review, stars } = req.body
+
+    const theReview = await Review.findByPk(reviewId)
+
+    if(!theReview){
+        return res.status(404).json({
+            "message": "Review couldn't be found",
+            "statusCode": 404
+          })
+    }
+
+    if(theReview.userId !== req.user.id){
+        return res.status(403).json({
+            message: "Unauthorized user",
+            statusCode: 403
+          })
+        }
+
+    const updatedReview = await theReview.update({
+        review,
+        stars
+    })
+
+    return res.status(200).json(updatedReview)
 })
 
 

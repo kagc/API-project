@@ -115,7 +115,7 @@ router.get("/", async (req, res, next) => {
     delete spot.SpotImages
   })
 
-  res.json({
+  return res.json({
     Spots: spotList,
   });
 });
@@ -166,7 +166,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         stars
     })
 
-    res.status(201).json(newReview)
+    return res.status(201).json(newReview)
 
 })
 
@@ -240,9 +240,9 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     if(spot.ownerId === req.user.id){
         userSpotId = spotId
     } else {
-        res.status(401).json({
+        res.status(403).json({
             message: "Unauthorized user",
-            statusCode: 401
+            statusCode: 403
           })
     }
     const spotImage = await SpotImage.create({
@@ -312,9 +312,9 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     }
     
     if(spot.ownerId !== req.user.id){
-        res.status(401).json({
+        res.status(403).json({
             message: "Unauthorized user",
-            statusCode: 401
+            statusCode: 403
           })
     } 
 
@@ -330,7 +330,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
         price
     })
 
-    res.status(200).json(updated)
+    return res.status(200).json(updated)
 })
 
 // DELETE an existing spot
@@ -347,9 +347,9 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     }
 
     if(spot.ownerId !== req.user.id){
-       return res.status(401).json({
+       return res.status(403).json({
             message: "Unauthorized user",
-            statusCode: 401
+            statusCode: 403
           })
     } else {
         spot.destroy() // kabooom
