@@ -40,6 +40,13 @@ router.get('/current', requireAuth, async (req, res, next) => {
         }]
     })
 
+    if(reviews.length === 0){
+        return res.status(404).json({
+            message: "No reviews found",
+            statusCode: 404
+          })
+    }
+
     if(reviews.userId !== req.user.id){
         return res.status(401).json({
             message: "Unauthorized user",

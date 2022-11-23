@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Spot, Review, SpotImage } = require("../../db/models");
+const { User, Spot, Review, SpotImage, ReviewImage } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { getMaxListeners } = require("../../app");
@@ -369,6 +369,45 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 })
 
+// Get all Reviews by a Spot's id
+router.get('/:spotId/reviews', async (req, res, next) => {
+    let { spotId } = req.params
+
+    const reviews = await Review.findAll({
+        where: {
+            spotId
+        },
+        include: [{
+            model: User
+        }, {
+            model: ReviewImage
+        }]
+    })
+
+    if(reviews.length === 0){
+        return res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+          })
+    }
+
+    let reviewList = []
+    reviews.forEach(review => {
+        reviewList.push(review.toJSON())
+    })
+
+    reviewList.forEach(review => {
+        delete review.User.username
+        
+        review.ReviewImages.forEach(image => {
+            delete image.reviewId
+            delete image.createdAt
+            delete image.updatedAt
+        })
+    })
+
+    return res.status(200).json({Reviews: reviewList})
+})
 
 
 module.exports = router;
