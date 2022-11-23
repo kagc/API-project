@@ -22,6 +22,63 @@ const validateReview = [
     handleValidationErrors
 ]
 
+//Get all reviews of current user
+router.get('/current', requireAuth, async (req, res, next) => {
+    const reviews = await Review.findAll({
+        where: {
+            userId: req.user.id
+        },
+        include: [{
+            model: User
+        },{
+            model: Spot,
+            include: {
+                model: SpotImage
+            }
+        }, {
+            model: ReviewImage
+        }]
+    })
+
+    if(reviews.userId !== req.user.id){
+        return res.status(401).json({
+            message: "Unauthorized user",
+            statusCode: 401
+          })
+        }
+
+    let reviewList = []
+    reviews.forEach(review => {
+        reviewList.push(review.toJSON())
+    })
+
+    reviewList.forEach(review => {
+        delete review.User.username
+        delete review.Spot.description
+        delete review.Spot.createdAt
+        delete review.Spot.updatedAt
+
+        review.Spot.SpotImages.forEach(image => {
+            if (image.preview === true){
+                review.Spot.previewImage = image.url
+            }
+        })
+        if (!review.Spot.previewImage){
+            review.Spot.previewImage = 'No preview image found :('
+        } 
+        delete review.Spot.SpotImages
+
+        review.ReviewImages.forEach(image => {
+            delete image.reviewId
+            delete image.createdAt
+            delete image.updatedAt
+        })
+        
+    })
+
+    return res.status(200).json({Reviews: reviewList})
+})
+
 // Add an Image to a Review based on the Review's id
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     let { reviewId } = req.params

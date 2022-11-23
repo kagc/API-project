@@ -189,6 +189,13 @@ router.get('/current', requireAuth, async (req, res, next) => {
         }]
     })
 
+    if(spots.ownerId !== req.user.id){
+        return res.status(401).json({
+            message: "Unauthorized user",
+            statusCode: 401
+          })
+        }
+
 
     let spotList = []
     spots.forEach(spot => {
