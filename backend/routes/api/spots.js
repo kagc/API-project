@@ -4,7 +4,7 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User, Spot, Review, SpotImage, ReviewImage, Booking } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const { getMaxListeners } = require("../../app");
+// const { getMaxListeners } = require("../../app");
 const { route } = require("./users");
 
 const router = express.Router();
@@ -134,16 +134,16 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
           })
     }
 
-    let userSpotId
+    // let userSpotId
     // console.log(spot)
-    if(spot.ownerId !== req.user.id){
-        userSpotId = req.user.id
-    } else {
-        return res.status(401).json({
-            message: "Unauthorized user",
-            statusCode: 401
-          })
-    }
+    // if(spot.ownerId !== req.user.id){
+    //     userSpotId = req.user.id
+    // } else {
+    //     return res.status(401).json({
+    //         message: "Forbidden",
+    //         statusCode: 401
+    //       })
+    // }
 
     const alreadyReviewed = await Review.findOne({
         where: {
@@ -160,7 +160,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
     }
 
     const newReview = await Review.create({
-        userId: userSpotId,
+        userId: req.user.id,
         spotId,
         review,
         stars
@@ -197,12 +197,12 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
           })
     }
 
-    if(spot.ownerId === req.user.id){
-        return res.status(403).json({
-            message: "Unable to book own Spot",
-            statusCode: 403
-        })
-    }
+    // if(spot.ownerId === req.user.id){
+    //     return res.status(403).json({
+    //         message: "Unable to book own Spot",
+    //         statusCode: 403
+    //     })
+    // }
 
     const checkBookings = await Booking.findAll({
         where: {
@@ -214,7 +214,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
  checkBookings.forEach(booking => {
     let sd = Date.parse(booking.startDate)
     let ed = Date.parse(booking.endDate)
-    console.log(sd, newStartDate, ed, newEndDate)
    
     if(newEndDate >= ed && newStartDate <= sd){
         return res.status(403).json({
@@ -308,7 +307,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         userSpotId = spotId
     } else {
         res.status(403).json({
-            message: "Unauthorized user",
+            message: "Forbidden",
             statusCode: 403
           })
     }
@@ -380,7 +379,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     
     if(spot.ownerId !== req.user.id){
         res.status(403).json({
-            message: "Unauthorized user",
+            message: "Forbidden",
             statusCode: 403
           })
     } 
@@ -415,7 +414,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
     if(spot.ownerId !== req.user.id){
        return res.status(403).json({
-            message: "Unauthorized user",
+            message: "Forbidden",
             statusCode: 403
           })
     } else {
@@ -444,7 +443,9 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         }]
     })
 
-    if(reviews.length === 0){
+    const spot = await Spot.findByPk(spotId)
+
+    if(!spot){
         return res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: 404
