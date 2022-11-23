@@ -58,18 +58,6 @@ const validateReview = [
     handleValidationErrors
 ]
 
-const validateBooking = [
-    // check('endDate')
-    // .isAfter('startDate')
-    // .custom((startDate, { req }) => {
-    //     if (startDate.getTime() > req.body.endDate.getTime()) {
-    //         throw new Error('endDate: endDate cannot be on or before startDate')
-    //     }
-    // }),
-    // .withMessage('endDate: endDate cannot be on or before startDate'),
-    handleValidationErrors
-]
-
 // Create a Spot
 router.post("/", requireAuth, validateSpot, async (req, res, next) => {
   const { address, city, state, country, lat, lng, name, description, price } =
@@ -481,5 +469,70 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     return res.status(200).json({Reviews: reviewList})
 })
 
+// Get all bookings for a spot
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    let { spotId } = req.params
+
+    const spot = await Spot.findByPk(spotId)
+
+    if(!spot){
+        return res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+          })
+    }
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId
+        }
+    })
+
+    if(!bookings){
+        return res.status(404).json({
+            message: "No bookings found",
+            statusCode: 404
+          })
+    }
+
+    const ownerBookings = await Booking.findAll({
+        where: {
+            spotId
+        }, include: {
+            model: User
+        }
+    })
+
+    let bookingList = []
+    bookings.forEach(booking => {
+        bookingList.push(booking.toJSON())
+    })
+
+    bookingList.forEach(booking => {
+        delete booking.userId
+        delete booking.id
+        delete booking.createdAt
+        delete booking.updatedAt
+    })
+
+    let ownerBookingList = []
+    ownerBookings.forEach(booking => {
+        ownerBookingList.push(booking.toJSON())
+    })
+
+    ownerBookingList.forEach(booking => {
+        delete booking.User.username
+    })
+    
+
+    if(spot.ownerId === req.user.id){
+        return res.status(200).json({
+            Bookings: ownerBookingList
+        })
+    } else {
+        return res.status(200).json({
+            Bookings: bookingList})
+    }
+})
 
 module.exports = router;

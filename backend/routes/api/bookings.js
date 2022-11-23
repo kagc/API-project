@@ -123,9 +123,6 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
   return res.status(200).json(updated);
 });
 
-// Get all bookings for a spot
-router.
-
 // Delete booking
 router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     let { bookingId } = req.params
