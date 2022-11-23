@@ -226,6 +226,8 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
  checkBookings.forEach(booking => {
     let sd = Date.parse(booking.startDate)
     let ed = Date.parse(booking.endDate)
+    console.log(sd, newStartDate, ed, newEndDate)
+   
     if(newEndDate >= ed && newStartDate <= sd){
         return res.status(403).json({
             message: "Sorry, this spot is already booked for the specified dates",
@@ -235,7 +237,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
               endDate: "End date conflicts with an existing booking"
             }
           })
-    }
+    } 
  })
 
     const newBooking = await Booking.create({
