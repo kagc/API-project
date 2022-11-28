@@ -346,11 +346,14 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     })
 
 //  let allBookings = []
+
+let stop = false
  checkBookings.forEach(booking => {
     let sd = Date.parse(booking.startDate)
     let ed = Date.parse(booking.endDate)
    
     if(newEndDate >= ed && newStartDate <= sd){
+        stop = true
         return res.status(403).json({
             message: "Sorry, this spot is already booked for the specified dates",
             statusCode: 403,
@@ -361,7 +364,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
           })
     } 
  })
-
+    if (stop === false){
     const newBooking = await Booking.create({
         spotId,
         userId: req.user.id,
@@ -370,6 +373,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     })
 
     return res.status(200).json(newBooking)
+}
 })
 
 // GET all spots owned by current user
@@ -553,7 +557,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
             statusCode: 403
           })
     } else {
-        spot.destroy() // kabooom
+        await spot.destroy() // kabooom
     }
 
     return res.status(200).json({

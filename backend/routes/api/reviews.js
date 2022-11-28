@@ -179,7 +179,7 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
             statusCode: 403
           })
     } else {
-        review.destroy()
+       await review.destroy()
     }
 
     return res.status(200).json({
