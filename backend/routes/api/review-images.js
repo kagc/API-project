@@ -30,7 +30,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
             statusCode: 403
           })
     } else {
-        reviewImg.destroy()
+       await reviewImg.destroy()
     }
     
     return res.status(200).json({
