@@ -15,7 +15,6 @@ function App() {
 
   return isLoaded && (
     <Switch>
-      <div>HELLO</div>
       <Route path="/login">
         <LoginFormPage />
       </Route>

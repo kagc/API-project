@@ -72,7 +72,8 @@ router.get(
       return res.json({
         user: user.toSafeObject()
       });
-    } else return res.status(401).json({
+    // } else return res.status(401).json({
+    } else return res.json({
       user: null
     //   message: "Unauthorized",
     // statusCode: 401,
