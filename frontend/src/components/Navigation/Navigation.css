@@ -1,0 +1,25 @@
+.hidden {
+    display: none
+}
+
+.profile-button {
+    align-items: center;
+    border: solid lightgray 1px;
+    background-color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 12px;
+    border-radius: 40%;
+    text-align: start;
+    font-size: 2em;
+    color: gray;
+    font-stretch: 100%;
+    position: relative;
+    vertical-align: middle;
+}
+
+.fas.fa-user-circle {
+    padding-left: 15px;
+    margin: 0;
+}
