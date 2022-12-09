@@ -41,12 +41,13 @@ router.post(
       let token = await setTokenCookie(res, user);
   
       return res.json({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        username: user.username,
-        token: token
+        user: user.toSafeObject()
+        // id: user.id,
+        // firstName: user.firstName,
+        // lastName: user.lastName,
+        // email: user.email,
+        // username: user.username,
+        // token: token
       });
     
     }
@@ -68,15 +69,16 @@ router.get(
   (req, res) => {
     const { user } = req;
     if (user) {
-      return res.json(
-        user.toSafeObject()
-      );
+      return res.json({
+        user: user.toSafeObject()
+      });
     } else return res.status(401).json({
-      message: "Unauthorized",
-    statusCode: 401,
-    errors: [
-        "Unauthorized"
-    ]
+      user: null
+    //   message: "Unauthorized",
+    // statusCode: 401,
+    // errors: [
+    //     "Unauthorized"
+    // ]
     });
   }
 );

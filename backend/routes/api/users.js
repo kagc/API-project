@@ -81,11 +81,12 @@ router.post("/", validateSignup, async (req, res) => {
     let token = await setTokenCookie(res, user);
 
     return res.json({
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      token: token,
+      user: user.toSafeObject()
+      // id: user.id,
+      // firstName: user.firstName,
+      // lastName: user.lastName,
+      // email: user.email,
+      // token: token,
     });
 
 });
