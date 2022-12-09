@@ -211,7 +211,7 @@ router.get("/",  async (req, res, next) => {
             [Op.gte]: minPrice
         }
     }
-console.log(where)
+
   let spots = await Spot.findAll({
     where,
     include: [{
@@ -270,7 +270,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
     }
 
     // let userSpotId
-    // console.log(spot)
     // if(spot.ownerId !== req.user.id){
     //     userSpotId = req.user.id
     // } else {
@@ -441,7 +440,6 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     }
 
     let userSpotId
-    // console.log(spot)
     if(spot.ownerId === req.user.id){
         userSpotId = spotId
     } else {
