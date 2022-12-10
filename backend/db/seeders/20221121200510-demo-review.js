@@ -15,19 +15,19 @@ module.exports = {
         spotId: 1,
         userId: 2,
         review: 'Nice',
-        stars: 5
+        stars: 4
       },
       {
         spotId: 2,
         userId: 3,
-        review: 'okay',
+        review: 'meh',
         stars: 3
       },
       {
         spotId: 3,
         userId: 1,
-        review: 'Would never stay again',
-        stars: 1
+        review: 'Meow',
+        stars: 5
       },
     ])
     /**
