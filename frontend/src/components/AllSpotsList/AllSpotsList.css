@@ -1,0 +1,23 @@
+.all-spots {
+    margin: 16px 0px 40px;
+    padding: 0px 40px;
+    display: flex;
+    flex-wrap: wrap;
+   justify-content: space-between;
+}
+
+.preview-image {
+    /* background-size: contain; */
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* border: 1px solid #DFDFDF; */
+    border-radius: 10px;
+    height: 13em;
+    margin-right: 25px;
+    width: 13em;
+    padding: 25px;
+    /* object-fit: fill;
+    display: inline-block;
+    position: relative;
+    overflow:hidden; */
+}

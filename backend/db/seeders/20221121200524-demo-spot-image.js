@@ -13,17 +13,17 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: 'link',
+        url: 'https://www.shutterstock.com/image-photo/two-cats-wooden-cat-house-600w-1365490964.jpg',
         preview: true,
       },
       {
         spotId: 2,
-        url: 'link',
-        preview: false,
+        url: 'https://www.shutterstock.com/image-photo/russian-blue-cat-cardboard-box-600w-2114953106.jpg',
+        preview: true,
       },
       {
         spotId: 3,
-        url: 'link',
+        url: 'https://www.shutterstock.com/image-photo/cute-grey-tabby-cat-cardboard-600w-1526963033.jpg',
         preview: true,
       },
     ])
