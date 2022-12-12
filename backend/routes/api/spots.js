@@ -497,7 +497,7 @@ router.get('/:spotId', async (req, res, next) => {
 
     delete pojoSpot.Owner.username
 
-    res.json(pojoSpot);
+    return res.json(pojoSpot);
 })
 
 // Edit a spot
