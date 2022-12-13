@@ -14,7 +14,7 @@ const validateSpot = [
   check("address")
     .exists({ checkFalsy: true })
     .withMessage("street: Street address is required"),
-  check("city").exists({ checkFalsy: true }).withMessage("city City is required"),
+  check("city").exists({ checkFalsy: true }).withMessage("city: City is required"),
   check("state").exists({ checkFalsy: true }).withMessage("state: State is required"),
   check("country")
     .exists({ checkFalsy: true })
