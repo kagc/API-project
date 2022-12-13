@@ -53,9 +53,11 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
-            <li><Route path='/'>
-              <Link to='/become-a-host'>Manage Listings</Link>
-              </Route></li>
+            <li>
+              {/* <Route path='/'> */}
+              <Link to='/manage-listings'>Manage Listings</Link>
+              {/* </Route> */}
+              </li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

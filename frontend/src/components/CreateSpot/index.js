@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { makeSpot } from '../../store/spots';
+import { makeSpot, addImg } from '../../store/spots';
+import { useModal } from '../../context/Modal';
 
 const CreateSpot = () => {
     const dispatch = useDispatch()
@@ -14,7 +15,14 @@ const CreateSpot = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(1)
+    const [url, setUrl ] = useState('')
     const [errors, setErrors] = useState([]);
+
+    const { closeModal } = useModal();
+
+    // useEffect(() => {
+    //     console.log(url)
+    // }, [url])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -30,11 +38,18 @@ const CreateSpot = () => {
             lat: 123.321,
             lng: 321.123
         }
+
+        const newImg = {
+            url,
+            preview: true
+        }
         // console.log(newSpot)
         // return
         setErrors([]);
+        // return console.log(newImg)
 
-        let createdSpot = await dispatch(makeSpot(newSpot))
+        const createdSpot = await dispatch(makeSpot(newSpot, newImg))
+        // .then(closeModal)
         .catch(
             async (res) => {
                 const data = await res.json();
@@ -44,9 +59,12 @@ const CreateSpot = () => {
           );
 
         if(createdSpot) {
+            closeModal()
             history.push(`/spots/${createdSpot.id}`)
         }
-    }
+
+        }
+
 
     return (
         <div>
@@ -99,6 +117,18 @@ const CreateSpot = () => {
                 //    height='100px'
                    value={name}
                    onChange={(e) => setName(e.target.value)}></input>
+                </div>
+
+                <div>
+                    <h1>Add an image</h1>
+                    <h3>Show what your place looks like.</h3>
+                </div>
+                <div>
+                    <input type='text'
+                    placeholder='https://....'
+                    required
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}></input>
                 </div>
 
                 <div>
