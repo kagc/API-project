@@ -7,15 +7,16 @@ import './AllSpotsList.css'
 function AllSpotsList() {
 const dispatch = useDispatch()
 
+useEffect(() => {
+    dispatch(getAllSpots())
+}, [dispatch])
+
 const spotsObj = useSelector(state => {
     return state.spots
 })
 const spots = Object.values(spotsObj)
 // console.log(spotsObj)
 
-useEffect(() => {
-    dispatch(getAllSpots())
-}, [dispatch])
 
     return (
         <div className='all-spots'>

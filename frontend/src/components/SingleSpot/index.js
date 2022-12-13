@@ -1,12 +1,13 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { getOneSpot } from '../../store/spots'
+import { getOneSpot, nukeSpot } from '../../store/spots'
 import './SingleSpot.css'
 
 function SingleSpot() {
     let { spotId } = useParams()
     const dispatch = useDispatch()
+    const history = useHistory()
     
     useEffect(() => {
         dispatch(getOneSpot(spotId))
@@ -14,8 +15,14 @@ function SingleSpot() {
 
     const spot = useSelector(state => state.spots[spotId])
     
-    console.log('detailsSpot', spot)
+    // console.log('detailsSpot', spot)
     // console.log('spotimg', spot.SpotImages)
+    const deleteSpot = async (e) => {
+        e.preventDefault();
+        await dispatch((nukeSpot(spotId)))
+        history.push('/')
+    }
+
 
 
     if(!spot || !spot.SpotImages ) return null
@@ -56,6 +63,10 @@ function SingleSpot() {
 
             <div className='descr'>
                 <span>{spot.description}</span>
+            </div>
+
+            <div>
+                <button onClick={deleteSpot}>Delete Spot</button>
             </div>
         </div>
     )

@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import AllSpotsList from "./components/AllSpotsList";
 import SingleSpot from "./components/SingleSpot";
 import CreateSpot from "./components/CreateSpot";
+import ManageListingsPage from "./components/ManageListingsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function App() {
             <SingleSpot />
           </Route>
           <Route path='/'>
-            <CreateSpot />
+            <ManageListingsPage />
           </Route>
         </Switch>
       )}
