@@ -55,7 +55,7 @@ function ProfileButton({ user }) {
             <li>{user.email}</li>
             <li>
               {/* <Route path='/'> */}
-              <Link to='/become-a-host'>Manage Listings</Link>
+              <Link to='/manage-listings'>Manage Listings</Link>
               {/* </Route> */}
               </li>
             <li>

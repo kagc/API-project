@@ -48,8 +48,8 @@ const CreateSpot = () => {
         setErrors([]);
         // return console.log(newImg)
 
-        let createdSpot = await dispatch(makeSpot(newSpot, newImg))
-        .then(closeModal)
+        const createdSpot = await dispatch(makeSpot(newSpot, newImg))
+        // .then(closeModal)
         .catch(
             async (res) => {
                 const data = await res.json();
@@ -58,17 +58,8 @@ const CreateSpot = () => {
             }
           );
 
-        //   if(createdSpot){
-        //   let createdImg = await dispatch(addImg(newImg, createdSpot.id)).catch(
-        //     async (res) => {
-        //         const data = await res.json();
-        //         console.log(data.errors)
-        //       if (data && data.errors) setErrors(data.errors);
-        //     }
-        //   );
-
-        // }
         if(createdSpot) {
+            closeModal()
             history.push(`/spots/${createdSpot.id}`)
         }
 

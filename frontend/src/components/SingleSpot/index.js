@@ -13,7 +13,7 @@ function SingleSpot() {
         dispatch(getOneSpot(spotId))
     }, [dispatch, spotId])
 
-    const spot = useSelector(state => state.spots[spotId])
+    const spot = useSelector(state => state.spots.singleSpot[spotId])
     
     // console.log('detailsSpot', spot)
     // console.log('spotimg', spot.SpotImages)
@@ -43,7 +43,7 @@ function SingleSpot() {
             <div className='img-container'>
                 {spot.SpotImages.map(image => {
                     return (
-                        <img key={image.id} src={`${image.url}`}></img>
+                        <img className='img' key={image.id} src={`${image.url}`}></img>
                     )
                 })}
             </div>

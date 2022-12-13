@@ -26,8 +26,12 @@ function App() {
           <Route path='/spots/:spotId'>
             <SingleSpot />
           </Route>
-          <Route path='/'>
+          <Route path='/manage-listings'>
             <ManageListingsPage />
+          </Route>
+
+          <Route>
+            Page Not Found.
           </Route>
         </Switch>
       )}
