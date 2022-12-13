@@ -47,7 +47,7 @@ module.exports = {
       lng: '123.321',
       name: 'Just a Box',
       description: 'Literally just a box, totally great.',
-      price: '46,853',
+      price: '46853',
     },
    ])
   },
