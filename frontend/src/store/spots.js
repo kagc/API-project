@@ -65,6 +65,16 @@ export const makeSpot = (newSpot) => async dispatch => {
     }
 }
 
+export const nukeSpot = (spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    })
+    if(response.ok){
+        const deletedSpot = await response.json()
+        dispatch(eviscerate(deletedSpot))
+    }
+}
+
 const initialState = {}
 
 
@@ -106,7 +116,9 @@ const spotReducer = (state = initialState, action) => {
             return
 
         case DELETE_SPOT:
-            return
+            newState = { ...state }
+            delete newState[action.spotId]
+            return newState
 
         default:
             return state;
