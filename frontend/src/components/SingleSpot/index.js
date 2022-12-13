@@ -15,13 +15,12 @@ function SingleSpot() {
 
     const spot = useSelector(state => state.spots.singleSpot[spotId])
     
-    // console.log('detailsSpot', spot)
-    // console.log('spotimg', spot.SpotImages)
-    const deleteSpot = async (e) => {
-        e.preventDefault();
-        await dispatch((nukeSpot(spotId)))
-        history.push('/')
-    }
+
+    // const deleteSpot = async (e) => {
+    //     e.preventDefault();
+    //     await dispatch((nukeSpot(spotId)))
+    //     history.push('/')
+    // }
 
 
 
@@ -65,9 +64,9 @@ function SingleSpot() {
                 <span>{spot.description}</span>
             </div>
 
-            <div>
+            {/* <div>
                 <button onClick={deleteSpot}>Delete Spot</button>
-            </div>
+            </div> */}
         </div>
     )
 }

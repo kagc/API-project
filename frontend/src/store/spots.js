@@ -6,6 +6,7 @@ const LOAD_ONE = 'spots/loadOne'
 const EDIT_SPOT = 'spots/editSpot'
 const DELETE_SPOT = 'spots/deleteSpot'
 const IMG = 'spots/addImg'
+const USER_SPOTS = 'spots/userSpots'
 
 // const add = (spot) => ({
 //     type: ADD_SPOT,
@@ -22,11 +23,16 @@ const oneSpot = (spot) => ({
     spot
 })
 
-const img = (link, spotId) => ({
-    type: IMG,
-    link,
-    spotId
+const usersSpots = (spots) => ({
+    type: USER_SPOTS,
+    spots
 })
+
+// const img = (link, spotId) => ({
+//     type: IMG,
+//     link,
+//     spotId
+// })
 
 const edit = (spotId) => ({
     type: EDIT_SPOT,
@@ -59,6 +65,16 @@ export const getOneSpot = (spotId) => async dispatch => {
     }
 }
 
+export const getUserSpots = () => async dispatch => {
+    const response = await csrfFetch(`/api/spots/current`)
+
+    if(response.ok){
+        const spots = await response.json()
+        dispatch(usersSpots(spots))
+        return spots
+    }
+}
+
 
 export const makeSpot = (newSpot, newImg) => async dispatch => {
     const response = await csrfFetch(`/api/spots`, {
@@ -79,18 +95,6 @@ export const makeSpot = (newSpot, newImg) => async dispatch => {
                 return createdSpot
             }
         }
-        
-// export const addImg = (link, spotId) => async dispatch => {
-//         const response = await csrfFetch(`/api/spots/${spotId}`, {
-//             method: 'POST',
-//             body: JSON.stringify(link)
-//         })
-//         if(response.ok){
-//             const createdImage = await response.json()
-//             dispatch(img(createdImage))
-//         }
-// }
-
 
 export const nukeSpot = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
@@ -99,6 +103,18 @@ export const nukeSpot = (spotId) => async dispatch => {
     if(response.ok){
         const deletedSpot = await response.json()
         dispatch(eviscerate(deletedSpot))
+    }
+}
+
+export const modSpot = (spotId, editedSpot) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT',
+        body: JSON.stringify(editedSpot)
+    })
+    if (response.ok){
+        const revisedSpot = await response.json()
+        dispatch(oneSpot(revisedSpot))
+        return revisedSpot
     }
 }
 
@@ -133,18 +149,17 @@ const spotReducer = (state = initialState, action) => {
             //         return newState
             // }
             
-            newState = { ...state }
+            newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
             newState.singleSpot[action.spot.id] = action.spot
 
-            return {
-                ...newState
-            }
+            return newState
 
-            // const singleSpot = { ...state,
-            //     [action.spot.id]: action.spot
-            //     }
-            // return {
-            //     ...singleSpot}
+        case USER_SPOTS:
+            newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
+            action.spots.Spots.forEach(spot => {
+                newState.userSpots[spot.id] = spot
+            })
+            return newState
 
         case EDIT_SPOT:
             return
