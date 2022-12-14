@@ -6,6 +6,7 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { Link, Route } from 'react-router-dom'
 import CreateSpot from "../CreateSpot";
+import OpenModalButton from '../OpenModalButton';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();

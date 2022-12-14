@@ -476,10 +476,14 @@ router.get('/:spotId', async (req, res, next) => {
     })
 
     if(!spot){
+        // const err = Error(`Invalid spot ID`)
+        // err.status = 404
+        // err.errors = [`Spot couldn't be found.`]
         return res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: 404
           })
+        // next()
     }
 
     let pojoSpot = spot.toJSON()

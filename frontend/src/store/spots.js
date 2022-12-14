@@ -62,6 +62,10 @@ export const getOneSpot = (spotId) => async dispatch => {
         // console.log(spot)
         dispatch(oneSpot(spot))
         return spot
+    } 
+    else {
+        const data = await response.json()
+        return alert(`Sorry, ${data.message} :( Redirecting to Home page.`)
     }
 }
 
@@ -72,7 +76,7 @@ export const getUserSpots = () => async dispatch => {
         const spots = await response.json()
         dispatch(usersSpots(spots))
         return spots
-    }
+    } 
 }
 
 
@@ -102,7 +106,8 @@ export const nukeSpot = (spotId) => async dispatch => {
     })
     if(response.ok){
         const deletedSpot = await response.json()
-        dispatch(eviscerate(deletedSpot))
+        dispatch(eviscerate(spotId))
+        return deletedSpot
     }
 }
 
@@ -141,6 +146,10 @@ const spotReducer = (state = initialState, action) => {
             // return newState
 
         case LOAD_ONE:
+            newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
+            newState.singleSpot[action.spot.id] = action.spot
+
+            return newState
             // console.log('aaaa', state.spots[action.spot.id])
             // if(!state.spots.singleSpot[action.spot.id]) {
             //     console.log('newState', action.spot)
@@ -149,11 +158,6 @@ const spotReducer = (state = initialState, action) => {
             //         return newState
             // }
             
-            newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
-            newState.singleSpot[action.spot.id] = action.spot
-
-            return newState
-
         case USER_SPOTS:
             newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
             action.spots.Spots.forEach(spot => {
@@ -161,12 +165,18 @@ const spotReducer = (state = initialState, action) => {
             })
             return newState
 
-        case EDIT_SPOT:
-            return
+        // case EDIT_SPOT:
+        //     return
 
         case DELETE_SPOT:
+            // newState = { ...state }
+            // delete newState[action.spotId]
+
             newState = { ...state }
-            delete newState[action.spotId]
+            // console.log('newstate', newState.userSpots[action.spotId])
+            // const newnewState = Object.values(newState.userSpots).filter(spot => spot[spot.id] !== action.spotId.id
+            // )
+            delete newState.allSpots[action.spotId]
             return newState
 
         default:
