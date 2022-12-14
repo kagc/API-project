@@ -1,33 +1,47 @@
+import { useHistory, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { makeSpot, addImg } from '../../store/spots';
+import { modSpot, getOneSpot } from '../../store/spots';
 import { useModal } from '../../context/Modal';
 
-const CreateSpot = () => {
+const EditSpot = ({spot}) => {
+    // const { spotId } = useParams()
     const dispatch = useDispatch()
     const history = useHistory()
+console.log(spot)
+    // useEffect(() => {
+    //     dispatch(getOneSpot(spotId))
+    // }, [dispatch, spotId])
 
-    const [address, setAddress] = useState('')
-    const [city, setCity] = useState('')
-    const [state, setState] = useState('')
-    const [country, setCountry] = useState('United States')
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
-    const [price, setPrice] = useState(1)
-    const [url, setUrl ] = useState('')
+    // const spot = useSelector(state => state.spots.singleSpot[spotId])
+    console.log('spot', spot)
+
+    const [address, setAddress] = useState(spot.address)
+    const [city, setCity] = useState(spot.city)
+    const [state, setState] = useState(spot.state)
+    const [country, setCountry] = useState(spot.country)
+    const [name, setName] = useState(spot.name)
+    const [description, setDescription] = useState(spot.description)
+    const [price, setPrice] = useState(spot.price)
+    // const [url, setUrl ] = useState('')
+
+    // const [address, setAddress] = useState('')
+    // const [city, setCity] = useState('')
+    // const [state, setState] = useState('')
+    // const [country, setCountry] = useState('United States')
+    // const [name, setName] = useState('')
+    // const [description, setDescription] = useState('')
+    // const [price, setPrice] = useState(1)
+    // const [url, setUrl ] = useState('')
+    
     const [errors, setErrors] = useState([]);
 
-    const { closeModal } = useModal();
-
-    // useEffect(() => {
-    //     console.log(url)
-    // }, [url])
+    const { closeModal } = useModal()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const newSpot = {
+        const editedSpot = {
             address,
             city,
             state,
@@ -39,16 +53,9 @@ const CreateSpot = () => {
             lng: 321.123
         }
 
-        const newImg = {
-            url,
-            preview: true
-        }
-        // console.log(newSpot)
-        // return
         setErrors([]);
-        // return console.log(newImg)
 
-        const createdSpot = await dispatch(makeSpot(newSpot, newImg))
+        const moddedSpot = await dispatch(modSpot(spot.id, editedSpot))
         // .then(closeModal)
         .catch(
             async (res) => {
@@ -58,9 +65,9 @@ const CreateSpot = () => {
             }
           );
 
-        if(createdSpot) {
+        if(moddedSpot) {
             closeModal()
-            history.push(`/spots/${createdSpot.id}`)
+            history.push(`/spots/${moddedSpot.id}`)
         }
 
         }
@@ -119,17 +126,17 @@ const CreateSpot = () => {
                    onChange={(e) => setName(e.target.value)}></input>
                 </div>
 
-                <div>
+                {/* <div>
                     <h1>Add an image</h1>
                     <h3>Show what your place looks like.</h3>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <input type='text'
                     placeholder='https://....'
                     required
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}></input>
-                </div>
+                </div> */}
 
                 <div>
                     <h1>Create your description</h1>
@@ -158,4 +165,4 @@ const CreateSpot = () => {
     )
 }
 
-export default CreateSpot
+export default EditSpot
