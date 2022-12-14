@@ -1,12 +1,17 @@
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link, useParams, useHistory, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getOneSpot, nukeSpot } from '../../store/spots'
+import OpenModalMenuItem from '../Navigation/'
+import OpenModalButton from '../OpenModalButton';
+import ReviewsBySpot from '../ReviewsBySpot';
 import './SingleSpot.css'
 
 function SingleSpot() {
     let { spotId } = useParams()
     const dispatch = useDispatch()
+    const [showMenu, setShowMenu] = useState(false);
+    const ulRef = useRef();
     const history = useHistory()
     
     useEffect(() => {
@@ -21,7 +26,26 @@ function SingleSpot() {
     //     await dispatch((nukeSpot(spotId)))
     //     history.push('/')
     // }
-
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+      };
+    
+      useEffect(() => {
+        if (!showMenu) return;
+    
+        const closeMenu = (e) => {
+          if (!ulRef.current.contains(e.target)) {
+            setShowMenu(false);
+          }
+        };
+    
+        document.addEventListener('click', closeMenu);
+    
+        return () => document.removeEventListener("click", closeMenu);
+      }, [showMenu]);
+    
+      const closeMenu = () => setShowMenu(false);
 
 
     if(!spot || !spot.SpotImages ) return null
@@ -34,7 +58,14 @@ function SingleSpot() {
                 </h1>
                 <div><i className="fa-solid fa-star"></i>
                     <span>{spot.avgRating}</span>
-                    <span>{spot.numReviews} reviews</span>
+
+                    <span>
+                        <OpenModalButton 
+                        modalComponent={<ReviewsBySpot spot={spot}/>}
+                        buttonText={`${spot.numReviews} reviews`}
+                        onButtonClick={closeMenu}/>
+                    </span>
+                        
                     <span>{spot.city}, {spot.state}, {spot.country}</span>
                 </div>
             </div>
@@ -56,7 +87,10 @@ function SingleSpot() {
                     <span>${spot.price}</span> <span>night</span>
                     <i className="fa-solid fa-star"></i>
                     <span>{spot.avgRating}</span>
-                    <span>{spot.numReviews} reviews</span>
+                    <span><OpenModalButton 
+                        modalComponent={<ReviewsBySpot spot={spot}/>}
+                        buttonText={`${spot.numReviews} reviews`}
+                        onButtonClick={closeMenu}/></span>
                 </div>
             </div>
 
@@ -67,6 +101,7 @@ function SingleSpot() {
             {/* <div>
                 <button onClick={deleteSpot}>Delete Spot</button>
             </div> */}
+            
         </div>
     )
 }
