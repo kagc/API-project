@@ -14,10 +14,7 @@ function SingleSpot() {
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
     const history = useHistory()
-    
-    const spot = useSelector(state => state.spots.singleSpot[spotId])
 
-    console.log(spot)
     useEffect(() => {
         dispatch(getOneSpot(spotId))
         .then(res => {
@@ -36,6 +33,9 @@ function SingleSpot() {
         // console.log('loaded', loadedSpot)
     }, [dispatch, spotId])
 
+    const spot = useSelector(state => state.spots.singleSpot)
+
+    console.log(spot)
 
     const reviewsObj = useSelector(state => state.reviews.allReviews)
     const reviews = Object.values(reviewsObj)
@@ -151,7 +151,7 @@ function SingleSpot() {
 
                     <div>
                         <OpenModalButton 
-                        modalComponent={<CreateReviewForm spot={spot}/>}
+                        modalComponent={<CreateReviewForm />}
                         buttonText='Write a Review'
                         onButtonClick={closeMenu}/>
                         </div>

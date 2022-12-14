@@ -92,9 +92,9 @@ const ManageListingsPage = () => {
                             </div>
 
                             <div>
-                            <button onClick={(e) => {
+                            <button onClick={async (e) => {
                                 e.preventDefault();
-                                const deleted = dispatch((nukeSpot(spot.id)))
+                                const deleted = await dispatch((nukeSpot(spot.id)))
                                  if (deleted) history.push('/')
                                 }}>Delete Spot</button>
                             </div>

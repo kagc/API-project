@@ -1,6 +1,6 @@
 import { csrfFetch } from './csrf';
 
-// const ADD_SPOT = 'spots/addSpot'
+const ADD_SPOT = 'spots/addSpot'
 const LOAD_SPOTS = 'spots/loadSpots'
 const LOAD_ONE = 'spots/loadOne'
 const EDIT_SPOT = 'spots/editSpot'
@@ -8,10 +8,10 @@ const DELETE_SPOT = 'spots/deleteSpot'
 const IMG = 'spots/addImg'
 const USER_SPOTS = 'spots/userSpots'
 
-// const add = (spot) => ({
-//     type: ADD_SPOT,
-//     spot
-// })
+const add = (spot) => ({
+    type: ADD_SPOT,
+    spot
+})
 
 const allSpots = (spots) => ({
     type: LOAD_SPOTS,
@@ -94,9 +94,12 @@ export const makeSpot = (newSpot, newImg) => async dispatch => {
                     method: 'POST',
                     body: JSON.stringify(newImg)
                 })
-
-                dispatch(oneSpot(createdSpot))
-                return createdSpot
+            
+                if(response2.ok){
+                    dispatch(add(createdSpot))
+                    return createdSpot
+                }
+                
             }
         }
 
@@ -146,9 +149,10 @@ const spotReducer = (state = initialState, action) => {
             // return newState
 
         case LOAD_ONE:
-            newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
-            newState.singleSpot[action.spot.id] = action.spot
-
+            newState = { ...state, singleSpot: {} }
+            // newState = { ...state, singleSpot: {} }
+            // newState.singleSpot[action.spot.id] = action.spot
+            newState.singleSpot = action.spot
             return newState
             // console.log('aaaa', state.spots[action.spot.id])
             // if(!state.spots.singleSpot[action.spot.id]) {
@@ -159,10 +163,21 @@ const spotReducer = (state = initialState, action) => {
             // }
             
         case USER_SPOTS:
-            newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
+            newState = { ...state, userSpots: {} }
             action.spots.Spots.forEach(spot => {
                 newState.userSpots[spot.id] = spot
             })
+            return newState
+
+        case ADD_SPOT:
+            newState = { ...state, allSpots: { ...state.allSpots }}
+            // if(Array.isArray(action.spot)) {
+            //     action.spots.forEach(spot => {
+            //         newState.allSpots[spot.id] = spot
+            //     })
+            // } else {
+                newState.allSpots[action.spot.id] = action.spot
+            // }
             return newState
 
         // case EDIT_SPOT:
@@ -172,7 +187,7 @@ const spotReducer = (state = initialState, action) => {
             // newState = { ...state }
             // delete newState[action.spotId]
 
-            newState = { ...state }
+            newState = { ...state, allSpots: { ...state.allSpots } }
             // console.log('newstate', newState.userSpots[action.spotId])
             // const newnewState = Object.values(newState.userSpots).filter(spot => spot[spot.id] !== action.spotId.id
             // )

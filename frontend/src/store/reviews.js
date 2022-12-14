@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD_REVIEWS = 'reviews/loadReviews'
 const CREATE_REVIEW ='reviews/createReview'
+const DELETE_REVIEW = 'reviews/deleteReview'
 
 const loadReviews = (reviews) => ({
     type: LOAD_REVIEWS,
@@ -11,6 +12,11 @@ const loadReviews = (reviews) => ({
 const createReview = (review) => ({
     type: CREATE_REVIEW,
     review
+})
+
+const deleteReview = (reviewId) => ({
+    type: DELETE_REVIEW,
+    reviewId
 })
 
 export const getAllReviews = (spotId) => async dispatch => {
@@ -30,8 +36,18 @@ export const makeReview = (spotId, newReview) => async dispatch => {
     })
     if(response.ok){
         const review = await response.json()
-        dispatch(loadReviews(review))
+        dispatch(createReview(review))
         return review
+    }
+}
+
+export const tossReview = (reviewId) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE'
+    })
+    if(response.ok){
+        const deletedReview = await response.json()
+        dispatch(deleteReview(deletedReview))
     }
 }
 
@@ -50,8 +66,13 @@ const reviewReducer = (state = initialState, action) => {
             return newState
 
         case CREATE_REVIEW:
-            newState = { allReviews: {}, userReviews: {} }
+            newState = { ...state, allReviews: { ...state.allReviews} }
+            newState.allReviews[action.review.id] = action.review
             return newState
+
+        case DELETE_REVIEW:
+            newState = { ...state, allReviews: { ...state.allReviews }}
+            delete newState.allReviews[action.reviewId]
         
         default:
             return state
