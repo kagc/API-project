@@ -7,6 +7,7 @@ import CreateReviewForm from '../CreateReviewForm';
 import OpenModalButton from '../OpenModalButton';
 import ReviewsBySpot from '../ReviewsBySpot';
 import './SingleSpot.css'
+import { getAllReviews, tossReview } from '../../store/reviews'
 
 function SingleSpot() {
     let { spotId } = useParams()
@@ -16,11 +17,17 @@ function SingleSpot() {
     const history = useHistory()
 
     useEffect(() => {
+        dispatch(getAllReviews(spotId))
+        .then(res => {
+            if(!res) alert('oh no')
+        })
+        
         dispatch(getOneSpot(spotId))
         .then(res => {
             // console.log('res', res)
             if(!res) history.push('/')
         })
+
         // .catch(
         //     async (res) => {
         //         console.log(res)
@@ -33,19 +40,12 @@ function SingleSpot() {
         // console.log('loaded', loadedSpot)
     }, [dispatch, spotId])
 
-    const spot = useSelector(state => state.spots.singleSpot)
-
-    console.log(spot)
-
     const reviewsObj = useSelector(state => state.reviews.allReviews)
     const reviews = Object.values(reviewsObj)
-    
+    const spot = useSelector(state => state.spots.singleSpot)
+    const user = useSelector(state => state.session)
+    // console.log(user)
 
-    // const deleteSpot = async (e) => {
-    //     e.preventDefault();
-    //     await dispatch((nukeSpot(spotId)))
-    //     history.push('/')
-    // }
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
@@ -68,12 +68,7 @@ function SingleSpot() {
       const closeMenu = () => setShowMenu(false);
 
 
-    // if(spot === undefined) {
-    //     history.push('/')
-    //     return alert(`Spot couldn't be found. :( 
-    //         Redirecting to Home page.`)
-    // }
-    if(!spot || !spot.SpotImages ) return null
+    if(!spot || !spot.SpotImages || !reviewsObj || !reviews || !user ) return null
 
     return (
         <div>
@@ -125,12 +120,8 @@ function SingleSpot() {
                 <span>{spot.description}</span>
             </div>
 
+            <div>
             {/* <div>
-                <button onClick={deleteSpot}>Delete Spot</button>
-            </div> */}
-
-            <div>
-            <div>
             <i className="fa-solid fa-star"></i>{spot.avgRating}·{spot.numReviews} reviews
             </div>
             {reviews.map(review => {
@@ -143,17 +134,28 @@ function SingleSpot() {
                             {review.review}
                         </div>
 
-                        
+                        <div>
+                        {user.user !== null && user.user.id === review.User.id && (<button onClick={async (e) => {
+        e.preventDefault();
+        const deleted = await dispatch((tossReview(review.id)))
+        if (deleted){
+        history.push(`/spots/${spotId}`)
+        }
+    }}>Delete Review</button>)}
+                        </div>
                     </div>
                 )
                 
-            })}
+            })} */}
+            <div>
+                <ReviewsBySpot spot={spot} reviews={reviews}/>
+            </div>
 
                     <div>
-                        <OpenModalButton 
+                       {user.user !==null && ( <OpenModalButton 
                         modalComponent={<CreateReviewForm />}
                         buttonText='Write a Review'
-                        onButtonClick={closeMenu}/>
+                        onButtonClick={closeMenu}/>)}
                         </div>
             </div>
             

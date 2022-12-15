@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const LOAD_REVIEWS = 'reviews/loadReviews'
 const CREATE_REVIEW ='reviews/createReview'
 const DELETE_REVIEW = 'reviews/deleteReview'
+const USER_REVIEWS = 'reviews/userReviews'
 
 const loadReviews = (reviews) => ({
     type: LOAD_REVIEWS,
@@ -19,12 +20,28 @@ const deleteReview = (reviewId) => ({
     reviewId
 })
 
+const usersReviews = (reviews) => ({
+    type: USER_REVIEWS,
+    reviews
+})
+
 export const getAllReviews = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
 
     if(response.ok) {
         const reviews = await response.json()
         dispatch(loadReviews(reviews))
+        return reviews
+    }
+    return response
+}
+
+export const getUsersReviews = () => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/current`)
+
+    if (response.ok){
+        const reviews = await response.json()
+        dispatch(usersReviews(reviews))
         return reviews
     }
 }
@@ -36,8 +53,26 @@ export const makeReview = (spotId, newReview) => async dispatch => {
     })
     if(response.ok){
         const review = await response.json()
-        dispatch(createReview(review))
-        return review
+        // console.log('first res ok')
+        // dispatch(createReview(review))
+        // return review
+        const response2 = await csrfFetch(`/api/spots/${spotId}/reviews`)
+
+        if(response2.ok){
+            const data = await response2.json()
+            // console.log('second res ok')
+            // return console.log('data', data)
+            dispatch(loadReviews(data))
+            return data
+        // }
+
+        // return console.log(review)
+        // return review
+    } 
+    // else {
+    //     const data = await response.json()
+    //     console.log('data', data)
+    //     return alert(`${data.message}`)
     }
 }
 
@@ -48,6 +83,11 @@ export const tossReview = (reviewId) => async dispatch => {
     if(response.ok){
         const deletedReview = await response.json()
         dispatch(deleteReview(deletedReview))
+        return deletedReview
+    }
+    else {
+        const data = await response.json()
+        console.log(data)
     }
 }
 
@@ -65,6 +105,14 @@ const reviewReducer = (state = initialState, action) => {
             })
             return newState
 
+        case USER_REVIEWS:
+            newState = { ...state, userReviews: {} }
+            // console.log(newState)
+            action.reviews.Reviews.forEach(review => {
+                newState.userReviews[review.id] = review
+            })
+            return newState
+
         case CREATE_REVIEW:
             newState = { ...state, allReviews: { ...state.allReviews} }
             newState.allReviews[action.review.id] = action.review
@@ -73,6 +121,7 @@ const reviewReducer = (state = initialState, action) => {
         case DELETE_REVIEW:
             newState = { ...state, allReviews: { ...state.allReviews }}
             delete newState.allReviews[action.reviewId]
+            return newState
         
         default:
             return state

@@ -7,6 +7,7 @@ import AllSpotsList from "./components/AllSpotsList";
 import SingleSpot from "./components/SingleSpot";
 import CreateSpot from "./components/CreateSpot";
 import ManageListingsPage from "./components/ManageListingsPage";
+import UserReviews from "./components/UserReviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route path='/manage-listings'>
             <ManageListingsPage />
+          </Route>
+          <Route path='/manage-reviews'>
+            <UserReviews />
           </Route>
 
           <Route>
