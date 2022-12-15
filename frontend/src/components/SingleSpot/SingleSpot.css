@@ -1,20 +1,120 @@
+.wholething {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    align-items: center;
+    padding-left: 10%;
+    margin-right: 0px;
+} 
+
 .img-container {
+    margin: 16px 0px 40px;
+    /* padding: 0px 40px; */
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 10px;
-    border-radius: 40px;
-    height: 500px;
-    width: 900px;
+    border-radius: 20px;
+    width: 100%; 
+    /* border: 1px solid red; */
+}
+
+.navbar {
+    margin-top: 0px;
+    border-top: white;
+    padding-left: 0px;
 }
 
 .img {
-    /* width: 100%; */
-    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
 }
 
 .descr {
     border-top: 1px lightgray;
     border-bottom: 1px lightgray;
-    /* color: red; */
 }
+
+.name {
+    font-size: 1.7em;
+}
+
+.infobar {
+    font-size: 1em;
+    width: 25em;
+    display: flex;
+    justify-content: first baseline;
+    margin-bottom: 1em;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%
+}
+
+.review-button {
+    all: revert !important;
+    background: white !important;
+    color: black !important;
+    border: white 0px solid !important;
+    font-size: 1em !important;
+    text-decoration:underline !important;
+}
+
+.location {
+    text-decoration:underline ;
+}
+
+/* body {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+} */
+
+.floaty-box {
+    border: solid lightgray 1px;
+    height: 20em;
+    width: 15em;
+    padding: 1.5em;
+    border-radius: 20px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.infos {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.topline {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.totalPrice {
+    border-top: gray solid 1px;
+    padding-top: 2em;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    font-weight: bold;
+}
+
+.reserve-button-div {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.cant-reserve:hover {
+    cursor: not-allowed;
+}
+

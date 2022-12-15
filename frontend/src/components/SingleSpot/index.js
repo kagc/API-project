@@ -82,22 +82,25 @@ function SingleSpot() {
     if(!spot || !spot.SpotImages || !reviewsObj || !reviews || !user ) return null
 
     return (
-        <div>
+        <div className='wholething'>
+            <div className='content'>
             <div>
-                <h1>
+                <h1 className='name'>
                     {spot.name}
                 </h1>
-                <div><i className="fa-solid fa-star"></i>
-                    <span>{reviews.length === 0 ? '0' : avgStars}</span>
-
+                <div className='infobar'><span><i className="fa-solid fa-star"></i>
+                    {reviews.length === 0 ? '0' : avgStars}</span>
+        ·
                     <span>
                         <OpenModalButton 
                         modalComponent={<ReviewsBySpot spot={spot}/>}
                         buttonText={`${reviews.length} reviews`}
-                        onButtonClick={closeMenu}/>
-                    </span>
+                        onButtonClick={closeMenu}
+                        className='review-button'/>
                         
-                    <span>{spot.city}, {spot.state}, {spot.country}</span>
+                    </span>
+                    ·
+                    <span className='location'>{spot.city}, {spot.state}, {spot.country}</span>
                 </div>
             </div>
 
@@ -108,26 +111,42 @@ function SingleSpot() {
                     )
                 })}
             </div>
-
+<div className='infos'>
             <div>
                 <h2>Spot hosted by {spot.Owner.firstName}</h2>
             </div>
 
             <div>
-                <div>
-                    <span>${spot.price}</span> <span>night</span>
+                <div className='floaty-box'>
+                    <div className='topline'>
+                    <div>
 
-                    <i className="fa-solid fa-star"></i>
-                    <span>{reviews.length === 0 ? '0' : avgStars}</span>
-                    <span><OpenModalButton 
+                    <span>${spot.price} night</span>
+                    </div>
+
+                    <div>
+
+                    <span><i className="fa-solid fa-star"></i>{reviews.length === 0 ? '0' : avgStars}</span>
+                    <span>·
+                        <OpenModalButton 
                         modalComponent={<ReviewsBySpot spot={spot}/>}
                         buttonText={`${reviews.length} reviews`}
                         onButtonClick={closeMenu}/></span>
+                        </div>
+                       </div>
+                       <div className='reserve-button-div'>
+                       <button className='cant-reserve'>Reserve Coming Soon</button>
 
+                       </div>
+                       <div className='totalPrice'>
+                        <span>Total before taxes</span> <span>${spot.price}</span>
+                       </div>
+                
                 </div>
             </div>
-
+</div>
             <div className='descr'>
+                <hr></hr>
                 <span>{spot.description}</span>
             </div>
 
@@ -159,6 +178,7 @@ function SingleSpot() {
                 
             })} */}
             <div>
+                <hr></hr>
                 <ReviewsBySpot spot={spot} reviews={reviews}/>
             </div>
 
@@ -168,6 +188,8 @@ function SingleSpot() {
                         buttonText='Write a Review'
                         onButtonClick={closeMenu}/>)}
                         </div>
+            </div>
+
             </div>
             
         </div>
