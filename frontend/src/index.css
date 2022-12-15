@@ -12,11 +12,13 @@ html, body, input, textarea, button, select, a {
     position: relative;
     right: 0;
     top: 0;
+    color: rgb(31, 31, 31)
   }
 
 ul {
   list-style: none;
 }
+
 
 button {
   font-family: helvetica;
@@ -32,7 +34,6 @@ button {
 button:hover {
   color: #FFFFFF ;
   background: #CF0A38;
-  box-shadow: 1px 5px 5px lightgray;
 }
 
 main {
@@ -43,4 +44,20 @@ main {
   right: 0;
   top: 0;
   
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
 }

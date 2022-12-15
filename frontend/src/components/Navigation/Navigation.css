@@ -6,9 +6,13 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    border: red 1px solid;
+    /* border: red 1px solid; */
     /* align-items: stretch; */
     justify-content: space-between;
+    border-top: lightgray solid 1px;
+    border-bottom: lightgray solid 1px;
+    /* padding-top: 0.5em; */
+    padding-bottom: 1em;
 }
 
 .fa-solid.fa-box {
@@ -45,18 +49,46 @@
     font-stretch: 100%;
     /* position: relative;
     vertical-align: middle; */
-    /* justify-content:flex-end; */
+    justify-content: center;
 }
 
 .profile-button:hover {
-    
+  box-shadow: 1px 5px 5px lightgray;
 }
 
 .profile-button-div {
     padding-right: 2em;
+    position: relative;
 }
 
 .fas.fa-user-circle {
     padding-left: 15px;
     margin: 0;
 }
+
+.profile-dropdown {
+    border: lightgray 1px solid;
+    justify-content: space-between;
+    padding: 1em;
+    width: 10em;
+    border-radius: 5%;
+    box-shadow: 1px 5px 5px lightgray;
+}
+
+li {
+    padding-top: 1em;
+}
+
+.modal-dropdown {
+    /* border: red 1px solid; */
+}
+
+.link {
+    justify-content: flex-start;
+    padding-left: 0px;
+}
+
+/* .manage {
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+} */

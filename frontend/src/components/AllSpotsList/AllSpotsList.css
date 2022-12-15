@@ -13,11 +13,30 @@
     /* border: 1px solid #DFDFDF; */
     border-radius: 10px;
     height: 13em;
-    margin-right: 25px;
-    width: 13em;
+    margin-bottom: 1em;
+    width: 15em;
     padding: 25px;
     /* object-fit: fill;
     display: inline-block;
     position: relative;
     overflow:hidden; */
+}
+
+.spots-details {
+    margin-bottom: 3em;
+    
+}
+
+.spots-details-top {
+    display: flex;
+   justify-content: space-between;
+   margin-bottom: 1em;
+}
+
+.place {
+    font-weight: bold;
+}
+
+.price {
+    font-weight: bold;
 }
