@@ -77,7 +77,6 @@ const UserReviews = () => {
             e.preventDefault();
             const deleted = await dispatch((tossReview(review.id)))
             if (deleted){
-                alert('Review deleted')
             history.push(`/manage-reviews`)
             }
         }}>Delete Review</button>)}

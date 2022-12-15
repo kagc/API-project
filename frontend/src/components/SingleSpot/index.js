@@ -13,6 +13,7 @@ function SingleSpot() {
     let { spotId } = useParams()
     const dispatch = useDispatch()
     const [showMenu, setShowMenu] = useState(false);
+    // const [alreadyReviewed, setAlreadyReviewed] = useState(false)
     const ulRef = useRef();
     const history = useHistory()
 
@@ -44,7 +45,17 @@ function SingleSpot() {
     const reviews = Object.values(reviewsObj)
     const spot = useSelector(state => state.spots.singleSpot)
     const user = useSelector(state => state.session)
-    // console.log(user)
+    console.log('user', user)
+
+    let added = 0
+    let userReviewed
+    if(reviews.length){reviews.forEach(review => {
+        added += review.stars
+        console.log('rev', review.User.id)
+        if(user.user.id === review.User.id) userReviewed = review.User.id
+    })}
+    let avgStars = added/reviews.length
+    // console.log(avgStars)
 
     const openMenu = () => {
         if (showMenu) return;
@@ -77,12 +88,12 @@ function SingleSpot() {
                     {spot.name}
                 </h1>
                 <div><i className="fa-solid fa-star"></i>
-                    <span>{spot.avgRating}</span>
+                    <span>{reviews.length === 0 ? '0' : avgStars}</span>
 
                     <span>
                         <OpenModalButton 
                         modalComponent={<ReviewsBySpot spot={spot}/>}
-                        buttonText={`${spot.numReviews} reviews`}
+                        buttonText={`${reviews.length} reviews`}
                         onButtonClick={closeMenu}/>
                     </span>
                         
@@ -107,10 +118,10 @@ function SingleSpot() {
                     <span>${spot.price}</span> <span>night</span>
 
                     <i className="fa-solid fa-star"></i>
-                    <span>{spot.avgRating}</span>
+                    <span>{reviews.length === 0 ? '0' : avgStars}</span>
                     <span><OpenModalButton 
                         modalComponent={<ReviewsBySpot spot={spot}/>}
-                        buttonText={`${spot.numReviews} reviews`}
+                        buttonText={`${reviews.length} reviews`}
                         onButtonClick={closeMenu}/></span>
 
                 </div>
@@ -152,7 +163,7 @@ function SingleSpot() {
             </div>
 
                     <div>
-                       {user.user !==null && ( <OpenModalButton 
+                       {user.user !== null && user.user.id !== userReviewed && ( <OpenModalButton 
                         modalComponent={<CreateReviewForm />}
                         buttonText='Write a Review'
                         onButtonClick={closeMenu}/>)}

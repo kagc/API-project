@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Route, useParams, Link, useHistory } from 'react-router-dom';
 import { tossReview } from '../../store/reviews'
+import { getAllSpots, getOneSpot } from '../../store/spots';
 
 
 function ReviewsBySpot({spot}) {
@@ -13,17 +14,24 @@ function ReviewsBySpot({spot}) {
 
     useEffect(() => {
         dispatch((getAllReviews(spot.id)))
+        dispatch((getOneSpot(spot.id)))
     },[ dispatch])
+    // console.log(spotId)
 
-    // const spot2 = useSelector(state => state.spots.singleSpot)
+    // const spot = useSelector(state => state.spots.singleSpot)
+    // console.log(spot)
 
     const user = useSelector(state => state.session.user)
     const reviewsObj = useSelector(state => state.reviews.allReviews)
     const reviews = Object.values(reviewsObj)
     // const reviewsO = Object.values(reviews)
-    // return console.log('reviews', reviews)
-    // console.log('user', user.id)
-    // console.log('review', reviewsObj[1].userId)
+    let added = 0
+    if(reviews.length){reviews.forEach(review => {
+        added += review.stars
+        // console.log('added', added)
+    })}
+    let avgStars = added/reviews.length
+    // console.log(avgStars)
 
     if(!user) return null
     if(reviews === undefined) return null
@@ -31,9 +39,9 @@ function ReviewsBySpot({spot}) {
     return (
         <div>
             <div>
-            <i className="fa-solid fa-star"></i>{spot.avgRating}·{spot.numReviews} reviews
+            <i className="fa-solid fa-star"></i>{reviews.length === 0 ? '0' : avgStars}·{reviews.length} reviews
             </div>
-            {reviews && reviews.map(review => {
+            {reviews.length ? reviews.map(review => {
                 return (
                     <div key={review.id}>
 
@@ -55,7 +63,7 @@ function ReviewsBySpot({spot}) {
                     </div>
                     
                 )
-            })}
+            }) : (<div>This spot has no reviews.</div>)}
         </div>
     )
 }

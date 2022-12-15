@@ -4,13 +4,43 @@ html, body, input, textarea, button, select, a {
     font-size: 16px;
     display: flex;
     justify-content: center;
+    border: red solid 1px;
+
+    bottom: 0;
+    display: flex;
+    left: 0;
+    position: relative;
+    right: 0;
+    top: 0;
   }
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: helvetica;
+  color: #FFFFFF ;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: #EE244C;
+  background: linear-gradient(to top, #EE244C, #CF297C);
+}
+
+button:hover {
+  color: #FFFFFF ;
+  background: #CF0A38;
+  box-shadow: 1px 5px 5px lightgray;
+}
 
 main {
   bottom: 0;
   display: flex;
   left: 0;
-  position: absolute;
+  position: relative;
   right: 0;
   top: 0;
+  
 }

@@ -7,6 +7,7 @@ import SignupFormModal from '../SignupFormModal';
 import { Link, Route } from 'react-router-dom'
 import CreateSpot from "../CreateSpot";
 import OpenModalButton from '../OpenModalButton';
+import './Navigation.css'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
+    <div className='profile-button-div'>
       <button onClick={openMenu} className="profile-button">
       <i className="fa-solid fa-bars" />
         <i className="fas fa-user-circle"></i>
@@ -81,7 +82,7 @@ function ProfileButton({ user }) {
           </>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 
