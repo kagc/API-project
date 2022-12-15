@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect, useRef } from 'react';
 import { getOneSpot, nukeSpot } from '../../store/spots'
 import OpenModalMenuItem from '../Navigation/'
+import CreateReviewForm from '../CreateReviewForm';
 import OpenModalButton from '../OpenModalButton';
 import ReviewsBySpot from '../ReviewsBySpot';
 import './SingleSpot.css'
+import { getAllReviews, tossReview } from '../../store/reviews'
 
 function SingleSpot() {
     let { spotId } = useParams()
@@ -13,19 +15,37 @@ function SingleSpot() {
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
     const history = useHistory()
-    
+
     useEffect(() => {
+        dispatch(getAllReviews(spotId))
+        .then(res => {
+            if(!res) alert('oh no')
+        })
+        
         dispatch(getOneSpot(spotId))
+        .then(res => {
+            // console.log('res', res)
+            if(!res) history.push('/')
+        })
+
+        // .catch(
+        //     async (res) => {
+        //         console.log(res)
+        //         // if(!res.ok) console.log('dang')
+        //         // const data = await res.json();
+        //         // console.log(data)
+        //     //   if (data && data.errors) console.log('no');
+        //     }
+        //   );
+        // console.log('loaded', loadedSpot)
     }, [dispatch, spotId])
 
-    const spot = useSelector(state => state.spots.singleSpot[spotId])
-    
+    const reviewsObj = useSelector(state => state.reviews.allReviews)
+    const reviews = Object.values(reviewsObj)
+    const spot = useSelector(state => state.spots.singleSpot)
+    const user = useSelector(state => state.session)
+    // console.log(user)
 
-    // const deleteSpot = async (e) => {
-    //     e.preventDefault();
-    //     await dispatch((nukeSpot(spotId)))
-    //     history.push('/')
-    // }
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
@@ -48,7 +68,7 @@ function SingleSpot() {
       const closeMenu = () => setShowMenu(false);
 
 
-    if(!spot || !spot.SpotImages ) return null
+    if(!spot || !spot.SpotImages || !reviewsObj || !reviews || !user ) return null
 
     return (
         <div>
@@ -85,12 +105,14 @@ function SingleSpot() {
             <div>
                 <div>
                     <span>${spot.price}</span> <span>night</span>
+
                     <i className="fa-solid fa-star"></i>
                     <span>{spot.avgRating}</span>
                     <span><OpenModalButton 
                         modalComponent={<ReviewsBySpot spot={spot}/>}
                         buttonText={`${spot.numReviews} reviews`}
                         onButtonClick={closeMenu}/></span>
+
                 </div>
             </div>
 
@@ -98,9 +120,44 @@ function SingleSpot() {
                 <span>{spot.description}</span>
             </div>
 
+            <div>
             {/* <div>
-                <button onClick={deleteSpot}>Delete Spot</button>
-            </div> */}
+            <i className="fa-solid fa-star"></i>{spot.avgRating}·{spot.numReviews} reviews
+            </div>
+            {reviews.map(review => {
+                return (
+                    <div key={review.id}>
+
+                        {review.User.firstName}
+
+                        <div>
+                            {review.review}
+                        </div>
+
+                        <div>
+                        {user.user !== null && user.user.id === review.User.id && (<button onClick={async (e) => {
+        e.preventDefault();
+        const deleted = await dispatch((tossReview(review.id)))
+        if (deleted){
+        history.push(`/spots/${spotId}`)
+        }
+    }}>Delete Review</button>)}
+                        </div>
+                    </div>
+                )
+                
+            })} */}
+            <div>
+                <ReviewsBySpot spot={spot} reviews={reviews}/>
+            </div>
+
+                    <div>
+                       {user.user !==null && ( <OpenModalButton 
+                        modalComponent={<CreateReviewForm />}
+                        buttonText='Write a Review'
+                        onButtonClick={closeMenu}/>)}
+                        </div>
+            </div>
             
         </div>
     )

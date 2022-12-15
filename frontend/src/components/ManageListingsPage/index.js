@@ -64,7 +64,9 @@ const ManageListingsPage = () => {
             <div>
                 <h2>Your Spots</h2>
             <div>
-                {spots.map(spot => {
+                {
+                    spots.length ?
+                    (spots.map(spot => {
                 // console.log(spot.id, spot.previewImage)
                 return (
                     <div key={spot.id}>
@@ -90,9 +92,9 @@ const ManageListingsPage = () => {
                             </div>
 
                             <div>
-                            <button onClick={(e) => {
+                            <button onClick={async (e) => {
                                 e.preventDefault();
-                                const deleted = dispatch((nukeSpot(spot.id)))
+                                const deleted = await dispatch((nukeSpot(spot.id)))
                                  if (deleted) history.push('/')
                                 }}>Delete Spot</button>
                             </div>
@@ -103,7 +105,13 @@ const ManageListingsPage = () => {
                     </Link> */}
                     </div>
                 )
-            })}
+            })
+) : (
+    <div>
+        You have no listed spots at this time.
+    </div>
+)
+            }
                 </div>
             </div>
         </div>

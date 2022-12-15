@@ -6,6 +6,7 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { Link, Route } from 'react-router-dom'
 import CreateSpot from "../CreateSpot";
+import OpenModalButton from '../OpenModalButton';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -57,6 +58,9 @@ function ProfileButton({ user }) {
               {/* <Route path='/'> */}
               <Link to='/manage-listings'>Manage Listings</Link>
               {/* </Route> */}
+              </li>
+              <li>
+                <Link to='/manage-reviews'>Manage Reviews</Link>
               </li>
             <li>
               <button onClick={logout}>Log Out</button>

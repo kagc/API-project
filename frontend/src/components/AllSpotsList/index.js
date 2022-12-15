@@ -9,11 +9,13 @@ const dispatch = useDispatch()
 
 const spotsObj = useSelector(state => state.spots.allSpots)
 const spots = Object.values(spotsObj)
-console.log('spotsOb', spotsObj)
+// console.log('spotsOb', spotsObj)
 
 useEffect(() => {
     dispatch(getAllSpots())
 }, [dispatch])
+
+if(!spotsObj) return null
 
     return (
         <div className='all-spots'>

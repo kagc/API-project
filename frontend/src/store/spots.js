@@ -1,6 +1,6 @@
 import { csrfFetch } from './csrf';
 
-// const ADD_SPOT = 'spots/addSpot'
+const ADD_SPOT = 'spots/addSpot'
 const LOAD_SPOTS = 'spots/loadSpots'
 const LOAD_ONE = 'spots/loadOne'
 const EDIT_SPOT = 'spots/editSpot'
@@ -8,10 +8,10 @@ const DELETE_SPOT = 'spots/deleteSpot'
 const IMG = 'spots/addImg'
 const USER_SPOTS = 'spots/userSpots'
 
-// const add = (spot) => ({
-//     type: ADD_SPOT,
-//     spot
-// })
+const add = (spot) => ({
+    type: ADD_SPOT,
+    spot
+})
 
 const allSpots = (spots) => ({
     type: LOAD_SPOTS,
@@ -62,6 +62,10 @@ export const getOneSpot = (spotId) => async dispatch => {
         // console.log(spot)
         dispatch(oneSpot(spot))
         return spot
+    } 
+    else {
+        const data = await response.json()
+        return alert(`Sorry, ${data.message} :( Redirecting to Home page.`)
     }
 }
 
@@ -72,7 +76,7 @@ export const getUserSpots = () => async dispatch => {
         const spots = await response.json()
         dispatch(usersSpots(spots))
         return spots
-    }
+    } 
 }
 
 
@@ -90,9 +94,12 @@ export const makeSpot = (newSpot, newImg) => async dispatch => {
                     method: 'POST',
                     body: JSON.stringify(newImg)
                 })
-
-                dispatch(oneSpot(createdSpot))
-                return createdSpot
+            
+                if(response2.ok){
+                    dispatch(add(createdSpot))
+                    return createdSpot
+                }
+                
             }
         }
 
@@ -102,7 +109,8 @@ export const nukeSpot = (spotId) => async dispatch => {
     })
     if(response.ok){
         const deletedSpot = await response.json()
-        dispatch(eviscerate(deletedSpot))
+        dispatch(eviscerate(spotId))
+        return deletedSpot
     }
 }
 
@@ -141,6 +149,11 @@ const spotReducer = (state = initialState, action) => {
             // return newState
 
         case LOAD_ONE:
+            newState = { ...state, singleSpot: {} }
+            // newState = { ...state, singleSpot: {} }
+            // newState.singleSpot[action.spot.id] = action.spot
+            newState.singleSpot = action.spot
+            return newState
             // console.log('aaaa', state.spots[action.spot.id])
             // if(!state.spots.singleSpot[action.spot.id]) {
             //     console.log('newState', action.spot)
@@ -149,24 +162,36 @@ const spotReducer = (state = initialState, action) => {
             //         return newState
             // }
             
-            newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
-            newState.singleSpot[action.spot.id] = action.spot
-
-            return newState
-
         case USER_SPOTS:
-            newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
+            newState = { ...state, userSpots: {} }
             action.spots.Spots.forEach(spot => {
                 newState.userSpots[spot.id] = spot
             })
             return newState
 
-        case EDIT_SPOT:
-            return
+        case ADD_SPOT:
+            newState = { ...state, allSpots: { ...state.allSpots }}
+            // if(Array.isArray(action.spot)) {
+            //     action.spots.forEach(spot => {
+            //         newState.allSpots[spot.id] = spot
+            //     })
+            // } else {
+                newState.allSpots[action.spot.id] = action.spot
+            // }
+            return newState
+
+        // case EDIT_SPOT:
+        //     return
 
         case DELETE_SPOT:
-            newState = { ...state }
-            delete newState[action.spotId]
+            // newState = { ...state }
+            // delete newState[action.spotId]
+
+            newState = { ...state, allSpots: { ...state.allSpots } }
+            // console.log('newstate', newState.userSpots[action.spotId])
+            // const newnewState = Object.values(newState.userSpots).filter(spot => spot[spot.id] !== action.spotId.id
+            // )
+            delete newState.allSpots[action.spotId]
             return newState
 
         default:
