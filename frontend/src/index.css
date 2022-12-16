@@ -1,5 +1,5 @@
 /* TODO Add site wide styles */
-html, input, textarea, button, select, a {
+html, input, textarea, select, a {
     font-family: 'helvetica';
     font-size: 16px;
     display: flex;
@@ -7,7 +7,6 @@ html, input, textarea, button, select, a {
     align-items: center;
     /* border: red solid 1px; */
     bottom: 0;
-    display: flex;
     left: 0;
     position: relative;
     right: 0;
@@ -30,6 +29,7 @@ button {
   border-radius: 10px;
   background: #EE244C;
   background: linear-gradient(to top, #EE244C, #CF297C);
+  height: 2.5rem;
 }
 
 button:hover {

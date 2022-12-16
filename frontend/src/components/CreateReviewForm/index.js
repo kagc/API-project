@@ -152,6 +152,7 @@ const CreateReviewForm = () => {
                     </div>
                     <input type='text'
                     required
+                    maxlength='255'
                     placeholder={`I stayed at ${spot.name}, and it was...`}
                     value={review}
                     onChange={(e) => setReview(e.target.value)}></input>

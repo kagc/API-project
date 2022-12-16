@@ -128,6 +128,7 @@ const CreateSpot = () => {
                     placeholder='https://....'
                     required
                     value={url}
+                    maxlength='255'
                     onChange={(e) => setUrl(e.target.value)}></input>
                 </div>
 
@@ -140,6 +141,7 @@ const CreateSpot = () => {
                     placeholder="You'll have a great time at this comfortable place to stay."
                     value={description}
                     required
+                    maxlength='255'
                     onChange={(e) => setDescription(e.target.value)}></input>
                 </div>
 
@@ -149,8 +151,9 @@ const CreateSpot = () => {
                 </div>
                 <div>
                     <input type='number'
+                    min='1'
                     value={price}
-                    onChange={(e) => setPrice(e.target.value)}></input>
+                    onChange={(event) => setPrice(event.target.value)}></input>
                 </div>
                 <button type='submit'>Next</button>
             </form>
