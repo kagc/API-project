@@ -82,7 +82,8 @@ function SingleSpot() {
             if(user.user.id === review.User.id) userReviewed = review.User.id
         }
     })}
-    let avgStars = added/reviews.length
+    let avg = added/reviews.length
+    let avgStars = parseFloat(avg.toPrecision(3))
 
     return (
         <div className='wholething'>

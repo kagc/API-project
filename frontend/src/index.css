@@ -28,7 +28,7 @@ button {
   border: 0px;
   border-radius: 10px;
   background: #EE244C;
-  background: linear-gradient(to top, #EE244C, #CF297C);
+  background: linear-gradient(to right, #EE244C, #CF297C);
   height: 2.5rem;
 }
 

@@ -38,7 +38,10 @@
 }
 
 .form-holder {
-    margin: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 0px;
     /* margin-bottom: 1rem; */
     display: flex;
     flex-direction: column;
@@ -68,22 +71,52 @@ button {
 
 .input-line { 
     width: 94%;
+    /* border-bottom: 0px; */
+    padding: 1rem;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    background: transparent;
+    border-bottom: 1px solid gray;
+    height: 0.5rem;
+}
+.input-line2 { 
+    width: 94%;
     border-bottom: 0px;
     padding: 1rem;
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
     background: transparent;
+    /* border-bottom: 1px solid gray; */
+    height: 0.5rem;
 }
 
 .welcome {
     display: flex;
-    width: 100%;
+    width: 90%;
     font-size: 1.3rem;
-    padding: 1rem;
+    /* padding: 1rem; */
     margin-top: 1rem;
 }
 
-label {
-    border-bottom: 1px solid gray;
+.welcome-h3 {
+    margin-left: 1rem;
+}
+
+
+.login-break {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    text-align: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.errorlist> li {
+    padding-top: 0px;
+    padding-bottom: 0.7rem;
 }

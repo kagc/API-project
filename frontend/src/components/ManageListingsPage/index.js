@@ -53,7 +53,7 @@ const ManageListingsPage = () => {
     
     return (
         <div>
-            <div className='create-spot-button'>
+            {/* <div className='create-spot-button'>
             <Route path='/'> 
             <OpenModalButton
                 buttonText="Become a Host"
@@ -61,7 +61,7 @@ const ManageListingsPage = () => {
                 modalComponent={<CreateSpot />} 
                 className='create-spot-button'/>
                 </Route>
-                </div>
+                </div> */}
 
             <div>
                 <h2>Your Spots</h2>
