@@ -68,11 +68,20 @@
 
 .profile-dropdown {
     border: lightgray 1px solid;
-    justify-content: space-between;
+    /* justify-content: left; */
     padding: 1em;
     width: 10em;
     border-radius: 5%;
     box-shadow: 1px 5px 5px lightgray;
+    position: relative;
+    /* border: red 1px solid; */
+    position: absolute;
+    z-index: 99;
+    float: right;
+    background: white;
+    right: 0;
+    left: auto;
+
 }
 
 li {
@@ -81,6 +90,7 @@ li {
 
 .modal-dropdown {
     /* border: red 1px solid; */
+    position: relative;
 }
 
 .link {
@@ -92,3 +102,7 @@ li {
     border-top: solid 1px black;
     border-bottom: solid 1px black;
 } */
+
+.login-button {
+    font-weight: bold !important;
+}

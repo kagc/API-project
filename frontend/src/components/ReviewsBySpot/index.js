@@ -31,40 +31,54 @@ function ReviewsBySpot({spot}) {
         // console.log('added', added)
     })}
     let avgStars = added/reviews.length
+    console.log('user', user)
     // console.log(avgStars)
 
-    if(!user) return null
+    // if(!user) return null
     if(reviews === undefined) return null
 
     return (
-        <div>
-            <div>
-            <i className="fa-solid fa-star"></i>{reviews.length === 0 ? '0' : avgStars}·{reviews.length} reviews
+        <div className='reviews-holder'>
+            <div className='reviews-bar'>
+            <span className='space-text'>
+                <i className="fa-solid fa-star"></i>{reviews.length === 0 ? '0' : avgStars}
+                </span>
+            ·
+            <span className='space-text'>
+
+            {reviews.length} reviews
+            </span>
             </div>
-            {reviews.length ? reviews.map(review => {
+            <div className='review-contents'>
+               {reviews.length ? reviews.map(review => {
                 return (
-                    <div key={review.id}>
-
+                    <div className='each-review' key={review.id}>
+                        <div className='review-firstname'>
+                        <i id='review-cat' className="fa-solid fa-cat"></i>
                         {review.User.firstName}
+                        </div>
 
-                        <div>
+                        <div className='review-contents'>
                             {review.review}
                         </div>
 
                         <div>
-                        {user.id === review.User.id && (<button onClick={ async (e) => {
+                        {user !== null && 
+                        (user.id === review.User.id && (<button className='delete-rev-button' onClick={ async (e) => {
             e.preventDefault();
             const deleted = await dispatch((tossReview(review.id)))
             if (deleted){
             history.push(`/spots/${review.spotId}`)
             }
-        }}>Delete Review</button>)}
+        }}>Delete Review</button>))}
                         </div>
                     </div>
                     
                 )
-            }) : (<div>This spot has no reviews.</div>)}
-        </div>
+            }) : (<div className='no-reviews'>This spot has no reviews.</div>)}
+        </div> 
+            </div>
+            
     )
 }
 

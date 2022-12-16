@@ -21,4 +21,13 @@
   #modal-content {
     position: absolute;
     background-color:white;
+     /* padding-top: 2em; */
+    /* padding-bottom: 2.5em; */
+    /* padding: 2em; */
+    border-radius: 5%;
+    /* width: 40em;
+    height:  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

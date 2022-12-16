@@ -1,11 +1,11 @@
 /* TODO Add site wide styles */
-html, body, input, textarea, button, select, a {
+html, input, textarea, button, select, a {
     font-family: 'helvetica';
     font-size: 16px;
     display: flex;
     justify-content: center;
-    border: red solid 1px;
-
+    align-items: center;
+    /* border: red solid 1px; */
     bottom: 0;
     display: flex;
     left: 0;
@@ -35,6 +35,7 @@ button {
 button:hover {
   color: #FFFFFF ;
   background: #CF0A38;
+  cursor: pointer;
 }
 
 main {
