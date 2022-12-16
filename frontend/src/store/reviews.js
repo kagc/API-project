@@ -26,7 +26,7 @@ const usersReviews = (reviews) => ({
 })
 
 export const getAllReviews = (spotId) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
+    const response = await fetch(`/api/spots/${spotId}/reviews`)
 
     if(response.ok) {
         const reviews = await response.json()
@@ -83,7 +83,7 @@ export const tossReview = (reviewId) => async dispatch => {
     if(response.ok){
         const deletedReview = await response.json()
         dispatch(deleteReview(deletedReview))
-        return deletedReview
+        return reviewId
     }
     else {
         const data = await response.json()
@@ -119,8 +119,11 @@ const reviewReducer = (state = initialState, action) => {
             return newState
 
         case DELETE_REVIEW:
-            newState = { ...state, allReviews: { ...state.allReviews }}
-            delete newState.allReviews[action.reviewId]
+            newState = { ...state, allReviews: { ...state.allReviews }, userReviews: { ...state.userReviews }}
+            // console.log('old', action.reviewId.id)
+            delete newState.allReviews[action.reviewId.id]
+            delete newState.userReviews[action.reviewId.id]
+            // console.log('post-delete', newState)
             return newState
         
         default:

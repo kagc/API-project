@@ -1,16 +1,72 @@
 /* TODO Add site wide styles */
-html, body, input, textarea, button, select, a {
+html, input, textarea, button, select, a {
     font-family: 'helvetica';
     font-size: 16px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    /* border: red solid 1px; */
+    bottom: 0;
+    display: flex;
+    left: 0;
+    position: relative;
+    right: 0;
+    top: 0;
+    color: rgb(31, 31, 31)
   }
+
+ul {
+  list-style: none;
+}
+
+
+button {
+  font-family: helvetica;
+  color: #FFFFFF ;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: 0px;
+  border-radius: 10px;
+  background: #EE244C;
+  background: linear-gradient(to top, #EE244C, #CF297C);
+}
+
+button:hover {
+  color: #FFFFFF ;
+  background: #CF0A38;
+  cursor: pointer;
+}
 
 main {
   bottom: 0;
   display: flex;
   left: 0;
-  position: absolute;
+  position: relative;
   right: 0;
   top: 0;
+  
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+body {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }

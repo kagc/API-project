@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Route, useParams, Link, useHistory } from 'react-router-dom';
 import { tossReview } from '../../store/reviews'
+import { getAllSpots, getOneSpot } from '../../store/spots';
 
 
 function ReviewsBySpot({spot}) {
@@ -13,50 +14,71 @@ function ReviewsBySpot({spot}) {
 
     useEffect(() => {
         dispatch((getAllReviews(spot.id)))
+        dispatch((getOneSpot(spot.id)))
     },[ dispatch])
+    // console.log(spotId)
 
-    // const spot2 = useSelector(state => state.spots.singleSpot)
+    // const spot = useSelector(state => state.spots.singleSpot)
+    // console.log(spot)
 
     const user = useSelector(state => state.session.user)
     const reviewsObj = useSelector(state => state.reviews.allReviews)
     const reviews = Object.values(reviewsObj)
     // const reviewsO = Object.values(reviews)
-    // return console.log('reviews', reviews)
-    // console.log('user', user.id)
-    // console.log('review', reviewsObj[1].userId)
+    let added = 0
+    if(reviews.length){reviews.forEach(review => {
+        added += review.stars
+        // console.log('added', added)
+    })}
+    let avgStars = added/reviews.length
+    console.log('user', user)
+    // console.log(avgStars)
 
-    if(!user) return null
+    // if(!user) return null
     if(reviews === undefined) return null
 
     return (
-        <div>
-            <div>
-            <i className="fa-solid fa-star"></i>{spot.avgRating}·{spot.numReviews} reviews
+        <div className='reviews-holder'>
+            <div className='reviews-bar'>
+            <span className='space-text'>
+                <i className="fa-solid fa-star"></i>{reviews.length === 0 ? '0' : avgStars}
+                </span>
+            ·
+            <span className='space-text'>
+
+            {reviews.length} reviews
+            </span>
             </div>
-            {reviews && reviews.map(review => {
+            <div className='review-contents'>
+               {reviews.length ? reviews.map(review => {
                 return (
-                    <div key={review.id}>
-
+                    <div className='each-review' key={review.id}>
+                        <div className='review-firstname'>
+                        <i id='review-cat' className="fa-solid fa-cat"></i>
                         {review.User.firstName}
+                        </div>
 
-                        <div>
+                        <div className='review-contents'>
                             {review.review}
                         </div>
 
                         <div>
-                        {user.id === review.User.id && (<button onClick={ async (e) => {
+                        {user !== null && 
+                        (user.id === review.User.id && (<button className='delete-rev-button' onClick={ async (e) => {
             e.preventDefault();
             const deleted = await dispatch((tossReview(review.id)))
             if (deleted){
             history.push(`/spots/${review.spotId}`)
             }
-        }}>Delete Review</button>)}
+        }}>Delete Review</button>))}
                         </div>
                     </div>
                     
                 )
-            })}
-        </div>
+            }) : (<div className='no-reviews'>This spot has no reviews.</div>)}
+        </div> 
+            </div>
+            
     )
 }
 

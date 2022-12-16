@@ -8,6 +8,7 @@ import * as sessionActions from "../../store/session";
 import { Link, Route, useHistory } from 'react-router-dom'
 import { getUserSpots, nukeSpot } from "../../store/spots";
 import EditSpot from "../EditSpot";
+import './ManageListingsPage.css'
 
 const ManageListingsPage = () => {
     const dispatch = useDispatch();
@@ -52,18 +53,19 @@ const ManageListingsPage = () => {
     
     return (
         <div>
-            <div>
+            <div className='create-spot-button'>
             <Route path='/'> 
-            <OpenModalMenuItem
-                itemText="Become a Host"
-                onItemClick={closeMenu}
-                modalComponent={<CreateSpot />} />
+            <OpenModalButton
+                buttonText="Become a Host"
+                onButtonClick={closeMenu}
+                modalComponent={<CreateSpot />} 
+                className='create-spot-button'/>
                 </Route>
                 </div>
 
             <div>
                 <h2>Your Spots</h2>
-            <div>
+            <div className='your-spots'>
                 {
                     spots.length ?
                     (spots.map(spot => {

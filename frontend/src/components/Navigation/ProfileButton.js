@@ -7,6 +7,7 @@ import SignupFormModal from '../SignupFormModal';
 import { Link, Route } from 'react-router-dom'
 import CreateSpot from "../CreateSpot";
 import OpenModalButton from '../OpenModalButton';
+import './Navigation.css'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -43,35 +44,42 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
+    <div className='profile-button-div'>
       <button onClick={openMenu} className="profile-button">
       <i className="fa-solid fa-bars" />
         <i className="fas fa-user-circle"></i>
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <div className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
+          <div className='modal-dropdown'>
             <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
+              <div className='manage'>
             <li>
+
               {/* <Route path='/'> */}
-              <Link to='/manage-listings'>Manage Listings</Link>
+              <hr></hr>
+              <Link className='link' to='/manage-listings'>Manage Listings</Link>
               {/* </Route> */}
               </li>
               <li>
-                <Link to='/manage-reviews'>Manage Reviews</Link>
+                <Link className='link' to='/manage-reviews'>Manage Reviews</Link>
               </li>
+              <hr></hr>
+              </div>
+
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
-          </>
+          </div>
         ) : (
           <>
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
+              modalComponent={<LoginFormModal 
+              className='login-button'/>}
             />
             <OpenModalMenuItem
               itemText="Sign Up"
@@ -80,8 +88,8 @@ function ProfileButton({ user }) {
             />
           </>
         )}
-      </ul>
-    </>
+      </div>
+    </div>
   );
 }
 

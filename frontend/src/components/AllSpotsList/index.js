@@ -27,9 +27,13 @@ if(!spotsObj) return null
                         <div 
                         className="preview-image"
                         style={{ backgroundImage: `url('${spot.previewImage}')` }}></div>
-                        <div>
-                            <div>{spot.city}, {spot.state}</div>
-                            <div>${spot.price} night</div>
+                        <div className='spots-details'>
+                            <div className='spots-details-top'>
+                            <div className='place'>{spot.city}, {spot.state}</div>
+                            <div><i className="fa-solid fa-star"></i> {spot.avgRating === null ? '0' : spot.avgRating}</div>
+                            </div>
+
+                            <div><span className='price'>${spot.price}</span> night</div>
                         </div>
                         </div>
                     </Link>

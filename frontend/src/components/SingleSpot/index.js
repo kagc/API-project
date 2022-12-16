@@ -13,6 +13,7 @@ function SingleSpot() {
     let { spotId } = useParams()
     const dispatch = useDispatch()
     const [showMenu, setShowMenu] = useState(false);
+    // const [alreadyReviewed, setAlreadyReviewed] = useState(false)
     const ulRef = useRef();
     const history = useHistory()
 
@@ -44,7 +45,8 @@ function SingleSpot() {
     const reviews = Object.values(reviewsObj)
     const spot = useSelector(state => state.spots.singleSpot)
     const user = useSelector(state => state.session)
-    // console.log(user)
+    console.log('user', user)
+    // console.log(avgStars)
 
     const openMenu = () => {
         if (showMenu) return;
@@ -67,26 +69,41 @@ function SingleSpot() {
     
       const closeMenu = () => setShowMenu(false);
 
-
+    //   if (user.user === null) return null
     if(!spot || !spot.SpotImages || !reviewsObj || !reviews || !user ) return null
+    
+    let added = 0
+    let userReviewed
+    if(reviews.length){reviews.forEach(review => {
+        added += review.stars
+        // console.log('rev', review.User.id)
+        if(user.user !== null){
+
+            if(user.user.id === review.User.id) userReviewed = review.User.id
+        }
+    })}
+    let avgStars = added/reviews.length
 
     return (
-        <div>
+        <div className='wholething'>
+            <div className='content'>
             <div>
-                <h1>
+                <h1 className='name'>
                     {spot.name}
                 </h1>
-                <div><i className="fa-solid fa-star"></i>
-                    <span>{spot.avgRating}</span>
-
+                <div className='infobar'><span><i className="fa-solid fa-star"></i>
+                    {reviews.length === 0 ? '0' : avgStars}</span>
+        ·
                     <span>
-                        <OpenModalButton 
+                        {/* <OpenModalButton 
                         modalComponent={<ReviewsBySpot spot={spot}/>}
-                        buttonText={`${spot.numReviews} reviews`}
-                        onButtonClick={closeMenu}/>
+                        buttonText={`${reviews.length} reviews`}
+                        onButtonClick={closeMenu}
+                        className='review-button'/> */}
+                        {`${reviews.length} reviews`}
                     </span>
-                        
-                    <span>{spot.city}, {spot.state}, {spot.country}</span>
+                    ·
+                    <span className='location'>{spot.city}, {spot.state}, {spot.country}</span>
                 </div>
             </div>
 
@@ -97,66 +114,66 @@ function SingleSpot() {
                     )
                 })}
             </div>
-
-            <div>
+<div className='infos'>
+            <div className='leftbox'>
                 <h2>Spot hosted by {spot.Owner.firstName}</h2>
+
+                <div className='descr'>
+
+<span className='descr2'>{spot.description}</span>
+</div>
             </div>
 
             <div>
-                <div>
-                    <span>${spot.price}</span> <span>night</span>
+                <div className='floaty-box'>
+                    <div className='topline'>
+                    <div>
 
-                    <i className="fa-solid fa-star"></i>
-                    <span>{spot.avgRating}</span>
-                    <span><OpenModalButton 
+                    <span className='floaty-box-price'><span className='floaty-price'>${spot.price}</span> night</span>
+                    </div>
+
+                    <div>
+
+                    <span><i className="fa-solid fa-star"></i>{reviews.length === 0 ? '0' : avgStars}</span>
+                    <span>·
+                        {/* <OpenModalButton 
                         modalComponent={<ReviewsBySpot spot={spot}/>}
-                        buttonText={`${spot.numReviews} reviews`}
-                        onButtonClick={closeMenu}/></span>
+                        buttonText={`${reviews.length} reviews`}
+                        onButtonClick={closeMenu}/> */}
+                        {`${reviews.length} reviews`}
+                        </span>
+                        </div>
+                       </div>
+                       <div className='reserve-button-div'>
+                       <button className='cant-reserve'>Reserve Coming Soon</button>
 
+                       </div>
+                       <div className='totalPrice'>
+                        <span>Total before taxes</span> <span>${spot.price}</span>
+                       </div>
+                
                 </div>
             </div>
-
-            <div className='descr'>
-                <span>{spot.description}</span>
-            </div>
+</div>
+           
 
             <div>
-            {/* <div>
-            <i className="fa-solid fa-star"></i>{spot.avgRating}·{spot.numReviews} reviews
-            </div>
-            {reviews.map(review => {
-                return (
-                    <div key={review.id}>
-
-                        {review.User.firstName}
-
-                        <div>
-                            {review.review}
-                        </div>
-
-                        <div>
-                        {user.user !== null && user.user.id === review.User.id && (<button onClick={async (e) => {
-        e.preventDefault();
-        const deleted = await dispatch((tossReview(review.id)))
-        if (deleted){
-        history.push(`/spots/${spotId}`)
-        }
-    }}>Delete Review</button>)}
-                        </div>
-                    </div>
-                )
-                
-            })} */}
+            
             <div>
                 <ReviewsBySpot spot={spot} reviews={reviews}/>
             </div>
 
-                    <div>
-                       {user.user !==null && ( <OpenModalButton 
+                  
+                        <div className='write-rev-button-holder'>
+                       {user.user !== null && user.user.id !== userReviewed && ( <OpenModalButton 
                         modalComponent={<CreateReviewForm />}
                         buttonText='Write a Review'
-                        onButtonClick={closeMenu}/>)}
+                        onButtonClick={closeMenu}
+                        name='write'
+                        id='write-rev-button'/>)}
                         </div>
+            </div>
+
             </div>
             
         </div>

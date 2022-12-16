@@ -183,6 +183,7 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
     }
 
     return res.status(200).json({
+        id: review.id,
         message: "Successfully deleted",
         statusCode: 200
       })
