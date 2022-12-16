@@ -163,7 +163,7 @@ const CreateSpot = () => {
                 <div>
                     <input type='number'
                     className='input-line2'
-                    placeholder='Price'
+                    placeholder='Now, set your Price'
                     min='1'
                     value={price}
                     onChange={(event) => setPrice(event.target.value)}></input>

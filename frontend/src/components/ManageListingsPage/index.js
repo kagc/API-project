@@ -77,18 +77,24 @@ const ManageListingsPage = () => {
                         <div 
                         className="preview-image"
                         style={{ backgroundImage: `url('${spot.previewImage}')` }}></div>
-                        <div>
-                            <div>{spot.name}</div>
+                        <div class-name='spots-details'>
+                            <div className='spots-details-top'>
+                                <div className='manage-spotname'>{spot.name}</div>
+                            <div className='manage-place'>{spot.city}, {spot.state}</div>
+                            </div>
+                            
 
                             </div>
                         </div>
                     </Link>
 
-                    <div>
+<div className='manage-button-holder'>
+
+    <div className='manage-buttons'>
                             {/* <Route path={`/${spot.id}`}>  */}
-            <OpenModalMenuItem
-                itemText="Modify Spot"
-                onItemClick={closeMenu}
+            <OpenModalButton
+                buttonText="Modify Spot"
+                onButtonClick={closeMenu}
                 modalComponent={<EditSpot spot={spot}/>} />
                 {/* </Route> */}
                             </div>
@@ -97,7 +103,7 @@ const ManageListingsPage = () => {
                             <button onClick={async (e) => {
                                 e.preventDefault();
                                 const deleted = await dispatch((nukeSpot(spot.id)))
-                                 if (deleted) history.push('/')
+                                 if (deleted) history.push('/manage-listings')
                                 }}>Delete Spot</button>
                             </div>
 
@@ -106,6 +112,8 @@ const ManageListingsPage = () => {
                         </div>
                     </Link> */}
                     </div>
+</div>
+                    
                 )
             })
 ) : (

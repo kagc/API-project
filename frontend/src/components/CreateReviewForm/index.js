@@ -5,6 +5,7 @@ import { makeReview } from "../../store/reviews";
 import OpenModalButton from '../OpenModalButton';
 import ReviewsBySpot from "../ReviewsBySpot";
 import { useModal } from '../../context/Modal';
+import './CreateReviewForm.css'
 
 const CreateReviewForm = () => {
     const { spotId } = useParams()
@@ -73,27 +74,29 @@ const CreateReviewForm = () => {
     if(!spot) return null
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-            <ul>
+        <div className='reviewform-holder'>
+
+<div className='createspot-line-holder'>
+
+<h1 className='createspot-line'>What Did you Think?</h1>
+</div>
+
+
+<div className='welcome'> <h3 className='weclome-h3'>Give Your Rating</h3></div>
+
+
+<div className='form-holder'>
+ <form className='createreview-css' onSubmit={handleSubmit}>
+            <ul className='errorlist'>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-            <div>
-                {/* <input type='text'
-                required
-                onChange={(e) => setReview(e.target.value)}> </input> */}
 
-            </div>
-
-            <div>
-                <div>
-                    <h2>Give your rating</h2>
-                </div>
-
-
-            <label>
+            <div className='input-holder'>
+              <div className='stars-input'>
+            <div className='eachstar'>
+                 <label>
         <input
           type="radio"
           value='1'
@@ -104,6 +107,9 @@ const CreateReviewForm = () => {
         />
         <i className="fa-solid fa-star"></i>
       </label>
+            </div>
+
+           <div className='eachstar'>  
       <label>
         <input
           type="radio"
@@ -114,6 +120,9 @@ const CreateReviewForm = () => {
         />
         <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
       </label>
+      </div>
+
+      <div className='eachstar'></div>
       <label>
         <input
           type="radio"
@@ -145,6 +154,8 @@ const CreateReviewForm = () => {
         <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
       </label>
             </div>
+              </div>
+            
 
                 <div>
                     <div>
@@ -167,6 +178,11 @@ const CreateReviewForm = () => {
                 onButtonClick={closeMenu} /> */}
                 </div>
             </form>
+  </div>
+
+
+
+           
         </div>
     )
 }

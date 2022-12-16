@@ -187,10 +187,12 @@ const spotReducer = (state = initialState, action) => {
             // newState = { ...state }
             // delete newState[action.spotId]
 
-            newState = { ...state, allSpots: { ...state.allSpots } }
+            newState = { ...state, allSpots: { ...state.allSpots }, userSpots: { ...state.userSpots } }
             // const newnewState = Object.values(newState.userSpots).filter(spot => spot[spot.id] !== action.spotId.id
             // )
+            // console.log('spotid', action.spotId)
             delete newState.allSpots[action.spotId]
+            delete newState.userSpots[action.spotId]
             return newState
 
         default:

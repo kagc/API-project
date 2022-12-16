@@ -42,9 +42,9 @@ function SignupFormModal() {
 
       <div className='welcome'> <h3 className='weclome-h3'>Welcome to Sparebnb</h3></div>
 
-    <div className='form-holder'></div>
+    <div className='form-holder'>
 
-      <form className='signup-form-css' onSubmit={handleSubmit}>
+<form className='signup-form-css' onSubmit={handleSubmit}>
         <ul className='errorlist'>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
@@ -122,6 +122,10 @@ function SignupFormModal() {
        
         <button type="submit">Sign Up</button>
       </form>
+
+    </div>
+
+      
     </div>
   );
 }
