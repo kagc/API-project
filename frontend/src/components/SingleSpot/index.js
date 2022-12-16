@@ -157,22 +157,21 @@ function SingleSpot() {
 </div>
            
 
-            <div>
+            <div className='reviews-box'>
             
             <div>
                 <ReviewsBySpot spot={spot} reviews={reviews}/>
             </div>
 
-                  
+                  </div>
                         <div className='write-rev-button-holder'>
                        {user.user !== null && user.user.id !== userReviewed && ( <OpenModalButton 
                         modalComponent={<CreateReviewForm />}
                         buttonText='Write a Review'
                         onButtonClick={closeMenu}
-                        name='write'
-                        id='write-rev-button'/>)}
+                        className='write-rev-button'/>)}
                         </div>
-            </div>
+            
 
             </div>
             

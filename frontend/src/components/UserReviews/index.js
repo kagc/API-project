@@ -44,8 +44,8 @@ const UserReviews = () => {
             <div>
                 <h2>Your Reviews</h2>
             </div>
-            {
-                spotList.map(spot => {
+            {   spotList.length && reviewsList.length ?
+                (spotList.map(spot => {
 
                     return (
                         <div key={spot.id}>
@@ -93,7 +93,13 @@ const UserReviews = () => {
                         
                     )
                 }
-            )}
+            )) : (
+                <div>
+                    You have no reviews at this time.
+                </div>
+            )
+            
+            }
         </div>
     )
 }

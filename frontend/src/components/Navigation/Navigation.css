@@ -12,16 +12,21 @@
     border-top: lightgray solid 1px;
     border-bottom: lightgray solid 1px;
     /* padding-top: 0.5em; */
-    padding-bottom: 1em;
+    padding-bottom: 1.3rem;
+    align-items: center;
 }
 
 .fa-solid.fa-box {
     font-size: 1.5em;
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 .fa-solid.fa-bars {
     font-size: 0.5em;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* text-align: center; */
+    padding-top: 0.5rem;
 }
 
 .home-button {
@@ -32,10 +37,12 @@
     font-size: 1.5em;
     font-weight: bold;
     position: relative;
+    /* justify-content: center;
+    align-items: center;
+    text-align: center; */
 }
 
 .profile-button {
-    align-items: center;
     border: solid lightgray 1px !important; 
     background: white !important;
     padding-top: 5px;
@@ -50,6 +57,10 @@
     /* position: relative;
     vertical-align: middle; */
     justify-content: center;
+    flex-direction: row;
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
 }
 
 .profile-button:hover {
@@ -69,7 +80,9 @@
 .profile-dropdown {
     border: lightgray 1px solid;
     /* justify-content: left; */
-    padding: 1em;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     width: 10em;
     border-radius: 5%;
     box-shadow: 1px 5px 5px lightgray;
@@ -103,6 +116,6 @@ li {
     border-bottom: solid 1px black;
 } */
 
-.login-button {
+.login-button> button {
     font-weight: bold !important;
 }

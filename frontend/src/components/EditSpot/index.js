@@ -147,6 +147,7 @@ console.log(spot)
                     placeholder="You'll have a great time at this comfortable place to stay."
                     value={description}
                     required
+                    maxlength='255'
                     onChange={(e) => setDescription(e.target.value)}></input>
                 </div>
 
@@ -156,6 +157,7 @@ console.log(spot)
                 </div>
                 <div>
                     <input type='number'
+                    min='1'
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}></input>
                 </div>
