@@ -79,7 +79,7 @@ button {
     background: transparent;
     border-bottom: 1px solid gray;
     height: 0.5rem;
-    -webkit-appearance: none;
+    /* -webkit-appearance: none; */
 }
 .input-line2 { 
     width: 94%;
@@ -132,7 +132,7 @@ button {
     background: transparent;
     border-bottom: 1px solid gray;
     height: 0.5rem;
-    -webkit-appearance: none;
+    /* -webkit-appearance: none; */
 }
 
 .input-line3:focus {
