@@ -63,10 +63,10 @@ export const getOneSpot = (spotId) => async dispatch => {
         dispatch(oneSpot(spot))
         return spot
     } 
-    else {
-        const data = await response.json()
-        return alert(`Sorry, ${data.message} :( Redirecting to Home page.`)
-    }
+    // else {
+    //     const data = await response.json()
+    //     return alert(`Sorry, ${data.message} :( Redirecting to Home page.`)
+    // }
 }
 
 export const getUserSpots = () => async dispatch => {
@@ -83,15 +83,18 @@ export const getUserSpots = () => async dispatch => {
 export const makeSpot = (newSpot, newImg) => async dispatch => {
     const response = await csrfFetch(`/api/spots`, {
         method: 'POST',
-        // headers: {
-            //     'Content-Type': 'application/json'
-            // },
+        headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(newSpot)
         })
         if(response.ok){
             const createdSpot = await response.json()
             const response2 = await csrfFetch(`/api/spots/${createdSpot.id}/images`, {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(newImg)
                 })
             
@@ -105,7 +108,10 @@ export const makeSpot = (newSpot, newImg) => async dispatch => {
 
 export const nukeSpot = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
     })
     if(response.ok){
         const deletedSpot = await response.json()
@@ -117,6 +123,9 @@ export const nukeSpot = (spotId) => async dispatch => {
 export const modSpot = (spotId, editedSpot) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(editedSpot)
     })
     if (response.ok){

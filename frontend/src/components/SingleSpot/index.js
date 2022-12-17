@@ -26,7 +26,10 @@ function SingleSpot() {
         dispatch(getOneSpot(spotId))
         .then(res => {
             // console.log('res', res)
-            if(!res) history.push('/')
+            if(!res) {
+                alert(`Sorry, couldn't seem to find that spot. Returning to Home page.`)
+                history.push('/')
+            }
         })
 
         // .catch(
@@ -117,15 +120,78 @@ function SingleSpot() {
             </div>
 <div className='infos'>
             <div className='leftbox'>
-                <h2>Spot hosted by {spot.Owner.firstName}</h2>
+                <h2 className='hostedby-text'>Spot hosted by {spot.Owner.firstName}</h2>
+                <p className='subhostedby-text'>4 cats · 1 pillow · 1,000 cat hairs</p>
+
+<div className='extra-infobox'>
+    <div className='extra-deets'>
+    <i className="fa-solid fa-shield-cat"></i>
+    <div className='more-deets'>
+        <h4 className='bold-deet'>Accidental damage protection</h4>
+        <span className='subdeet'>Because cats.</span>
+    </div>
+    </div>
+
+    <div className='extra-deets'>
+    <i class="fa-solid fa-paw"></i>
+    <div className='more-deets'>
+        <h4 className='bold-deet'>Pet-friendly</h4>
+        <span className='subdeet'>Also because cats.</span>
+    </div>
+    </div>
+
+    <div className='extra-deets'>
+    <i class="fa-regular fa-calendar"></i>
+    <div className='more-deets'>
+        <h4 className='bold-deet'>Free cancellation for 48 hours.</h4>
+        <span className='subdeet'>You'll miss out on the cats, though.</span>
+    </div>
+    </div>
+
+
+</div>
+
+<div className='extra-infobox'>
+<img className='aircover' src='https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg' ></img>
+<span className='subdeet2'>Every booking includes a thick blanket to cover yourself with for when the cats have their scheduled 3AM zoomies through the air.</span>
+
+</div>
 
                 <div className='descr'>
 
 <span className='descr2'>{spot.description}</span>
 </div>
-            </div>
 
-            <div>
+<div className='extra-infobox'>
+<h2 className='where-sleep'>Where you'll sleep</h2>
+
+<div className='sleepbox'>
+
+    <div className='boxbox'><i class="fa-solid fa-box-open"></i>
+    <span className='sleep-i'>Box</span>
+    <span className='sleep-ii'>1 box</span></div>
+
+    <div className='boxbox'><i class="fa-solid fa-bread-slice"></i>
+    <span className='sleep-i'>Breadbed</span>
+    <span className='sleep-ii'>1 bed, shaped like bread</span>
+    </div>
+</div>
+
+</div>
+
+<div className='extra-infobox'>
+<h2 className='where-sleep'>What this place offers</h2>
+
+<div className='ammenities'>
+
+<i class="fa-solid fa-feather"></i> <span>Incredible feather toy</span>
+</div>
+
+</div>
+
+            </div>
+                <div className='another-div'>
+                    <div className='floaty-box-holder'>
                 <div className='floaty-box'>
                     <div className='topline'>
                     <div>
@@ -155,6 +221,8 @@ function SingleSpot() {
                 
                 </div>
             </div>
+                </div>
+            
 </div>
            
 
