@@ -41,7 +41,7 @@
 
 .descr {
     border-top: 1px lightgray solid;
-    border-bottom: 1px lightgray solid;
+    /* border-bottom: 1px lightgray solid; */
     padding-top: 2em;
     padding-bottom: 2em;
     margin-top: 1em;
@@ -118,9 +118,10 @@
     justify-content: flex-start;
 } */
 .another-div {
+    width: 40%;
 display: flex;
-/* overflow: auto; */
-
+flex-direction: row;
+justify-content: flex-end;
 }
 .floaty-box-holder {
     /* position: -webkit-sticky; */
@@ -129,21 +130,27 @@ display: flex;
     top: 0;
     /* display: inline-block !important; */
     align-self: flex-start;
+    /* width: 25rem; */
+    min-width: 15rem;
+    width: 80%;
+    display: flex;
+flex-direction: row;
+justify-content: flex-end;
 }
 
 .floaty-box {
     margin-top: 2rem;
     border: solid lightgray 1px;
-    height: 20em;
-    width: 15rem;
+    height: 30em;
+    /* width: 20rem; */
+    width: 85%;
     padding: 1.5em;
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
     border-radius: 20px;
     box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-
 
 }
 
@@ -229,17 +236,17 @@ display: flex;
 }
 
 .fa-shield-cat {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-right: 1rem;
 }
 
 .fa-paw {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-right: 1rem;
 }
 
 .fa-calendar {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-right: 1rem;
 }
 
@@ -280,3 +287,54 @@ display: flex;
     font-size: 0.9rem;
     color: rgb(71, 71, 71);
 } */
+
+.sleepbox {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    /* width: 75%; */
+}
+
+.boxbox {
+    border: lightgray 1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 10rem;
+    padding: 1.0rem;
+    margin-right: 1rem;
+    border-radius: 10%;
+    height: 7rem;
+    margin-bottom: 1rem;
+}
+
+.sleep-i {
+    font-weight: bold;
+}
+
+.sleep-ii {
+    font-size: 0.9rem;
+}
+
+.where-sleep {
+    margin-top: 2rem;
+}
+
+.fa-box-open {
+    font-size: 1.5rem;
+}
+
+.fa-bread-slice {
+    font-size: 1.5rem;
+}
+
+.fa-feather {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.ammenities {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

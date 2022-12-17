@@ -135,7 +135,7 @@ function SingleSpot() {
     <div className='extra-deets'>
     <i class="fa-solid fa-paw"></i>
     <div className='more-deets'>
-        <h4 className='bold-deet'>Pet-friendly!</h4>
+        <h4 className='bold-deet'>Pet-friendly</h4>
         <span className='subdeet'>Also because cats.</span>
     </div>
     </div>
@@ -153,7 +153,7 @@ function SingleSpot() {
 
 <div className='extra-infobox'>
 <img className='aircover' src='https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg' ></img>
-<span className='subdeet2'>Every booking includes a thick blanket to cover yourself with for when the cats have their scheduled 3AM zoomies.</span>
+<span className='subdeet2'>Every booking includes a thick blanket to cover yourself with for when the cats have their scheduled 3AM zoomies through the air.</span>
 
 </div>
 
@@ -163,8 +163,29 @@ function SingleSpot() {
 </div>
 
 <div className='extra-infobox'>
-<img className='aircover' src='https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg' ></img>
-<span className='subdeet2'>Every booking includes a thick blanket to cover yourself with for when the cats have their scheduled 3AM zoomies.</span>
+<h2 className='where-sleep'>Where you'll sleep</h2>
+
+<div className='sleepbox'>
+
+    <div className='boxbox'><i class="fa-solid fa-box-open"></i>
+    <span className='sleep-i'>Box</span>
+    <span className='sleep-ii'>1 box</span></div>
+
+    <div className='boxbox'><i class="fa-solid fa-bread-slice"></i>
+    <span className='sleep-i'>Breadbed</span>
+    <span className='sleep-ii'>1 bed, shaped like bread</span>
+    </div>
+</div>
+
+</div>
+
+<div className='extra-infobox'>
+<h2 className='where-sleep'>What this place offers</h2>
+
+<div className='ammenities'>
+
+<i class="fa-solid fa-feather"></i> <span>Incredible feather toy</span>
+</div>
 
 </div>
 
