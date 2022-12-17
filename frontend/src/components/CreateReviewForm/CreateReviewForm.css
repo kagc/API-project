@@ -18,11 +18,11 @@
     /* justify-content: center; */
     align-items: center;
     width: 35rem;
-    height: 40rem;
+    height: 30rem;
     /* padding: 2rem; */
 }
 
-.login-line {
+.reviewspot-line {
     margin: 1rem;
     /* margin-bottom: 1rem; */
     font-size: 1rem;
@@ -32,7 +32,7 @@
     /* border-bottom: lightgray solid 1px; */
 }
 
-.login-line-holder {
+.reviewspot-line-holder {
     width: 100%;
     border-bottom: lightgray solid 1px;
 }
@@ -52,7 +52,7 @@
     /* padding: 2rem; */
 }
 
-.login-form-css {
+.createreview-css {
     width: 90%;
     
 }
@@ -61,15 +61,25 @@ button {
     width: 100%;
 }
 
-.input-holder {
+.input-holder1 {
     border: gray solid 1px;
-    border-radius: 3% / 10%;
+    border-radius: 3% / 20%;
     margin-bottom: 2rem;
     width: 100%;
  
 }
 
-.input-line { 
+.starinput-holder {
+    /* border: red solid 1px; */
+    border-radius: 3% / 10%;
+    margin-bottom: 2rem;
+    width: 100%;
+    margin-top: 0px;
+    padding-top: 0px;
+ 
+}
+
+.input-line4 { 
     width: 94%;
     /* border-bottom: 0px; */
     padding: 1rem;
@@ -77,7 +87,8 @@ button {
     border-left: 0px;
     border-right: 0px;
     background: transparent;
-    border-bottom: 1px solid gray;
+    /* border-bottom: 1px solid gray; */
+    border-bottom: 0px;
     height: 0.5rem;
 }
 .input-line2 { 
@@ -119,4 +130,30 @@ button {
 .errorlist> li {
     padding-top: 0px;
     padding-bottom: 0.7rem;
+}
+
+.stars-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.eachstar {
+    display: flex;
+    /* border: red solid 1px; */
+    flex-direction: column;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .eachstar> input {
+    justify-content: center;
+    align-items: center;
+} */
+
+.just-this-one-input {
+    margin: 0px;
 }
