@@ -117,8 +117,22 @@
     flex-direction: column;
     justify-content: flex-start;
 } */
+.another-div {
+display: flex;
+/* overflow: auto; */
+
+}
+.floaty-box-holder {
+    /* position: -webkit-sticky; */
+    position: sticky !important;
+    /* z-index: 1 !important; */
+    top: 0;
+    /* display: inline-block !important; */
+    align-self: flex-start;
+}
 
 .floaty-box {
+    margin-top: 2rem;
     border: solid lightgray 1px;
     height: 20em;
     width: 15rem;
@@ -129,6 +143,8 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+
+
 }
 
 .floaty-box-price {
@@ -147,7 +163,7 @@
 }
 
 .leftbox {
-    width: 40rem;
+    width: 45rem;
 }
 
 .topline {
@@ -192,3 +208,68 @@
     flex-direction: column;
 }
 
+.hostedby-text {
+    margin-bottom: 0.5rem;
+}
+
+.subhostedby-text {
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.extra-infobox {
+    border-top: 1px lightgray solid;
+    /* border-bottom: 1px lightgray solid; */
+    /* padding-top: 2em;
+    padding-bottom: 2em;
+    margin-top: 1em; */
+    display: flex;
+    flex-direction: column
+}
+
+.fa-shield-cat {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.fa-paw {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.fa-calendar {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.extra-deets {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.more-deets {
+    display: flex;
+    flex-direction: column
+}
+
+.bold-deet {
+    margin-bottom: 0px;
+}
+
+.subdeet {
+    font-size: 0.9rem;
+    color: rgb(71, 71, 71);
+    margin-bottom: 1rem;
+}
+
+.aircover {
+    margin-top: 2rem;
+    width: 8rem;
+}
+
+.subdeet2 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    /* margin-right: 1rem; */
+}
