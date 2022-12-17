@@ -26,7 +26,10 @@ function SingleSpot() {
         dispatch(getOneSpot(spotId))
         .then(res => {
             // console.log('res', res)
-            if(!res) history.push('/')
+            if(!res) {
+                alert(`Sorry, couldn't seem to find that spot. Returning to Home page.`)
+                history.push('/')
+            }
         })
 
         // .catch(

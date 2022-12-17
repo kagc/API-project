@@ -49,6 +49,9 @@ export const getUsersReviews = () => async dispatch => {
 export const makeReview = (spotId, newReview) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(newReview)
     })
     if(response.ok){
@@ -78,7 +81,10 @@ export const makeReview = (spotId, newReview) => async dispatch => {
 
 export const tossReview = (reviewId) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
     })
     if(response.ok){
         const deletedReview = await response.json()

@@ -24,7 +24,7 @@ function App() {
           <Route exact path='/'>
             <AllSpotsList />
           </Route>
-          <Route path='/spots/:spotId'>
+          <Route exact path='/spots/:spotId'>
             <SingleSpot />
           </Route>
           <Route path='/manage-listings'>
@@ -33,6 +33,10 @@ function App() {
           <Route path='/manage-reviews'>
             <UserReviews />
           </Route>
+
+          {/* <Route path='/spots/:spotId'>
+            Oops, that spot doesn't seem to be in the system.
+          </Route> */}
 
           <Route>
             Page Not Found.
