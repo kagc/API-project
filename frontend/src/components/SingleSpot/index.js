@@ -120,8 +120,17 @@ function SingleSpot() {
             </div>
 <div className='infos'>
             <div className='leftbox'>
-                <h2 className='hostedby-text'>Spot hosted by {spot.Owner.firstName}</h2>
+                <div className='hostbox'>
+
+                    <div className='left-hostbox'>
+                        <h2 className='hostedby-text'>Spot hosted by {spot.Owner.firstName}</h2>
                 <p className='subhostedby-text'>4 cats · 1 pillow · 1,000 cat hairs</p>
+                    </div>
+                    
+                    <div className='host-icon'><i id='host-cat' className="fa-solid fa-cat"></i></div>
+                
+                </div>
+                
 
 <div className='extra-infobox'>
     <div className='extra-deets'>
