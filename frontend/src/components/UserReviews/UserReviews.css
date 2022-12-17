@@ -27,6 +27,7 @@
 
 .manage-spotname {
     font-weight: bold;
+    /* max-width: 50%; */
 }
 
 .reviewtext-holder {
@@ -40,4 +41,13 @@
 
 .bottom-button {
     margin-bottom: 2rem;
+}
+
+.spots-details2 {
+    margin-bottom: 1em;
+    max-width: 18rem;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-direction: column;
+    margin-left: 0pc;
 }

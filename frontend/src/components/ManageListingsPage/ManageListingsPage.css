@@ -6,24 +6,6 @@
    width: 100%;
 }
 
-/* .create-spot-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    padding-left: 35%;
-    padding-right: 35%;
-    font-family: helvetica;
-    color: #FFFFFF ;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border: 0px;
-    border-radius: 10px;
-    background: #EE244C !important;
-    background: linear-gradient(to top, #EE244C, #CF297C) !important;
-} */
 
 .manage-button-holder> button {
     margin-bottom: 1rem;
@@ -38,3 +20,26 @@
 .manage-spotname {
     font-weight: bold;
 }
+
+.reviewtext-holder {
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.review-text {
+    width: 20%;
+}
+
+.bottom-button {
+    margin-bottom: 2rem;
+}
+
+/* .spots-details2 {
+    margin-bottom: 0px;
+    padding-bottom: 2em;
+    max-width: 18rem !important;
+    display: flex;
+    /* justify-content: space-between; */
+    /* flex-direction: column;
+    margin-left: 0pc; */
+/* } */ 

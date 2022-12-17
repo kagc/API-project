@@ -9,7 +9,7 @@ const dispatch = useDispatch()
 
 const spotsObj = useSelector(state => state.spots.allSpots)
 const spots = Object.values(spotsObj)
-console.log('spotsOb', spotsObj)
+// console.log('spotsOb', spotsObj)
 
 useEffect(() => {
     dispatch(getAllSpots())
@@ -20,10 +20,13 @@ if(!spotsObj || !spots || spots.length === 0) return null
     return (
         <div className='all-spots'>
             {spots.length && (spots.map(spot => {
-                // console.log(spot.id, spot.previewImage)
+                // console.log('rating', spot.avgRating)
+
                 let avgStars
-                if (spot.avgRating && spot.avgRating !== null) avgStars = parseFloat(spot.avgRating.toPrecision(3))
-               
+                // if (!spot.avgRating || spot.avgRating === null) spot.avgRating = 0
+                if (spot.avgRating > 0) avgStars = parseFloat(spot.avgRating.toPrecision(3))
+            //    console.log('stars', avgStars)
+               if(avgStars === undefined) avgStars = 0
                 return (
                     <Link key={spot.id} to={`/spots/${spot.id}`}>
                         <div>
@@ -33,7 +36,7 @@ if(!spotsObj || !spots || spots.length === 0) return null
                         <div className='spots-details'>
                             <div className='spots-details-top'>
                             <div className='place'>{spot.city}, {spot.state}</div>
-                            <div><i className="fa-solid fa-star"></i> {spot.avgRating && spot.avgRating === null ? '0' : avgStars }</div>
+                            <div><i className="fa-solid fa-star"></i> {avgStars}</div>
                             </div>
 
                             <div><span className='price'>${spot.price}</span> night</div>

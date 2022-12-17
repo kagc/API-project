@@ -79,13 +79,14 @@ const ManageListingsPage = () => {
                           backgroundImage: `url('${spot.previewImage}')`,
                         }}
                       ></div>
-                      <div class-name="spots-details">
+                      <div className="spots-details2">
                         <div className="spots-details-top">
                           <div className="manage-spotname">{spot.name}</div>
                           <div className="manage-place">
                             {spot.city}, {spot.state}
                           </div>
                         </div>
+
                       </div>
                     </div>
                   </Link>

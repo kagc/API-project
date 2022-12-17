@@ -236,8 +236,12 @@ router.get("/",  async (req, res, next) => {
         totalStars += review.stars
     })
     spot.avgRating = totalStars/spot.Reviews.length
+    // console.log('pre', spot.avgRating)
+    // if(spot.avgRating === null) spot.avgRating === 0
+    // console.log('post', spot.avgRating)
     delete spot.Reviews
   })
+
 
   spotList.forEach(spot => {
     spot.SpotImages.forEach(image => {

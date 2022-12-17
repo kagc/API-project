@@ -52,7 +52,7 @@ const UserReviews = () => {
                         className="preview-image"
                         style={{
                           backgroundImage: `url('${review.Spot.previewImage}')` }}></div>
-                      <div className="spots-details">
+                      <div className="spots-details2">
                         <div className="spots-details-top">
                           <div className="manage-spotname">{review.Spot.name}</div>
                           <div className="manage-place">

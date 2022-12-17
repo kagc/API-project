@@ -49,6 +49,7 @@ export const getAllSpots = () => async dispatch => {
 
     if(response.ok){
         const spots = await response.json()
+        // console.log('all the spots',spots)
         dispatch(allSpots(spots))
         return spots
     }
