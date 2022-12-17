@@ -1,4 +1,4 @@
-// import './UserReviews.css'
+import './UserReviews.css'
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
@@ -24,6 +24,7 @@ const UserReviews = () => {
   // reviews.forEach(review => {
   //     if(Object.values(spots).id === review.spotId) console.log('!!!!', review)
   // })
+  console.log('reviews', reviews)
   let reviewsList = [];
   let spotList = [];
   spots.forEach((spot) => {
@@ -34,88 +35,41 @@ const UserReviews = () => {
       }
     });
   });
-  // console.log('spotlist', spotList)
-  // console.log('reviewList', reviewsList)
 
-  // if(reviews.length === 0) return null
+  
   return (
     <div>
       <div>
         <h2>Your Reviews</h2>
         <div className="your-reviews">
-          {spotList.length && reviewsList.length ? (
-            spotList.map((spot) => {
+          {reviews.length ? (
+            reviews.map(review => {
               return (
-                <div key={spot.id}>
+                <div key={review.id}>
+                  <Link to={`/spots/${review.Spot.id}`}>
                     <div>
-                  <Link to={`/spots/${spot.id}`}>
                       <div
                         className="preview-image"
                         style={{
-                          backgroundImage: `url('${spot.previewImage}')`,
-                        }}
-                      ></div>
+                          backgroundImage: `url('${review.Spot.previewImage}')` }}></div>
                       <div className="spots-details">
                         <div className="spots-details-top">
-                          <div className="manage-spotname">{spot.name}</div>
+                          <div className="manage-spotname">{review.Spot.name}</div>
                           <div className="manage-place">
-                            {spot.city}, {spot.state}
+                            {review.Spot.city}, {review.Spot.state}
                           </div>
                         </div>
+                          <div><span className='price'><i className="fa-solid fa-star"></i>{review.stars}</span> </div>
+                          <div className='reviewtext-holder'><span className='reviewtext'>{review.review}</span></div>
 
-
-
-                        {reviewsList.map((review) => {
-                      if (review.spotId === spot.id) {
-                        return (
-                          <div>
-                            <span>
-                              <i className="fa-solid fa-star"></i>
-                              {review.stars}
-                            </span>
-                            <span>{review.review}</span>
-
-                            <div className="manage-button-holder">
-                              <div className="manage-buttons">
-                                {
-                                  <button
-                                    onClick={async (e) => {
-                                      e.preventDefault();
-                                      const deleted = await dispatch(
-                                        tossReview(review.id)
-                                      );
-                                      if (deleted) {
-                                        history.push(`/manage-reviews`);
-                                      }
-                                    }}
-                                  >
-                                    Delete Review
-                                  </button>
-                                }
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      }
-                    })}
-                      </div>
-                  </Link>
+                        </div>
                     </div>
+                  </Link>
 
-                  {/* <div className='spots-details'> */}
-                    {/* {reviewsList.map((review) => {
-                      if (review.spotId === spot.id) {
-                        return (
-                          <div>
-                            <span>
-                              <i className="fa-solid fa-star"></i>
-                              {review.stars}
-                            </span>
-                            <span>{review.review}</span>
-
-                            <div className="manage-button-holder">
+                  <div className="manage-button-holder">
                               <div className="manage-buttons">
-                                {
+                                <div className='bottom-button'>
+                                
                                   <button
                                     onClick={async (e) => {
                                       e.preventDefault();
@@ -129,13 +83,9 @@ const UserReviews = () => {
                                   >
                                     Delete Review
                                   </button>
-                                }
+                                  </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      }
-                    })} */}
                   </div>
                 // </div>
               );
