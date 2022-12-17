@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeSpot, addImg } from '../../store/spots';
 import { useModal } from '../../context/Modal';
+import './CreateSpot.css'
 
 const CreateSpot = () => {
     const dispatch = useDispatch()
@@ -11,10 +12,10 @@ const CreateSpot = () => {
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
-    const [country, setCountry] = useState('United States')
+    const [country, setCountry] = useState('')
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [price, setPrice] = useState(1)
+    const [price, setPrice] = useState('')
     const [url, setUrl ] = useState('')
     const [errors, setErrors] = useState([]);
 
@@ -67,46 +68,110 @@ const CreateSpot = () => {
 
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-            <ul>
+        <div className='createspot-holder'>
+
+        <div className='createspot-line-holder'>
+
+                    <h1 className='createspot-line'>Become a Host</h1>
+                </div>
+
+                
+      <div className='welcome'> <h3 className='weclome-h3'>Create Your Spot</h3></div>
+
+
+                <div className='form-holder'>
+
+                   <form className='createspot-css' onSubmit={handleSubmit}>
+
+            <ul className='errorlist'>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-                <div>
-                    <h1>Where's your place located?</h1>
-                </div>
-                <div>
+                
+                <div className='input-holder'>
                 {/* <label htmlFor='address'>Where's your place located?</label> */}
                 <input type='text'
-                placeholder='Street'
+                placeholder='What is the Street name and number?'
+                className='input-line'
                 required
                 value={address}
                 id='address'
                 onChange={(e) => setAddress(e.target.value)}></input>
 
                 <input type='text'
-                placeholder='City'
+                placeholder='In what City is your spot located?'
+                className='input-line'
                 required
                 value={city}
                 onChange={(e) => setCity(e.target.value)}></input>
 
                 <input type='text'
-                placeholder='State'
+                placeholder='Tell us which State'
+                className='input-line'
                 required
                 value={state}
                 onChange={(e) => setState(e.target.value)}></input>
 
-                <select 
+                {/* <select 
+                className='input-line'
                     onChange={(e) => setCountry(e.target.value)}
+                    placeholder='Country'
                     value={country}>
-                    <option default value='United States'>United States</option>
-                    <option value='Catland'>Catland</option>
-                </select>
+                    <option className='input-line' default value='United States'>United States</option>
+                    <option className='input-line' value='Catland'>Catland</option>
+                </select> */}
+
+                <input type='text'
+                placeholder='And the Country'
+                className='input-line'
+                required
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}></input>
+
+                <div>
+                   <input type='text'
+                   placeholder='Give your spot a Name'
+                   className='input-line'
+                   required
+                //    height='100px'
+                   value={name}
+                   maxLength='50'
+                   onChange={(e) => setName(e.target.value)}></input>
                 </div>
 
                 <div>
+                    <input type='text'
+                    placeholder='Add an Image (https://...)'
+                    className='input-line'
+                    required
+                    value={url}
+                    maxlength='255'
+                    onChange={(e) => setUrl(e.target.value)}></input>
+                </div>
+
+                <div>
+                    <input type='text'
+                    className='input-line'
+                    placeholder="Give your guests a brief Description of your place"
+                    value={description}
+                    required
+                    maxlength='255'
+                    onChange={(e) => setDescription(e.target.value)}></input>
+                </div>
+
+                <div>
+                    <input type='number'
+                    className='input-line2'
+                    placeholder='Now, set your Price'
+                    min='1'
+                    value={price}
+                    onChange={(event) => setPrice(event.target.value)}></input>
+                </div>
+
+                </div>
+
+                {/* <div>
                     <h1>Now, let's give your place a title</h1>
                     <h3>Short titles work best. Have fun with it—you can always change it later.</h3>
                 </div>
@@ -154,9 +219,11 @@ const CreateSpot = () => {
                     min='1'
                     value={price}
                     onChange={(event) => setPrice(event.target.value)}></input>
+                </div> */}
+                <button type='submit'>Submit</button>
+            </form> 
                 </div>
-                <button type='submit'>Next</button>
-            </form>
+            
         </div>
     )
 }

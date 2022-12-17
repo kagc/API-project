@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { modSpot, getOneSpot } from '../../store/spots';
 import { useModal } from '../../context/Modal';
+import './EditSpot.css'
 
 const EditSpot = ({spot}) => {
     // const { spotId } = useParams()
@@ -74,19 +75,28 @@ console.log(spot)
 
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-            <ul>
+        <div className='editspot-holder'>
+
+<div className='createspot-line-holder'>
+
+<h1 className='createspot-line'>Make Changes</h1>
+</div>
+
+
+<div className='welcome'> <h3 className='weclome-h3'>Edit Your Spot Info</h3></div>
+
+<div className='form-holder'>
+<form className='editspot-css' onSubmit={handleSubmit}>
+            <ul className='errorlist'>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-                <div>
-                    <h1>Where's your place located?</h1>
-                </div>
-                <div>
+                
+                <div className='input-holder'>
                 {/* <label htmlFor='address'>Where's your place located?</label> */}
                 <input type='text'
+                className='input-line'
                 placeholder='Street'
                 required
                 value={address}
@@ -94,31 +104,31 @@ console.log(spot)
                 onChange={(e) => setAddress(e.target.value)}></input>
 
                 <input type='text'
+                className='input-line'
                 placeholder='City'
                 required
                 value={city}
                 onChange={(e) => setCity(e.target.value)}></input>
 
                 <input type='text'
+                className='input-line'
                 placeholder='State'
                 required
                 value={state}
                 onChange={(e) => setState(e.target.value)}></input>
 
-                <select 
-                    onChange={(e) => setCountry(e.target.value)}
-                    value={country}>
-                    <option default value='United States'>United States</option>
-                    <option value='Catland'>Catland</option>
-                </select>
-                </div>
+<input type='text'
+                placeholder='Country'
+                className='input-line'
+                required
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}></input>
+                
 
-                <div>
-                    <h1>Now, let's give your place a title</h1>
-                    <h3>Short titles work best. Have fun with it—you can always change it later.</h3>
-                </div>
+                
                 <div>
                    <input type='text'
+                   className='input-line'
                    placeholder='Name'
                    required
                 //    height='100px'
@@ -138,31 +148,34 @@ console.log(spot)
                     onChange={(e) => setUrl(e.target.value)}></input>
                 </div> */}
 
-                <div>
-                    <h1>Create your description</h1>
-                    <h3>Share what makes your place special.</h3>
-                </div>
+               
                 <div>
                     <input type='text'
-                    placeholder="You'll have a great time at this comfortable place to stay."
+                    className='input-line'
+                    placeholder="Description"
                     value={description}
                     required
                     maxlength='255'
-                    onChange={(e) => setDescription(e.target.value)}></input>
+                    onChange={(e) => setDescription(e.target.value)}>
+                    </input>
                 </div>
 
-                <div>
-                    <h1>Now, set your price</h1>
-                    <h3>You can change it anytime.</h3>
-                </div>
+               
                 <div>
                     <input type='number'
+                    className='input-line2'
+                    placeholder='Price'
                     min='1'
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}></input>
                 </div>
-                <button type='submit'>Next</button>
+
+                </div>
+                <button type='submit'>Submit</button>
             </form>
+
+</div>
+            
         </div>
     )
 }

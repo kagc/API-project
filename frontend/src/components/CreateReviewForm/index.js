@@ -5,6 +5,7 @@ import { makeReview } from "../../store/reviews";
 import OpenModalButton from '../OpenModalButton';
 import ReviewsBySpot from "../ReviewsBySpot";
 import { useModal } from '../../context/Modal';
+import './CreateReviewForm.css'
 
 const CreateReviewForm = () => {
     const { spotId } = useParams()
@@ -73,28 +74,31 @@ const CreateReviewForm = () => {
     if(!spot) return null
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-            <ul>
+        <div className='reviewform-holder'>
+
+<div className='reviewspot-line-holder'>
+
+<h1 className='reviewspot-line'>What Did You Think?</h1>
+</div>
+
+
+<div className='welcome'> <h3 className='weclome-h3'>Give Your Rating</h3></div>
+
+
+<div className='form-holder'>
+ <form className='createreview-css' onSubmit={handleSubmit}>
+            <ul className='errorlist'>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-            <div>
-                {/* <input type='text'
-                required
-                onChange={(e) => setReview(e.target.value)}> </input> */}
 
-            </div>
-
-            <div>
-                <div>
-                    <h2>Give your rating</h2>
-                </div>
-
-
-            <label>
+            <div className='starinput-holder'>
+              <div className='stars-input'>
+            <div className='eachstar'>
+                 {/* <label> */}
         <input
+        className='just-this-one-input'
           type="radio"
           value='1'
           name="star"
@@ -102,9 +106,15 @@ const CreateReviewForm = () => {
           onChange={(e) => setStars(e.target.value)}
           checked={stars === '1'}
         />
-        <i className="fa-solid fa-star"></i>
-      </label>
-      <label>
+        <div className='starcontainer'>
+<i className="fa-solid fa-star"></i>
+        </div>
+        
+      {/* </label> */}
+            </div>
+
+           <div className='eachstar'>  
+      {/* <label> */}
         <input
           type="radio"
           value='2'
@@ -112,9 +122,15 @@ const CreateReviewForm = () => {
           onChange={(e) => setStars(e.target.value)}
           checked={stars === '2'}
         />
-        <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
-      </label>
-      <label>
+        <div className='starcontainer'>
+          <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
+        </div>
+        
+      {/* </label> */}
+      </div>
+
+      <div className='eachstar'>
+      {/* <label> */}
         <input
           type="radio"
           value='3'
@@ -122,9 +138,14 @@ const CreateReviewForm = () => {
           onChange={(e) => setStars(e.target.value)}
           checked={stars === '3'}
         />
-        <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
-      </label>
-      <label>
+        <div className='starcontainer'>
+          <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
+        </div>
+        
+      {/* </label> */}
+      </div>
+      <div className='eachstar'>
+      {/* <label> */}
         <input
           type="radio"
           value='4'
@@ -132,9 +153,15 @@ const CreateReviewForm = () => {
           onChange={(e) => setStars(e.target.value)}
           checked={stars === '4'}
         />
-        <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
-      </label>
-      <label>
+        <div className='starcontainer'>
+          <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
+        </div>
+        
+      {/* </label>
+      <label> */}
+      </div>
+
+      <div className='eachstar'>
         <input
           type="radio"
           value='5'
@@ -142,22 +169,30 @@ const CreateReviewForm = () => {
           onChange={(e) => setStars(e.target.value)}
           checked={stars === '5'}
         />
-        <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
-      </label>
+        <div className='starcontainer'>
+          <i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i><i className="fa-solid fa-star"></i>
+        </div>
+        
+      {/* </label> */}
+      </div>
             </div>
+              </div>
+            
 
                 <div>
-                    <div>
-                        <h2>Share your thoughts</h2>
+                    <div className='welcome'>
+                        <h3 className='weclome-h3'>Share your thoughts</h3>
                     </div>
+                    <div className='input-holder1'>
                     <input type='text'
+                    className='input-line4'
                     required
                     maxlength='255'
                     placeholder={`I stayed at ${spot.name}, and it was...`}
                     value={review}
                     onChange={(e) => setReview(e.target.value)}></input>
                 </div>
-
+                </div>
                 <div>
                 <button >Submit Your Review</button>
                 
@@ -167,6 +202,11 @@ const CreateReviewForm = () => {
                 onButtonClick={closeMenu} /> */}
                 </div>
             </form>
+  </div>
+
+
+
+           
         </div>
     )
 }

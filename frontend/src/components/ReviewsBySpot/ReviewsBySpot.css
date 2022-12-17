@@ -55,8 +55,8 @@
     margin-top: 1rem;
 }
 
-.delete-rev-button:hover {
-    cursor: pointer !important;
+.delete-rev-button-holder> button {
+    width: 45%
 }
 
 .space-text {

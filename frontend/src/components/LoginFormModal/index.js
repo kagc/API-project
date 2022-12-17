@@ -48,12 +48,12 @@ function LoginFormModal() {
       <h1 className='login-line'>Log in</h1>
       </div>
 
-      <div className='welcome'> <h3></h3>Welcome to Sparebnb</div>
+      <div className='welcome'> <h3 className='weclome-h3'>Welcome to Sparebnb</h3></div>
 
     <div className='form-holder'>
 
       <form className='login-form-css' onSubmit={handleSubmit}>
-        <ul>
+        <ul className='errorlist'>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
@@ -74,7 +74,7 @@ function LoginFormModal() {
           
           <input
             type="password"
-            className='input-line'
+            className='input-line2'
             value={password}
             placeholder='Password'
             onChange={(e) => setPassword(e.target.value)}
@@ -87,6 +87,7 @@ function LoginFormModal() {
 
             <div className='form-holder'>
                <form className='login-form-css' onSubmit={demoLogin}>
+                <div className='login-break'>or</div>
       <button type="submit">Demo User Login</button>
     </form>
             </div>

@@ -30,7 +30,8 @@ function ReviewsBySpot({spot}) {
         added += review.stars
         // console.log('added', added)
     })}
-    let avgStars = added/reviews.length
+    let avg = added/reviews.length
+    let avgStars = parseFloat(avg.toPrecision(3))
     console.log('user', user)
     // console.log(avgStars)
 
@@ -62,7 +63,7 @@ function ReviewsBySpot({spot}) {
                             {review.review}
                         </div>
 
-                        <div>
+                        <div className='delete-rev-button-holder'>
                         {user !== null && 
                         (user.id === review.User.id && (<button className='delete-rev-button' onClick={ async (e) => {
             e.preventDefault();

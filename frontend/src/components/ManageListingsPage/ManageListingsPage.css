@@ -2,11 +2,11 @@
     margin-top: 2em;
     display: flex;
     flex-wrap: wrap;
-   justify-content: space-between;
+   justify-content: space-around;
    width: 100%;
 }
 
-.create-spot-button {
+/* .create-spot-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +14,7 @@
     margin-bottom: 1rem;
     padding-left: 35%;
     padding-right: 35%;
-    /* font-family: helvetica;
+    font-family: helvetica;
     color: #FFFFFF ;
     font-size: 14px;
     font-weight: bold;
@@ -22,5 +22,19 @@
     border: 0px;
     border-radius: 10px;
     background: #EE244C !important;
-    background: linear-gradient(to top, #EE244C, #CF297C) !important; */
+    background: linear-gradient(to top, #EE244C, #CF297C) !important;
+} */
+
+.manage-button-holder> button {
+    margin-bottom: 1rem;
+    /* top-margin: 1rem; */
+}
+
+.manage-buttons> button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.manage-spotname {
+    font-weight: bold;
 }
