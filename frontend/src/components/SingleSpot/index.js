@@ -162,6 +162,12 @@ function SingleSpot() {
 <span className='descr2'>{spot.description}</span>
 </div>
 
+<div className='extra-infobox'>
+<img className='aircover' src='https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg' ></img>
+<span className='subdeet2'>Every booking includes a thick blanket to cover yourself with for when the cats have their scheduled 3AM zoomies.</span>
+
+</div>
+
             </div>
                 <div className='another-div'>
                     <div className='floaty-box-holder'>

@@ -224,7 +224,8 @@ display: flex;
     padding-bottom: 2em;
     margin-top: 1em; */
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    margin-bottom: 0.9rem;
 }
 
 .fa-shield-cat {
@@ -250,7 +251,7 @@ display: flex;
 
 .more-deets {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
 }
 
 .bold-deet {
@@ -273,3 +274,9 @@ display: flex;
     margin-bottom: 1rem;
     /* margin-right: 1rem; */
 }
+
+/* .bottom-subdeet {
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: rgb(71, 71, 71);
+} */
