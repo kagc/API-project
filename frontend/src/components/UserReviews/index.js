@@ -39,8 +39,8 @@ const UserReviews = () => {
   
   return (
     <div>
-      <div>
-        <h2>Your Reviews</h2>
+      <div className='all-spots'>
+        <h2 className='yourreviews'>Your Reviews</h2>
         <div className="your-reviews">
           {reviews.length ? (
             reviews.map(review => {

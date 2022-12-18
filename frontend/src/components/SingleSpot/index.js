@@ -107,7 +107,7 @@ function SingleSpot() {
                         {`${reviews.length} reviews`}
                     </span>
                     ·
-                    <span className='location'>{spot.city}, {spot.state}, {spot.country}</span>
+                    <span title='Unable to retrieve map at this time' className='location'>{spot.city}, {spot.state}, {spot.country}</span>
                 </div>
             </div>
 
@@ -220,10 +220,22 @@ function SingleSpot() {
                         </span>
                         </div>
                        </div>
-                       <div className='reserve-button-div'>
+
+
+                        <div className='midholder'>
+
+ <div className='reserve-box' title='Unable to make reservations at this time'>
+    {/* <hr></hr> */}
+    <h2></h2>
+    {/* <h2></h2> */}
+ </div>
+                       <div className='reserve-button-div' title='Unable to make reservations at this time'>
                        <button className='cant-reserve'>Reserve Coming Soon</button>
 
                        </div>
+
+                        </div>
+                       
                        <div className='totalPrice'>
                         <span>Total before taxes</span> <span>${spot.price}</span>
                        </div>

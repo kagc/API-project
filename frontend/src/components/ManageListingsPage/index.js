@@ -63,8 +63,8 @@ const ManageListingsPage = () => {
                 </Route>
                 </div> */}
 
-      <div>
-        <h2>Your Spots</h2>
+      <div className='all-spots'>
+        <h2 className='yourspots'>Your Spots</h2>
         <div className="your-spots">
           {spots.length ? (
             spots.map((spot) => {

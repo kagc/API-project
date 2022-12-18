@@ -8,6 +8,7 @@
     padding-left: 5%;
     margin-right: 0px;
     padding-bottom: 5em;
+    margin-top: 5rem;
 } 
 
 .img-container {
@@ -358,4 +359,31 @@ justify-content: flex-end;
     border: black solid 1px;
     border-radius: 50%;
     padding: 0.5rem;
+}
+
+.reserve-box {
+    border: darkgray 1px solid;
+    border-radius: 3%/ 10%;
+    height: 60%;
+    text-align: center;
+    /* display: flex; 
+    flex-direction: column; */
+}
+
+.reserve-box> h2 {
+    height: 50%;
+    margin: 0px;
+    border-bottom: darkgray 1px solid;
+}
+
+.reserve-box:hover {
+    cursor: not-allowed;
+}
+
+.midholder {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 35%;
+    padding-bottom: 6rem;
 }

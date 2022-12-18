@@ -6,6 +6,13 @@
    width: 100%;
 }
 
+/* .manange-listings-holder {
+    margin-top: 5rem;
+} */
+
+.yourspots {
+    margin-top: 0px;
+}
 
 .manage-button-holder> button {
     margin-bottom: 1rem;
