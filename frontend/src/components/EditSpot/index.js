@@ -101,6 +101,7 @@ console.log(spot)
                 required
                 value={address}
                 id='address'
+                title='Address'
                 onChange={(e) => setAddress(e.target.value)}></input>
 
                 <input type='text'
@@ -108,6 +109,7 @@ console.log(spot)
                 placeholder='City'
                 required
                 value={city}
+                title='City'
                 onChange={(e) => setCity(e.target.value)}></input>
 
                 <input type='text'
@@ -115,6 +117,7 @@ console.log(spot)
                 placeholder='State'
                 required
                 value={state}
+                title='State'
                 onChange={(e) => setState(e.target.value)}></input>
 
 <input type='text'
@@ -122,6 +125,7 @@ console.log(spot)
                 className='input-line'
                 required
                 value={country}
+                title='Country'
                 onChange={(e) => setCountry(e.target.value)}></input>
                 
 
@@ -133,6 +137,7 @@ console.log(spot)
                    required
                 //    height='100px'
                    value={name}
+                   title='Name'
                    onChange={(e) => setName(e.target.value)}></input>
                 </div>
 
@@ -156,6 +161,7 @@ console.log(spot)
                     value={description}
                     required
                     maxlength='255'
+                    title='Description'
                     onChange={(e) => setDescription(e.target.value)}>
                     </input>
                 </div>
@@ -167,6 +173,7 @@ console.log(spot)
                     placeholder='Price'
                     min='1'
                     value={price}
+                    title='Price'
                     onChange={(e) => setPrice(e.target.value)}></input>
                 </div>
 
