@@ -89,11 +89,12 @@ const CreateSpot = () => {
           ))}
         </ul>
                 
-                <div className='input-holder'>
+                <div className='create-input-holder'>
                 {/* <label htmlFor='address'>Where's your place located?</label> */}
                 <input type='text'
                 placeholder='What is the Street name and number?'
                 className='input-line'
+                title='Address'
                 required
                 value={address}
                 id='address'
@@ -104,6 +105,7 @@ const CreateSpot = () => {
                 className='input-line'
                 required
                 value={city}
+                title='City'
                 onChange={(e) => setCity(e.target.value)}></input>
 
                 <input type='text'
@@ -111,6 +113,7 @@ const CreateSpot = () => {
                 className='input-line'
                 required
                 value={state}
+                title='State'
                 onChange={(e) => setState(e.target.value)}></input>
 
                 {/* <select 
@@ -127,6 +130,7 @@ const CreateSpot = () => {
                 className='input-line'
                 required
                 value={country}
+                title='Country'
                 onChange={(e) => setCountry(e.target.value)}></input>
 
                 <div>
@@ -137,6 +141,7 @@ const CreateSpot = () => {
                 //    height='100px'
                    value={name}
                    maxLength='50'
+                   title='Name'
                    onChange={(e) => setName(e.target.value)}></input>
                 </div>
 
@@ -147,6 +152,7 @@ const CreateSpot = () => {
                     required
                     value={url}
                     maxlength='255'
+                    title='Image link'
                     onChange={(e) => setUrl(e.target.value)}></input>
                 </div>
 
@@ -157,6 +163,7 @@ const CreateSpot = () => {
                     value={description}
                     required
                     maxlength='255'
+                    title='Description'
                     onChange={(e) => setDescription(e.target.value)}></input>
                 </div>
 
@@ -166,6 +173,7 @@ const CreateSpot = () => {
                     placeholder='Now, set your Price'
                     min='1'
                     value={price}
+                    title='Price'
                     onChange={(event) => setPrice(event.target.value)}></input>
                 </div>
 
