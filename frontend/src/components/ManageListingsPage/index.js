@@ -63,8 +63,8 @@ const ManageListingsPage = () => {
                 </Route>
                 </div> */}
 
-      <div>
-        <h2>Your Spots</h2>
+      <div className='all-spots'>
+        <h2 className='yourspots'>Your Spots</h2>
         <div className="your-spots">
           {spots.length ? (
             spots.map((spot) => {
@@ -79,13 +79,14 @@ const ManageListingsPage = () => {
                           backgroundImage: `url('${spot.previewImage}')`,
                         }}
                       ></div>
-                      <div class-name="spots-details">
+                      <div className="spots-details2">
                         <div className="spots-details-top">
                           <div className="manage-spotname">{spot.name}</div>
                           <div className="manage-place">
                             {spot.city}, {spot.state}
                           </div>
                         </div>
+
                       </div>
                     </div>
                   </Link>

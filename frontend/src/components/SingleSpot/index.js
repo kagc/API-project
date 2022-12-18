@@ -107,7 +107,7 @@ function SingleSpot() {
                         {`${reviews.length} reviews`}
                     </span>
                     ·
-                    <span className='location'>{spot.city}, {spot.state}, {spot.country}</span>
+                    <span title='Unable to retrieve map at this time' className='location'>{spot.city}, {spot.state}, {spot.country}</span>
                 </div>
             </div>
 
@@ -120,8 +120,17 @@ function SingleSpot() {
             </div>
 <div className='infos'>
             <div className='leftbox'>
-                <h2 className='hostedby-text'>Spot hosted by {spot.Owner.firstName}</h2>
+                <div className='hostbox'>
+
+                    <div className='left-hostbox'>
+                        <h2 className='hostedby-text'>Spot hosted by {spot.Owner.firstName}</h2>
                 <p className='subhostedby-text'>4 cats · 1 pillow · 1,000 cat hairs</p>
+                    </div>
+                    
+                    <div className='host-icon'><i id='host-cat' className="fa-solid fa-cat"></i></div>
+                
+                </div>
+                
 
 <div className='extra-infobox'>
     <div className='extra-deets'>
@@ -211,10 +220,22 @@ function SingleSpot() {
                         </span>
                         </div>
                        </div>
-                       <div className='reserve-button-div'>
+
+
+                        <div className='midholder'>
+
+ <div className='reserve-box' title='Unable to make reservations at this time'>
+    {/* <hr></hr> */}
+    <h2></h2>
+    {/* <h2></h2> */}
+ </div>
+                       <div className='reserve-button-div' title='Unable to make reservations at this time'>
                        <button className='cant-reserve'>Reserve Coming Soon</button>
 
                        </div>
+
+                        </div>
+                       
                        <div className='totalPrice'>
                         <span>Total before taxes</span> <span>${spot.price}</span>
                        </div>

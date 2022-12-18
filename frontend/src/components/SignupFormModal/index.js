@@ -58,6 +58,7 @@ function SignupFormModal() {
           placeholder='Email'
             type="text"
             value={email}
+            title='Email Address'
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -69,6 +70,7 @@ function SignupFormModal() {
             placeholder="Username"
             className='input-line'
             value={username}
+            title='Username'
             onChange={(e) => setUsername(e.target.value)}
             required
           />
@@ -80,6 +82,7 @@ function SignupFormModal() {
           placeholder='First Name'
             type="text"
             value={firstName}
+            title='First Name'
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
@@ -91,6 +94,7 @@ function SignupFormModal() {
             type="text"
             placeholder='Last Name'
             value={lastName}
+            title='Last Name'
             onChange={(e) => setLastName(e.target.value)}
             required
           />
@@ -102,6 +106,7 @@ function SignupFormModal() {
             type="password"
             placeholder='Password'
             value={password}
+            title='Password'
             onChange={(e) => setPassword(e.target.value)}
             required
           />
@@ -113,6 +118,7 @@ function SignupFormModal() {
             type="password"
             placeholder='Confirm Password'
             value={confirmPassword}
+            title='Confirm Password'
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />

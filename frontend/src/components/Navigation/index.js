@@ -42,6 +42,7 @@ function Navigation({ isLoaded }){
 
 
   return (
+    <div className='allnav'>
     <ul className='navbar'>
       <li>
         <NavLink exact to="/" className='home-button'><span>
@@ -69,6 +70,7 @@ function Navigation({ isLoaded }){
         </li>
       )}
     </ul>
+    </div>
   );
 }
 

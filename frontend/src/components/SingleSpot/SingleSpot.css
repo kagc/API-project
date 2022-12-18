@@ -8,6 +8,7 @@
     padding-left: 5%;
     margin-right: 0px;
     padding-bottom: 5em;
+    margin-top: 5rem;
 } 
 
 .img-container {
@@ -139,7 +140,7 @@ justify-content: flex-end;
 }
 
 .floaty-box {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     border: solid lightgray 1px;
     height: 30em;
     /* width: 20rem; */
@@ -337,4 +338,52 @@ justify-content: flex-end;
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.hostbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.host-icon {
+    margin-top: 1.5rem;
+    /* font-size: 4rem; */
+}
+
+#host-cat {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+    margin-bottom: 1.5rem;
+    /* font-size: 1.5rem; */
+    border: black solid 1px;
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+
+.reserve-box {
+    border: darkgray 1px solid;
+    border-radius: 3%/ 10%;
+    height: 60%;
+    text-align: center;
+    /* display: flex; 
+    flex-direction: column; */
+}
+
+.reserve-box> h2 {
+    height: 50%;
+    margin: 0px;
+    border-bottom: darkgray 1px solid;
+}
+
+.reserve-box:hover {
+    cursor: not-allowed;
+}
+
+.midholder {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 35%;
+    padding-bottom: 6rem;
 }
