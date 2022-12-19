@@ -92,7 +92,7 @@
 
 .write-rev-button-holder> button:hover {
     color: black;
-    background: lightgray !important;
+    background: rgb(238, 238, 238) !important;
 }
 
 /* .review-button {
