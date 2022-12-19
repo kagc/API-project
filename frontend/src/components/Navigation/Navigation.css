@@ -22,7 +22,7 @@
     justify-content: space-between;
     border-top: lightgray solid 1px;
     border-bottom: lightgray solid 1px;
-    /* padding-top: 0.5em; */
+    padding-top: 1.3rem;
     padding-bottom: 1.3rem;
     align-items: center;
 }
@@ -46,7 +46,7 @@
     margin: 0px;
     width: 12rem;
     padding-right: 1% !important;
-    padding-top: 1rem;
+    padding-top: 0rem;
     margin-top: 0px !important;
     margin-bottom: 0px !important;
     /* padding-right: 0px !important; */
@@ -138,28 +138,29 @@
 }
 
 .profile-dropdown {
-    border: lightgray 1px solid;
+    border: white 1px solid;
     /* justify-content: left; */
     padding-bottom: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    width: 10em;
+    width: 13rem;
     border-radius: 5%;
-    box-shadow: 1px 5px 5px lightgray;
+    box-shadow: 0px 0px 10px 1px lightgray;
     position: relative;
     /* border: red 1px solid; */
     position: absolute;
+    margin-top: 0.5rem;
     z-index: 99;
     float: right;
     background: white;
-    right: 0;
+    right: 4rem;
     left: auto;
 
 }
 
-li {
+/* li {
     padding-top: 1em;
-}
+} */
 
 .modal-dropdown {
     /* border: red 1px solid; */
@@ -169,6 +170,11 @@ li {
 .link {
     justify-content: flex-start;
     padding-left: 0px;
+    margin-bottom: 1rem;
+}
+
+.link:hover {
+    background: rgb(238, 238, 238);
 }
 
 /* .manage {
@@ -178,16 +184,45 @@ li {
 
 .login-button> li {
     font-weight: bold;
+    margin-top: 1em;
 }
 
 .login-button> li:hover {
     cursor: pointer;
+    background: rgb(238, 238, 238);
 }
 
 .signup-button> li {
     cursor: pointer;
+    margin-top: 1em;
 }
 
 .signup-button> li:hover {
     cursor: pointer !important;
+    background: rgb(238, 238, 238);
+}
+
+.logoutbutton> button {
+    /* justify-content: flex-start; */
+    /* padding-left: 0px; */
+    background: none;
+    color: black;
+    padding: 0px;
+    width: 30%;
+    font-weight: normal;
+    font-size: 1rem;
+    height: 1rem;
+    /* margin-bottom: 0.5rem; */
+}
+
+.logoutbutton:hover {
+    background: rgb(238, 238, 238);
+}
+
+.modal-dropdown> li {
+    margin-top: 1rem;
+}
+ 
+#toplink {
+    margin-top: 1rem;
 }

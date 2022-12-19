@@ -62,7 +62,7 @@ function ProfileButton({ user }) {
 
               {/* <Route path='/'> */}
               <hr></hr>
-              <Link className='link' to='/manage-listings'>Manage Listings</Link>
+              <Link id='toplink' className='link' to='/manage-listings'>Manage Listings</Link>
               {/* </Route> */}
               </li>
               <li>
@@ -71,7 +71,7 @@ function ProfileButton({ user }) {
               <hr></hr>
               </div>
 
-            <li>
+            <li className='logoutbutton'>
               <button onClick={logout}>Log Out</button>
             </li>
           </div>
