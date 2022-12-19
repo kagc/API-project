@@ -8,6 +8,7 @@ import SingleSpot from "./components/SingleSpot";
 import CreateSpot from "./components/CreateSpot";
 import ManageListingsPage from "./components/ManageListingsPage";
 import UserReviews from "./components/UserReviews";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ function App() {
           </Route> */}
 
           <Route>
-            Page Not Found.
+            <PageNotFound />
           </Route>
         </Switch>
       )}

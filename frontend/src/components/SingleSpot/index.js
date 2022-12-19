@@ -27,8 +27,8 @@ function SingleSpot() {
         .then(res => {
             // console.log('res', res)
             if(!res) {
-                alert(`Sorry, couldn't seem to find that spot. Returning to Home page.`)
-                history.push('/')
+                // alert(`Sorry, couldn't seem to find that spot. Returning to Home page.`)
+                history.push('/page-not-found')
             }
         })
 
