@@ -56,7 +56,7 @@ function ProfileButton({ user }) {
           <div className='modal-dropdown'>
             <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
+            <li id='useremailline'>{user.email}</li>
               <div className='manage'>
             <li>
 
