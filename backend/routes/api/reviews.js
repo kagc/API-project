@@ -157,7 +157,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => 
         stars
     })
 
-    return res.status(200).json(updatedReview)
+    return res.status(200).json(theReview)
 })
 
 // Delete a review

@@ -79,6 +79,34 @@ export const makeReview = (spotId, newReview) => async dispatch => {
     }
 }
 
+export const editReview = (review, reviewId) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`,  {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(review)
+    })
+    // if (response.ok){
+    //     const data = await response.json()
+    //     dispatch(createReview(data))
+    //     return data
+    // }
+    if(response.ok){
+        const review = await response.json()
+        const response2 = await csrfFetch(`/api/spots/${review.spotId}/reviews`)
+
+        if(response2.ok){
+            const data = await response2.json()
+            dispatch(loadReviews(data))
+            return data
+    } 
+    if(response.status >= 400){
+        throw response
+    }
+}
+}
+
 export const tossReview = (reviewId) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE',
@@ -94,6 +122,9 @@ export const tossReview = (reviewId) => async dispatch => {
     else {
         const data = await response.json()
         console.log(data)
+    }
+    if(response.status >= 400){
+        throw response
     }
 }
 
@@ -121,7 +152,8 @@ const reviewReducer = (state = initialState, action) => {
 
         case CREATE_REVIEW:
             newState = { ...state, allReviews: { ...state.allReviews} }
-            newState.allReviews[action.review.id] = action.review
+            newState.allReviews[action.reviewId].review = action.review.review
+            newState.allReviews[action.reviewId].stars = action.review.stars
             return newState
 
         case DELETE_REVIEW:
