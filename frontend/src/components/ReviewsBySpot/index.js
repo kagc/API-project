@@ -94,7 +94,7 @@ function ReviewsBySpot({spot}) {
                         (user.id === review.User.id && (
                         <div>
                             <OpenModalButton 
-                        modalComponent={<EditReviewForm reviewId={review.id}/>}
+                        modalComponent={<EditReviewForm reviewId={review.id} reviewData={review}/>}
                         buttonText='Edit Review'
                         onButtonClick={closeMenu}
                         className='edit-rev-button'/>

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef, startTransition } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { getAllReviews, editReview } from "../../store/reviews";
+import { getAllReviews, editReview, getUsersReviews } from "../../store/reviews";
 import OpenModalButton from '../OpenModalButton';
 import ReviewsBySpot from "../ReviewsBySpot";
 import { useModal } from '../../context/Modal';
+import { getOneSpot } from "../../store/spots";
 
-const EditReviewForm = ( {reviewId} ) => {
-    const { spotId } = useParams()
+const EditReviewForm = ( {reviewId, reviewData} ) => {
+    // const { spotId } = useParams()
     const dispatch = useDispatch()
     const history = useHistory()
     const [showMenu, setShowMenu] = useState(false);
@@ -21,29 +22,33 @@ const EditReviewForm = ( {reviewId} ) => {
     const spot = useSelector(state => state.spots.singleSpot)
     
     const reviewsObj = useSelector(state => state.reviews.allReviews)
-    let reviews
+    let reviews = Object.values(reviewsObj)
     let tempReview
     let tempStars
-    if(reviewsObj) {
-        reviews = Object.values(reviewsObj)
+    if(reviewData) {
+        tempReview = reviewData.review
+        tempStars = reviewData.stars
     }
 
-    const thisReview = reviews.filter(review => review.id === reviewId)
-    if(thisReview.length > 0) {
-        tempReview = thisReview[0].review
-        tempStars  = thisReview[0].stars
-    }
+    // const thisReview = reviews.filter(review => +review.id === +reviewId)
+    // if(thisReview.length > 0) {
+    //     tempReview = thisReview[0].review
+    //     tempStars  = thisReview[0].stars
+    // }
     const [review, setReview] = useState(tempReview)
     const [stars, setStars] = useState(`${tempStars}`)
     const [errors, setErrors] = useState([]);
-    // console.log(stars)
+    console.log("this is reviews", reviewData)
+    // console.log(thisReview)
 
     const [ editedReview, setEditedReview ] = useState('')
     const [ editedStars, setEditedStars ] = useState('1')
 
     useEffect(() => {
         dispatch(getAllReviews())
-    }, [dispatch])
+        dispatch(getUsersReviews())
+        dispatch(getOneSpot(reviewData.spotId))
+    }, [dispatch, showMenu])
 
     const openMenu = () => {
         if (showMenu) return;
@@ -74,7 +79,7 @@ const EditReviewForm = ( {reviewId} ) => {
             stars
         }
         setErrors([]);
-        const madeReview = await dispatch(editReview(newReview, reviewId))
+        const madeReview = await dispatch(editReview(newReview, reviewData.id))
         .catch(
             async (res) => {
                 let errors = []

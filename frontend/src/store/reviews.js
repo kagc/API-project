@@ -135,7 +135,7 @@ const reviewReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case LOAD_REVIEWS:
-            newState = { allReviews: {}, userReviews: {} }
+            newState = {...state, allReviews: { ...state.allReviews }, userReviews: { ...state.userReviews} }
             // console.log(action.reviews)
             action.reviews.Reviews.forEach(review => {
                 newState.allReviews[review.id] = review
@@ -143,7 +143,7 @@ const reviewReducer = (state = initialState, action) => {
             return newState
 
         case USER_REVIEWS:
-            newState = { ...state, userReviews: {} }
+            newState = { ...state, userReviews: { ...state.userReviews } }
             // console.log(newState)
             action.reviews.Reviews.forEach(review => {
                 newState.userReviews[review.id] = review
@@ -151,9 +151,9 @@ const reviewReducer = (state = initialState, action) => {
             return newState
 
         case CREATE_REVIEW:
-            newState = { ...state, allReviews: { ...state.allReviews} }
-            newState.allReviews[action.reviewId].review = action.review.review
-            newState.allReviews[action.reviewId].stars = action.review.stars
+            newState = { ...state, allReviews: { ...state.allReviews}, userReviews: { ...state.userReviews } }
+            newState.allReviews[action.reviewId] = action.review
+            newState.userReviews[action.reviewId] = action.review
             return newState
 
         case DELETE_REVIEW:
