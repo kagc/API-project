@@ -307,7 +307,32 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         stars
     })
 
-    return res.status(201).json(newReview)
+    const theReview = await Review.findByPk(newReview.id, {
+        include: [{
+            model: User
+        },{
+            model: Spot,
+            include: {
+                model: SpotImage
+            }
+        }, {
+            model: ReviewImage
+        }]
+    })
+
+    let rev = theReview.toJSON()
+
+    rev.Spot.SpotImages.forEach(image => {
+        if(image.preview === true){
+            rev.Spot.previewImage = image.url
+        }
+    })
+        if (!rev.Spot.previewImage){
+            rev.Spot.previewImage = "No preview image found. :("
+        }
+        delete rev.Spot.SpotImages
+
+    return res.status(201).json(rev)
 
 })
 

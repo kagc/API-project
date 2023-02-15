@@ -57,16 +57,14 @@ export const makeReview = (spotId, newReview) => async dispatch => {
     if(response.ok){
         const review = await response.json()
         // console.log('first res ok')
-        // dispatch(createReview(review))
-        // return review
-        const response2 = await csrfFetch(`/api/spots/${spotId}/reviews`)
+        dispatch(createReview(review))
+        return review
+        // const response2 = await csrfFetch(`/api/spots/${spotId}/reviews`)
 
-        if(response2.ok){
-            const data = await response2.json()
-            // console.log('second res ok')
-            // return console.log('data', data)
-            dispatch(loadReviews(data))
-            return data
+        // if(response2.ok){
+        //     const data = await response2.json()
+        //     dispatch(loadReviews(data))
+        //     return data
         // }
 
         // return console.log(review)
@@ -76,7 +74,7 @@ export const makeReview = (spotId, newReview) => async dispatch => {
     //     const data = await response.json()
     //     console.log('data', data)
     //     return alert(`${data.message}`)
-    }
+    // }
 }
 
 export const editReview = (review, reviewId) => async dispatch => {
@@ -94,17 +92,19 @@ export const editReview = (review, reviewId) => async dispatch => {
     // }
     if(response.ok){
         const review = await response.json()
-        const response2 = await csrfFetch(`/api/spots/${review.spotId}/reviews`)
+        dispatch(createReview(review))
+        return review
+        // const response2 = await csrfFetch(`/api/spots/${review.spotId}/reviews`)
 
-        if(response2.ok){
-            const data = await response2.json()
-            dispatch(loadReviews(data))
-            return data
+        // if(response2.ok){
+        //     const data = await response2.json()
+        //     dispatch(loadReviews(data))
+        //     return data
     } 
     if(response.status >= 400){
         throw response
     }
-}
+// }
 }
 
 export const tossReview = (reviewId) => async dispatch => {
@@ -152,8 +152,8 @@ const reviewReducer = (state = initialState, action) => {
 
         case CREATE_REVIEW:
             newState = { ...state, allReviews: { ...state.allReviews}, userReviews: { ...state.userReviews } }
-            newState.allReviews[action.reviewId] = action.review
-            newState.userReviews[action.reviewId] = action.review
+            newState.allReviews[action.review.id] = action.review
+            newState.userReviews[action.review.id] = action.review
             return newState
 
         case DELETE_REVIEW:
