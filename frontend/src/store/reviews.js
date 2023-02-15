@@ -57,16 +57,14 @@ export const makeReview = (spotId, newReview) => async dispatch => {
     if(response.ok){
         const review = await response.json()
         // console.log('first res ok')
-        // dispatch(createReview(review))
-        // return review
-        const response2 = await csrfFetch(`/api/spots/${spotId}/reviews`)
+        dispatch(createReview(review))
+        return review
+        // const response2 = await csrfFetch(`/api/spots/${spotId}/reviews`)
 
-        if(response2.ok){
-            const data = await response2.json()
-            // console.log('second res ok')
-            // return console.log('data', data)
-            dispatch(loadReviews(data))
-            return data
+        // if(response2.ok){
+        //     const data = await response2.json()
+        //     dispatch(loadReviews(data))
+        //     return data
         // }
 
         // return console.log(review)
@@ -76,7 +74,37 @@ export const makeReview = (spotId, newReview) => async dispatch => {
     //     const data = await response.json()
     //     console.log('data', data)
     //     return alert(`${data.message}`)
+    // }
+}
+
+export const editReview = (review, reviewId) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`,  {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(review)
+    })
+    // if (response.ok){
+    //     const data = await response.json()
+    //     dispatch(createReview(data))
+    //     return data
+    // }
+    if(response.ok){
+        const review = await response.json()
+        dispatch(createReview(review))
+        return review
+        // const response2 = await csrfFetch(`/api/spots/${review.spotId}/reviews`)
+
+        // if(response2.ok){
+        //     const data = await response2.json()
+        //     dispatch(loadReviews(data))
+        //     return data
+    } 
+    if(response.status >= 400){
+        throw response
     }
+// }
 }
 
 export const tossReview = (reviewId) => async dispatch => {
@@ -95,6 +123,9 @@ export const tossReview = (reviewId) => async dispatch => {
         const data = await response.json()
         console.log(data)
     }
+    if(response.status >= 400){
+        throw response
+    }
 }
 
 const initialState = { allReviews: {}, userReviews: {} }
@@ -104,7 +135,7 @@ const reviewReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case LOAD_REVIEWS:
-            newState = { allReviews: {}, userReviews: {} }
+            newState = {...state, allReviews: {} }
             // console.log(action.reviews)
             action.reviews.Reviews.forEach(review => {
                 newState.allReviews[review.id] = review
@@ -120,8 +151,9 @@ const reviewReducer = (state = initialState, action) => {
             return newState
 
         case CREATE_REVIEW:
-            newState = { ...state, allReviews: { ...state.allReviews} }
+            newState = { ...state, allReviews: { ...state.allReviews}, userReviews: { ...state.userReviews } }
             newState.allReviews[action.review.id] = action.review
+            newState.userReviews[action.review.id] = action.review
             return newState
 
         case DELETE_REVIEW:

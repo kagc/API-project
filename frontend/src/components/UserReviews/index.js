@@ -3,17 +3,22 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import { Link, Route, useHistory } from "react-router-dom";
-import { getUsersReviews, tossReview } from "../../store/reviews";
+import { getAllReviews, getUsersReviews, tossReview } from "../../store/reviews";
 import { getAllSpots } from "../../store/spots";
+import OpenModalButton from '../OpenModalButton';
+import EditReviewForm from '../EditReviewForm';
 
 const UserReviews = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const ulRef = useRef();
+    const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     dispatch(getUsersReviews());
+    dispatch(getAllReviews())
     dispatch(getAllSpots());
-  }, [dispatch]);
+  }, [dispatch, showMenu]);
 
   const reviewsObj = useSelector((state) => state.reviews.userReviews);
   const reviews = Object.values(reviewsObj);
@@ -24,18 +29,60 @@ const UserReviews = () => {
   // reviews.forEach(review => {
   //     if(Object.values(spots).id === review.spotId) console.log('!!!!', review)
   // })
-  console.log('reviews', reviews)
-  let reviewsList = [];
-  let spotList = [];
-  spots.forEach((spot) => {
-    reviews.forEach((review) => {
-      if (spot.id === review.spotId) {
-        reviewsList.push(review);
-        spotList.push(spot);
-      }
-    });
-  });
+  // console.log('reviews', reviews)
 
+  // let reviewsList = [];
+  // let spotList = [];
+  // spots.forEach((spot) => {
+  //   reviews.forEach((review) => {
+  //     if (spot.id === review.spotId) {
+  //       reviewsList.push(review);
+  //       spotList.push(spot);
+  //     }
+  //   });
+  // });
+
+  // let currReviews
+  //   let tempReview
+  //   let tempStars
+    // if(reviewsObj) {
+    //   currReviews = Object.values(reviewsObj)
+    // }
+    // let reviewId
+    // const [ reviewId, setReviewId ] = useState("")
+    // console.log(reviewId)
+
+    // const thisReview = reviews.filter(review => review.id === reviewId)
+    // if(thisReview.length > 0) {
+    //     tempReview = thisReview[0].review
+    //     tempStars  = thisReview[0].stars
+    // }
+    // const [review, setReview] = useState(tempReview)
+    // const [stars, setStars] = useState(`${tempStars}`)
+    // const [errors, setErrors] = useState([]);
+
+  const openMenu = () => {
+    if (showMenu) return;
+
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (!ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener('click', closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  const closeMenu = () => setShowMenu(false);
+  if(!reviewsObj || !spotsObj) return null
   
   return (
     <div>
@@ -70,7 +117,14 @@ const UserReviews = () => {
                               <div className="manage-buttons">
                                 <div className='bottom-button'>
                                 
+                                <OpenModalButton 
+                        modalComponent={<EditReviewForm reviewId={review.id} reviewData={review}/>}
+                        buttonText='Edit Review'
+                        onButtonClick={closeMenu}
+                        className='edit-rev-button'/>
+
                                   <button
+                                  className="delrev-button"
                                     onClick={async (e) => {
                                       e.preventDefault();
                                       const deleted = await dispatch(

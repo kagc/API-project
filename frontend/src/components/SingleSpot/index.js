@@ -48,7 +48,7 @@ function SingleSpot() {
     const reviews = Object.values(reviewsObj)
     const spot = useSelector(state => state.spots.singleSpot)
     const user = useSelector(state => state.session)
-    console.log('user', user)
+    // console.log('user', user)
     // console.log(avgStars)
 
     const openMenu = () => {

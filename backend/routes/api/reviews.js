@@ -136,7 +136,18 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => 
     let { reviewId } = req.params
     let { review, stars } = req.body
 
-    const theReview = await Review.findByPk(reviewId)
+    const theReview = await Review.findByPk(reviewId, {
+        include: [{
+            model: User
+        },{
+            model: Spot,
+            include: {
+                model: SpotImage
+            }
+        }, {
+            model: ReviewImage
+        }]
+    })
 
     if(!theReview){
         return res.status(404).json({
@@ -157,7 +168,19 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => 
         stars
     })
 
-    return res.status(200).json(updatedReview)
+    let rev = theReview.toJSON()
+
+    rev.Spot.SpotImages.forEach(image => {
+        if(image.preview === true){
+            rev.Spot.previewImage = image.url
+        }
+    })
+        if (!rev.Spot.previewImage){
+            rev.Spot.previewImage = "No preview image found. :("
+        }
+        delete rev.Spot.SpotImages
+
+    return res.status(200).json(rev)
 })
 
 // Delete a review
