@@ -79,6 +79,34 @@ export const makeReview = (spotId, newReview) => async dispatch => {
     }
 }
 
+export const editReview = (review, reviewId) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`,  {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(review)
+    })
+    // if (response.ok){
+    //     const data = await response.json()
+    //     dispatch(createReview(data))
+    //     return data
+    // }
+    if(response.ok){
+        const review = await response.json()
+        const response2 = await csrfFetch(`/api/spots/${review.spotId}/reviews`)
+
+        if(response2.ok){
+            const data = await response2.json()
+            dispatch(loadReviews(data))
+            return data
+    } 
+    if(response.status >= 400){
+        throw response
+    }
+}
+}
+
 export const tossReview = (reviewId) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE',
@@ -95,6 +123,9 @@ export const tossReview = (reviewId) => async dispatch => {
         const data = await response.json()
         console.log(data)
     }
+    if(response.status >= 400){
+        throw response
+    }
 }
 
 const initialState = { allReviews: {}, userReviews: {} }
@@ -104,7 +135,7 @@ const reviewReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case LOAD_REVIEWS:
-            newState = { allReviews: {}, userReviews: {} }
+            newState = {...state, allReviews: { ...state.allReviews }, userReviews: { ...state.userReviews} }
             // console.log(action.reviews)
             action.reviews.Reviews.forEach(review => {
                 newState.allReviews[review.id] = review
@@ -112,7 +143,7 @@ const reviewReducer = (state = initialState, action) => {
             return newState
 
         case USER_REVIEWS:
-            newState = { ...state, userReviews: {} }
+            newState = { ...state, userReviews: { ...state.userReviews } }
             // console.log(newState)
             action.reviews.Reviews.forEach(review => {
                 newState.userReviews[review.id] = review
@@ -120,8 +151,9 @@ const reviewReducer = (state = initialState, action) => {
             return newState
 
         case CREATE_REVIEW:
-            newState = { ...state, allReviews: { ...state.allReviews} }
-            newState.allReviews[action.review.id] = action.review
+            newState = { ...state, allReviews: { ...state.allReviews}, userReviews: { ...state.userReviews } }
+            newState.allReviews[action.reviewId] = action.review
+            newState.userReviews[action.reviewId] = action.review
             return newState
 
         case DELETE_REVIEW:

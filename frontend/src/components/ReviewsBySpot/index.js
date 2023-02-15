@@ -1,16 +1,20 @@
 import './ReviewsBySpot.css'
 import { getAllReviews } from '../../store/reviews'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Route, useParams, Link, useHistory } from 'react-router-dom';
 import { tossReview } from '../../store/reviews'
 import { getAllSpots, getOneSpot } from '../../store/spots';
+import EditReviewForm from '../EditReviewForm';
+import OpenModalButton from '../OpenModalButton';
 
 
 function ReviewsBySpot({spot}) {
     const { spotId } = useParams()
     const dispatch = useDispatch()
     const history = useHistory()
+    const ulRef = useRef();
+    const [showMenu, setShowMenu] = useState(false);
 
     useEffect(() => {
         dispatch((getAllReviews(spot.id)))
@@ -20,6 +24,26 @@ function ReviewsBySpot({spot}) {
 
     // const spot = useSelector(state => state.spots.singleSpot)
     // console.log(spot)
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+      };
+    
+      useEffect(() => {
+        if (!showMenu) return;
+    
+        const closeMenu = (e) => {
+          if (!ulRef.current.contains(e.target)) {
+            setShowMenu(false);
+          }
+        };
+    
+        document.addEventListener('click', closeMenu);
+    
+        return () => document.removeEventListener("click", closeMenu);
+      }, [showMenu]);
+    
+      const closeMenu = () => setShowMenu(false);
 
     const user = useSelector(state => state.session.user)
     const reviewsObj = useSelector(state => state.reviews.allReviews)
@@ -34,6 +58,8 @@ function ReviewsBySpot({spot}) {
     let avgStars = parseFloat(avg.toPrecision(3))
     console.log('user', user)
     // console.log(avgStars)
+
+    let thisReview
 
     // if(!user) return null
     if(reviews === undefined) return null
@@ -65,13 +91,22 @@ function ReviewsBySpot({spot}) {
 
                         <div className='delete-rev-button-holder'>
                         {user !== null && 
-                        (user.id === review.User.id && (<button className='delete-rev-button' onClick={ async (e) => {
+                        (user.id === review.User.id && (
+                        <div>
+                            <OpenModalButton 
+                        modalComponent={<EditReviewForm reviewId={review.id} reviewData={review}/>}
+                        buttonText='Edit Review'
+                        onButtonClick={closeMenu}
+                        className='edit-rev-button'/>
+                        <button className='delete-rev-button' onClick={ async (e) => {
             e.preventDefault();
             const deleted = await dispatch((tossReview(review.id)))
             if (deleted){
             history.push(`/spots/${review.spotId}`)
             }
-        }}>Delete Review</button>))}
+        }}>Delete Review</button>
+        </div>
+        ))}
                         </div>
                     </div>
                     
