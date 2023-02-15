@@ -124,6 +124,7 @@ const UserReviews = () => {
                         className='edit-rev-button'/>
 
                                   <button
+                                  className="delrev-button"
                                     onClick={async (e) => {
                                       e.preventDefault();
                                       const deleted = await dispatch(
