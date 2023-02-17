@@ -7,6 +7,8 @@ import OpenModalMenuItem from '../Navigation/'
 import CreateReviewForm from '../CreateReviewForm';
 import OpenModalButton from '../OpenModalButton';
 import ReviewsBySpot from '../ReviewsBySpot';
+import CreateBookingForm from '../CreateBooking';
+import { useModal } from '../../context/Modal';
 import './SingleSpot.css'
 import { getAllReviews, tossReview } from '../../store/reviews'
 
@@ -18,6 +20,27 @@ function SingleSpot() {
     const ulRef = useRef();
     const history = useHistory()
 
+    Date.prototype.addDays = function(days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+      }
+
+    const tempDate = new Date()
+    // const tomorrow = tempDate.addDays(1)
+    const tempTomorrow = tempDate.toJSON().slice(0,10)
+    
+    const end = tempDate.addDays(1)
+    const tempEnd = end.toJSON().slice(0,10)
+    
+    
+    const [startDate, setStartDate] = useState(tempTomorrow)
+    const [limit, setLimit] = useState('')
+    const [numNights, setNumNights] = useState(1)
+    const [endDate, setEndDate] = useState(tempEnd)
+    // console.log("end", endDate)
+    
+    const [errors, setErrors] = useState([]);
     useEffect(() => {
         dispatch(getAllReviews(spotId))
         .then(res => {
@@ -72,6 +95,20 @@ function SingleSpot() {
       }, [showMenu]);
     
       const closeMenu = () => setShowMenu(false);
+
+      const createBooking = async (e) => {
+        e.preventDefault()
+        const newBooking = {
+            spotId,
+            startDate,
+            endDate,
+            userId: user.id
+        }
+
+        console.log("THIS IS A NEW BOOKING",newBooking)
+
+
+      } 
 
     //   if (user.user === null) return null
     if(!spot || !spot.SpotImages || !reviewsObj || !reviews || !user ) return null
@@ -198,7 +235,7 @@ function SingleSpot() {
 </div>
 
 </div>
-
+{/* ---------------------------------BOOKING------------------------------------- */}
             </div>
                 <div className='another-div'>
                     <div className='floaty-box-holder'>
@@ -224,19 +261,89 @@ function SingleSpot() {
 
 
                         <div className='midholder'>
-
- <div className='reserve-box' title='Unable to make reservations at this time'>
+<form onSubmit={createBooking}>
+ <div className='reserve-box'>
     {/* <hr></hr> */}
+    <label>Check-In</label>
+    <input
+    className="b-input-line"
+    placeholder='CHECK-IN'
+    value={startDate}
+    type="date"
+    name="startDate"
+    min={tempTomorrow}
+    onChange={(e) => {
+        setStartDate(e.target.value)
+        let date1 = new Date(startDate);
+        let date2 = new Date(endDate);
+        let diffTime = Math.floor(date2 - date1)
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+        
+        // let oneDay = 24 * 60 * 60 * 1000
+        // let splitStart = startDate.split('-')
+        // let splitEnd = endDate.split('-')
+        // console.log(splitStart)
+        // let firstDate = new Date(splitStart[2], splitStart[0], splitStart[1])
+        // let secondDate = new Date(splitEnd[2], splitEnd[0], splitEnd[1])
+        // let diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))
+
+        if (date1 < date2){
+            console.log("AAAAA", diffTime, date1, date2)
+            setNumNights(diffDays)
+        } else {
+            setNumNights(0)
+        }
+        // setLimit(startDate.addDays(1).toJSON().slice(0,10))
+        }}>
+    </input>
+
+    <label>Checkout</label>
+    <input
+    placeholder='CHECKOUT'
+    className="b-input-line2"
+    value={endDate}
+    type="date"
+    name="endDate"
+    min={tempEnd}
+    onChange={(e) => {
+        
+        setEndDate(e.target.value)
+        
+        let date1 = new Date(startDate);
+        let date2 = new Date(endDate);
+        let diffTime = Math.floor(date2 - date1)
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+        // let oneDay = 24 * 60 * 60 * 1000
+        // let splitStart = startDate.split('-')
+        // let splitEnd = endDate.split('-')
+        // let firstDate = new Date(splitStart[2], splitStart[0], splitStart[1])
+        // let secondDate = new Date(splitEnd[2], splitEnd[0], splitEnd[1])
+        // let diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))
+        if (date1 < date2){
+            console.log("AAAAA", diffTime, date1,date2)
+            setNumNights(diffDays)
+        } else {
+            setNumNights(0)
+        }
+        }}>
+    </input>
     <h2></h2>
     {/* <h2></h2> */}
  </div>
                        <div className='reserve-button-div' 
                     //    title='Unable to make reservations at this time'
                        >
-                       <button className=''>Reserve Spot</button>
+                       <button className='reserve-button'>Reserve Spot</button>
 
                        </div>
+                       <div className="charged-text"><span>You won't be charged yet.</span></div>
+</form>
+                        </div>
 
+                        <div className="calc-box">
+                            <div className="calc-equ">${spot.price} x {numNights} night{numNights === 1 ? '' : 's'}</div>
+                            <div>${spot.price}</div>
                         </div>
                        
                        <div className='totalPrice'>
@@ -249,7 +356,7 @@ function SingleSpot() {
             
 </div>
            
-
+{/* -----------------------------------REVIEWS--------------------------------- */}
             <div className='reviews-box'>
             
             <div>

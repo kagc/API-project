@@ -69,8 +69,8 @@ const UserBookings = () => {
                             {booking.Spot.city}, {booking.Spot.state}
                           </div>
                         </div>
-                          <div><span className='price'><i className="fa-solid fa-star"></i>idk</span> </div>
-                          <div className='reviewtext-holder'><span className='reviewtext'>idk</span></div>
+                          <div><span className='price'>Check In: {booking.startDate}</span> </div>
+                          <div className='reviewtext-holder'><span className='reviewtext'>Check Out: {booking.endDate}</span></div>
 
                         </div>
                     </div>
