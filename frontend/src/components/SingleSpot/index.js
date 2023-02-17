@@ -229,8 +229,10 @@ function SingleSpot() {
     <h2></h2>
     {/* <h2></h2> */}
  </div>
-                       <div className='reserve-button-div' title='Unable to make reservations at this time'>
-                       <button className='cant-reserve'>Reserve Coming Soon</button>
+                       <div className='reserve-button-div' 
+                    //    title='Unable to make reservations at this time'
+                       >
+                       <button className=''>Reserve Spot</button>
 
                        </div>
 
