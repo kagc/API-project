@@ -2,6 +2,7 @@ import { Link, useParams, useHistory, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect, useRef } from 'react';
 import { getOneSpot, nukeSpot } from '../../store/spots'
+import { getUserSpots } from '../../store/spots';
 import OpenModalMenuItem from '../Navigation/'
 import CreateReviewForm from '../CreateReviewForm';
 import OpenModalButton from '../OpenModalButton';

@@ -31,7 +31,7 @@ const remove = (booking) => ({
     booking
 })
 
-const getAllBookings = (spotId) => async dispatch => {
+export const getAllBookings = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/bookings`)
 
     if (response.ok) {
@@ -41,7 +41,7 @@ const getAllBookings = (spotId) => async dispatch => {
     }
 }
 
-const getUserBookings = () => async dispatch => {
+export const getUserBookings = () => async dispatch => {
     const response = await csrfFetch(`/api/bookings/current`)
 
     if (response.ok) {
@@ -51,7 +51,7 @@ const getUserBookings = () => async dispatch => {
     }
 }
 
-const createBooking = (newBooking) => async dispatch => {
+export const createBooking = (newBooking) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${newBooking.spotId}/bookings`, {
         method: "POST",
         headers: {
@@ -66,7 +66,7 @@ const createBooking = (newBooking) => async dispatch => {
     }
 }
 
-const modBooking = (bookingData) => async dispatch => {
+export const modBooking = (bookingData) => async dispatch => {
     const response = await csrfFetch(`/api/bookings/${bookingData.id}`, {
         method: "PUT",
         headers: {
@@ -81,7 +81,7 @@ const modBooking = (bookingData) => async dispatch => {
     }
 }
 
-const removeBooking = (bookingId) => async dispatch => {
+export const removeBooking = (bookingId) => async dispatch => {
     const response = await csrfFetch(`/api/bookings/${bookingId}`, {
         method: "DELETE",
         headers: {

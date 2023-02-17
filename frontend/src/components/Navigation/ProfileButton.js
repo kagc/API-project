@@ -66,6 +66,9 @@ function ProfileButton({ user }) {
               {/* </Route> */}
               </li>
               <li>
+                <Link className='link' to='/manage-bookings'>Manage Bookings</Link>
+              </li>
+              <li>
                 <Link className='link' to='/manage-reviews'>Manage Reviews</Link>
               </li>
               <hr></hr>
