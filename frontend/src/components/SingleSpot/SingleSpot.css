@@ -372,12 +372,25 @@ justify-content: flex-end;
     /* padding-bottom: 1rem; */
 }
 
+.reserve-box> label {
+    display: flex;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
 .reserve-box> h2 {
     height: 50%;
     margin: 0px;
     border-bottom: darkgray 1px solid;
 }
 
+.min-not-met {
+    color: red;
+    text-align: center;
+    margin-bottom: 1rem;
+}
 /* .reserve-box:hover {
     cursor: not-allowed;
 } */

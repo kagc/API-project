@@ -27,10 +27,10 @@ function SingleSpot() {
       }
 
     const tempDate = new Date()
-    // const tomorrow = tempDate.addDays(1)
-    const tempTomorrow = tempDate.toJSON().slice(0,10)
+    const tomorrow = tempDate.addDays(1)
+    const tempTomorrow = tomorrow.toJSON().slice(0,10)
     
-    const end = tempDate.addDays(1)
+    const end = tomorrow.addDays(1)
     const tempEnd = end.toJSON().slice(0,10)
     
     
@@ -274,10 +274,10 @@ function SingleSpot() {
     min={tempTomorrow}
     onChange={(e) => {
         setStartDate(e.target.value)
-        let date1 = new Date(startDate);
+        let date1 = new Date(e.target.value);
         let date2 = new Date(endDate);
-        let diffTime = Math.floor(date2 - date1)
-        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+        let diffTime = date2.getTime() - date1.getTime()
+        let diffDays = diffTime / (1000 * 60 * 60 * 24)
         
         // let oneDay = 24 * 60 * 60 * 1000
         // let splitStart = startDate.split('-')
@@ -310,9 +310,9 @@ function SingleSpot() {
         setEndDate(e.target.value)
         
         let date1 = new Date(startDate);
-        let date2 = new Date(endDate);
-        let diffTime = Math.floor(date2 - date1)
-        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+        let date2 = new Date(e.target.value);
+        let diffTime = date2.getTime() - date1.getTime()
+        let diffDays = diffTime / (1000 * 60 * 60 * 24)
 
         // let oneDay = 24 * 60 * 60 * 1000
         // let splitStart = startDate.split('-')
@@ -334,7 +334,8 @@ function SingleSpot() {
                        <div className='reserve-button-div' 
                     //    title='Unable to make reservations at this time'
                        >
-                       <button className='reserve-button'>Reserve Spot</button>
+                        {!numNights > 0 ? <div className="min-not-met">Stay must be one night or longer</div> : <button className='reserve-button'>Reserve Spot</button>}
+                       
 
                        </div>
                        <div className="charged-text"><span>You won't be charged yet.</span></div>
@@ -342,12 +343,12 @@ function SingleSpot() {
                         </div>
 
                         <div className="calc-box">
-                            <div className="calc-equ">${spot.price} x {numNights} night{numNights === 1 ? '' : 's'}</div>
-                            <div>${spot.price}</div>
+                            <div className="calc-equ">${spot.price} {numNights > 0 ? `x ${numNights} night${numNights === 1 ? '' : 's'}` : 'x 0 nights'}</div>
+                            <div>${numNights > 0 ? spot.price*numNights : 0}</div>
                         </div>
                        
                        <div className='totalPrice'>
-                        <span>Total before taxes</span> <span>${spot.price}</span>
+                        <span>Total before taxes</span> <span>${spot.price*numNights}</span>
                        </div>
                 
                 </div>
