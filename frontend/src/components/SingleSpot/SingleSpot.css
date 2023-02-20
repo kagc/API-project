@@ -440,7 +440,7 @@ justify-content: flex-end;
 }
 
 .calc-box {
-    border: solid red 1px;
+    /* border: solid red 1px; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;

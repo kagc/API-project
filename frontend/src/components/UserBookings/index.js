@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import { Link, Route, useHistory } from "react-router-dom";
-import { getUserBookings } from '../../store/bookings'
+import { getUserBookings, removeBooking } from '../../store/bookings'
 import { getAllSpots } from "../../store/spots";
 import OpenModalButton from '../OpenModalButton';
 import EditReviewForm from '../EditReviewForm';
@@ -77,31 +77,31 @@ const UserBookings = () => {
                   </Link>
 
                   <div className="manage-button-holder">
-                              {/* <div className="manage-buttons">
+                              <div className="manage-buttons">
                                 <div className='bottom-button'>
                                 
-                                <OpenModalButton 
+                                {/* <OpenModalButton 
                         modalComponent={<EditReviewForm reviewId={review.id} reviewData={review}/>}
                         buttonText='Edit Review'
                         onButtonClick={closeMenu}
-                        className='edit-rev-button'/>
+                        className='edit-rev-button'/> */}
 
                                   <button
                                   className="delrev-button"
                                     onClick={async (e) => {
                                       e.preventDefault();
                                       const deleted = await dispatch(
-                                        tossReview(review.id)
+                                        removeBooking(booking.id)
                                       );
                                       if (deleted) {
-                                        history.push(`/manage-reviews`);
+                                        history.push(`/manage-bookings`);
                                       }
                                     }}
                                   >
-                                    Delete Review
+                                    Delete Booking
                                   </button>
                                   </div>
-                              </div> */}
+                              </div>
                             </div>
                   </div>
                 // </div>

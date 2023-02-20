@@ -7,7 +7,8 @@ import OpenModalMenuItem from '../Navigation/'
 import CreateReviewForm from '../CreateReviewForm';
 import OpenModalButton from '../OpenModalButton';
 import ReviewsBySpot from '../ReviewsBySpot';
-import CreateBookingForm from '../CreateBooking';
+import { createBooking } from '../../store/bookings';
+// import CreateBookingForm from '../CreateBooking';
 import { useModal } from '../../context/Modal';
 import './SingleSpot.css'
 import { getAllReviews, tossReview } from '../../store/reviews'
@@ -72,7 +73,7 @@ function SingleSpot() {
     const reviews = Object.values(reviewsObj)
     const spot = useSelector(state => state.spots.singleSpot)
     const user = useSelector(state => state.session)
-    // console.log('user', user)
+    // console.log('user', user.user.id)
     // console.log(avgStars)
 
     const openMenu = () => {
@@ -96,16 +97,31 @@ function SingleSpot() {
     
       const closeMenu = () => setShowMenu(false);
 
-      const createBooking = async (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault()
+
         const newBooking = {
             spotId,
             startDate,
             endDate,
-            userId: user.id
+            userId: user.user.id
         }
 
-        console.log("THIS IS A NEW BOOKING",newBooking)
+        setErrors([]);
+        // console.log("THIS IS A NEW BOOKING",newBooking)
+        const madeBooking = await dispatch(createBooking(newBooking))
+        .catch(
+            async (res) => {
+                let errors = []
+                const data = await res.json()
+                errors.push(data.message)
+                if(data && data.statusCode > 400) setErrors(errors)
+            }
+        )
+
+        if (madeBooking) {
+            return history.push(`/manage-bookings`)
+        }
 
 
       } 
@@ -261,7 +277,7 @@ function SingleSpot() {
 
 
                         <div className='midholder'>
-<form onSubmit={createBooking}>
+<form onSubmit={handleSubmit}>
  <div className='reserve-box'>
     {/* <hr></hr> */}
     <label>Check-In</label>
@@ -288,7 +304,7 @@ function SingleSpot() {
         // let diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))
 
         if (date1 < date2){
-            console.log("AAAAA", diffTime, date1, date2)
+            // console.log("AAAAA", diffTime, date1, date2)
             setNumNights(diffDays)
         } else {
             setNumNights(0)
@@ -321,7 +337,7 @@ function SingleSpot() {
         // let secondDate = new Date(splitEnd[2], splitEnd[0], splitEnd[1])
         // let diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))
         if (date1 < date2){
-            console.log("AAAAA", diffTime, date1,date2)
+            // console.log("AAAAA", diffTime, date1,date2)
             setNumNights(diffDays)
         } else {
             setNumNights(0)
