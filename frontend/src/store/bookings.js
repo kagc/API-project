@@ -91,6 +91,7 @@ export const removeBooking = (bookingId) => async dispatch => {
     if(response.ok){
         const deletedBooking = await response.json()
         dispatch(remove(deletedBooking))
+        return deletedBooking
     }
 }
 
@@ -121,8 +122,8 @@ const bookingReducer = (state = initialState, action) => {
 
         case DELETE_BOOKING: 
             newState = { ...state, allBookings: { ...state.allBookings }, userBookings: { ... state.userBookings }}
-            delete newState.allBookings[action.bookingId]
-            delete newState.userBookings[action.bookingId]
+            delete newState.allBookings[action.booking.id]
+            delete newState.userBookings[action.booking.id]
             return newState
 
         default: 
