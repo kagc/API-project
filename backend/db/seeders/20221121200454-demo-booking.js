@@ -6,6 +6,13 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
+let startDate = new Date()
+
+Date.prototype.addDays = function(days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -15,17 +22,20 @@ module.exports = {
       {
         spotId: 1,
         userId: 2,
-        startDate: new Date()
+        startDate: startDate,
+        endDate: startDate.addDays(5)
       },
       {
         spotId: 2,
         userId: 3,
-        startDate: new Date()
+        startDate: startDate,
+        endDate: startDate.addDays(5)
       },
       {
         spotId: 3,
         userId: 1,
-        startDate: new Date()
+        startDate: startDate,
+        endDate: startDate.addDays(5)
       },
     ], {})
     /**

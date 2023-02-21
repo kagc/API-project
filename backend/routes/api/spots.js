@@ -403,7 +403,31 @@ let stop = false
         endDate
     })
 
-    return res.status(200).json(newBooking)
+    const theBooking = await Booking.findByPk(newBooking.id, {
+        include: {
+            model: Spot,
+            include: {
+              model: SpotImage,
+            },
+          },
+    })
+
+    let returnBooking = theBooking.toJSON()
+
+    returnBooking.Spot.SpotImages.forEach(image => {
+        if(image.preview === true){
+            returnBooking.Spot.previewImage = image.url
+        }
+    })
+        if (!returnBooking.Spot.previewImage){
+            returnBooking.Spot.previewImage = "No preview image found. :("
+        }
+        delete returnBooking.Spot.SpotImages
+        delete returnBooking.Spot.description
+        delete returnBooking.Spot.createdAt
+        delete returnBooking.Spot.updatedAt
+
+    return res.status(200).json(returnBooking)
 }
 })
 
@@ -690,8 +714,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     })
 
     bookingList.forEach(booking => {
-        delete booking.userId
-        delete booking.id
+        // delete booking.userId
+        // delete booking.id
         delete booking.createdAt
         delete booking.updatedAt
     })

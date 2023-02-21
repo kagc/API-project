@@ -104,23 +104,47 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
     });
   }
 
-  if (newEndDate >= ed && newStartDate <= sd) {
-    return res.status(403).json({
-      message: "Sorry, this spot is already booked for the specified dates",
-      statusCode: 403,
-      errors: {
-        startDate: "Start date conflicts with an existing booking",
-        endDate: "End date conflicts with an existing booking",
-      },
-    });
-  }
+  // if (newEndDate >= ed && newStartDate <= sd) {
+  //   return res.status(403).json({
+  //     message: "Sorry, this spot is already booked for the specified dates",
+  //     statusCode: 403,
+  //     errors: {
+  //       startDate: "Start date conflicts with an existing booking",
+  //       endDate: "End date conflicts with an existing booking",
+  //     },
+  //   });
+  // }
 
   const updated = await booking.update({
     startDate,
     endDate,
   });
 
-  return res.status(200).json(updated);
+  const theBooking = await Booking.findByPk(updated.id, {
+    include: {
+        model: Spot,
+        include: {
+          model: SpotImage,
+        },
+      },
+})
+
+let returnBooking = theBooking.toJSON()
+
+returnBooking.Spot.SpotImages.forEach(image => {
+    if(image.preview === true){
+        returnBooking.Spot.previewImage = image.url
+    }
+})
+    if (!returnBooking.Spot.previewImage){
+        returnBooking.Spot.previewImage = "No preview image found. :("
+    }
+    delete returnBooking.Spot.SpotImages
+    delete returnBooking.Spot.description
+    delete returnBooking.Spot.createdAt
+    delete returnBooking.Spot.updatedAt
+
+  return res.status(200).json(returnBooking);
 });
 
 // Delete booking
@@ -156,6 +180,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
   }
 
   return res.status(200).json({
+    id: booking.id,
     message: "Successfully deleted",
     statusCode: 200
   })

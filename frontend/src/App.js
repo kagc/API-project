@@ -9,6 +9,7 @@ import CreateSpot from "./components/CreateSpot";
 import ManageListingsPage from "./components/ManageListingsPage";
 import UserReviews from "./components/UserReviews";
 import PageNotFound from "./components/PageNotFound";
+import UserBookings from "./components/UserBookings";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route path='/manage-reviews'>
             <UserReviews />
+          </Route>
+          <Route path='/manage-bookings'>
+            <UserBookings />
           </Route>
 
           {/* <Route path='/spots/:spotId'>

@@ -1,0 +1,35 @@
+.bookingform-holder {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* justify-content: center; */
+    align-items: center;
+    width: 20rem;
+    height: 35rem;
+    padding: 3rem;
+}
+
+.editbooking-div {
+    display: flex;
+    flex-direction: column;
+    width: 15rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    /* height: 30rem; */
+}
+
+.eb-topline {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.eb-calc-box {
+    /* border: solid red 1px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
