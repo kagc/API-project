@@ -109,7 +109,7 @@ const UserBookings = () => {
                         onButtonClick={closeMenu}
                         className='edit-rev-button'/> */}
 
-                            {/* {date1 > today ? <button
+                            {date1 > today ? <button
                                   className="delrev-button"
                                     onClick={async (e) => {
                                       e.preventDefault();
@@ -122,9 +122,9 @@ const UserBookings = () => {
                                     }}
                                   >
                                     Delete Booking
-                                  </button> : <div id="no-delete" disabled>Cannot delete if Check In has passed</div>} */}
+                                  </button> : <div id="no-delete2" disabled>Bookings that have started<br></br>cannot be deleted</div>}
 
-<button
+{/* <button
                                   className="delrev-button"
                                     onClick={async (e) => {
                                       e.preventDefault();
@@ -137,7 +137,7 @@ const UserBookings = () => {
                                     }}
                                   >
                                     Delete Booking
-                                  </button>
+                                  </button> */}
                                   </div>
                               </div>
                             </div>
