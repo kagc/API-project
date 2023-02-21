@@ -7,6 +7,7 @@ import { useModal } from '../../context/Modal';
 import { getAllReviews } from "../../store/reviews";
 import { getOneSpot } from "../../store/spots";
 import { getAllBookings, getOneBooking, getUserBookings, modBooking } from "../../store/bookings";
+import './EditBooking.css'
 
 const EditBookingForm = ({bookingId, bookingData}) => {
     // let { spotId } = useParams()
@@ -19,7 +20,7 @@ const EditBookingForm = ({bookingId, bookingData}) => {
 
     const allBookingsObj = useSelector(state => state.bookings.allBookings)
     const userBookings = useSelector(state => state.bookings.userBookings[bookingId])
-    console.log("......0", userBookings)
+    // console.log("......0", userBookings)
     const allBookings = Object.values(allBookingsObj)
     
     const user = useSelector(state => state.session)
@@ -46,19 +47,33 @@ const EditBookingForm = ({bookingId, bookingData}) => {
     let minStart
     let minEnd
 
+    let ns
+    let ne
+
+    Date.prototype.remDays = function(days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() - days);
+        return date;
+      }
+
     if(bookingData){
         newStart = new Date(bookingData.startDate)
+        // ns = newStart.remDays(1)
         tempStart = newStart.toJSON().slice(0,10)
+
         // console.log("tempstart", tempStart)
         newEnd = new Date(bookingData.endDate)
+        // ne = newEnd.remDays(1)
         tempEnd = newEnd.toJSON().slice(0,10)
         initDiffTime = newEnd.getTime() - newStart.getTime()
         initDiffDays = initDiffTime / (1000 * 60 * 60 * 24)
 
-        if(newStart < today){
+        // if(newStart < today){
             minStart = today.toJSON().slice(0,10)
-        }
+        // }
     }
+
+    console.log("NEWSTART", tempStart)
     
     const [editStartDate, setEditStartDate] = useState(tempStart)
     const [numNights, setNumNights] = useState(initDiffDays)
@@ -70,6 +85,7 @@ const EditBookingForm = ({bookingId, bookingData}) => {
 
     useEffect(() => {
         dispatch(getUserBookings())
+        dispatch(getOneSpot(bookingData.spotId))
         // dispatch(getOneBooking(bookingId))
     }, [dispatch, bookingId])
 
@@ -130,7 +146,9 @@ const EditBookingForm = ({bookingId, bookingData}) => {
       } 
 
     //   if (user.user === null) return null
-    if(!spot || !spot.SpotImages || !reviewsObj || !reviews || !user || !allBookingsObj 
+    if(!spot 
+        // || !spot.SpotImages 
+        || !reviewsObj || !reviews || !user || !allBookingsObj 
         // || !oneBookingObj
         || !userBookings
         ) return null
@@ -149,11 +167,11 @@ const EditBookingForm = ({bookingId, bookingData}) => {
     let avgStars = parseFloat(avg.toPrecision(3))
 
     return (
-        <div className="reviewform-holder">
-        {/* <div className='another-div'> */}
+        <div className="bookingform-holder">
+        <div className='editbooking-div'>
                     {/* <div className='floaty-box-holder'> */}
                 {/* <div className='floaty-box'> */}
-                    <div className='topline'>
+                    <div className='eb-topline'>
                     <div>
 
                     <span className='floaty-box-price'><span className='floaty-price'>${spot.price}</span> night</span>
@@ -161,14 +179,10 @@ const EditBookingForm = ({bookingId, bookingData}) => {
 
                     <div>
 
-                    <span><i className="fa-solid fa-star"></i>{reviews.length === 0 ? '0' : avgStars}</span>
+                    {/* <span><i className="fa-solid fa-star"></i>{reviews.length === 0 ? '0' : avgStars}</span>
                     <span>·
-                        {/* <OpenModalButton 
-                        modalComponent={<ReviewsBySpot spot={spot}/>}
-                        buttonText={`${reviews.length} reviews`}
-                        onButtonClick={closeMenu}/> */}
                         {`${reviews.length} reviews`}
-                        </span>
+                        </span> */}
                         </div>
                        </div>
 
@@ -210,7 +224,7 @@ const EditBookingForm = ({bookingId, bookingData}) => {
     value={editEndDate}
     type="date"
     name="endDate"
-    min={tempEnd}
+    min={tempStart > today ? tempStart : minStart}
     onChange={(e) => {
         
         setEditEndDate(e.target.value)
@@ -248,7 +262,7 @@ const EditBookingForm = ({bookingId, bookingData}) => {
 </form>
                         </div>
 
-                        <div className="calc-box">
+                        <div className="eb-calc-box">
                             <div className="calc-equ">${spot.price} {numNights > 0 ? `x ${numNights} night${numNights === 1 ? '' : 's'}` : 'x 0 nights'}</div>
                             <div>${numNights > 0 ? spot.price*numNights : 0}</div>
                         </div>
@@ -257,7 +271,7 @@ const EditBookingForm = ({bookingId, bookingData}) => {
                         <span>Total before taxes</span> <span>${spot.price*numNights}</span>
                        </div>
                 </div>
-                // </div>
+                </div>
             // </div> 
                 // </div>
     )

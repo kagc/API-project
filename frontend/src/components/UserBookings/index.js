@@ -5,10 +5,10 @@ import { Link, Route, useHistory } from "react-router-dom";
 import { getUserBookings, removeBooking } from '../../store/bookings'
 import { getAllSpots } from "../../store/spots";
 import OpenModalButton from '../OpenModalButton';
-import EditReviewForm from '../EditReviewForm';
+// import EditReviewForm from '../EditReviewForm';
 import './UserBookings.css'
 import EditBookingForm from "../EditBooking";
-import { useModal } from '../../context/Modal';
+// import { useModal } from '../../context/Modal';
 
 const UserBookings = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const UserBookings = () => {
   const ulRef = useRef();
   const [showMenu, setShowMenu] = useState(false);
 
-  const { closeModal } = useModal();
+  // const { closeModal } = useModal();
 
   const today = new Date()
 
@@ -84,8 +84,10 @@ const UserBookings = () => {
                             {booking.Spot.city}, {booking.Spot.state}
                           </div>
                         </div>
-                          <div><span className='price'>Check In: {month[new Date(booking.startDate).getMonth()]} {new Date(booking.startDate).getDate()}, {new Date(booking.startDate).getFullYear()}</span> </div>
-                          <div className='reviewtext-holder'><span className='reviewtext'>Check Out: {month[new Date(booking.endDate).getMonth()]} {new Date(booking.endDate).getDate()}, {new Date(booking.endDate).getFullYear()}</span></div>
+                          <div><span className=''>Check In: {month[new Date(booking.startDate).getMonth()]} {new Date(booking.startDate).getDate() +1}, {new Date(booking.startDate).getFullYear()}
+                          {/* {Math.floor(new Date(booking.startDate).toDateString())} */}
+                          </span> </div>
+                          <div className='reviewtext-holder'><span className='reviewtext'>Check Out: {month[new Date(booking.endDate).getMonth()]} {new Date(booking.endDate).getDate()+1}, {new Date(booking.endDate).getFullYear()}</span></div>
 
                         </div>
                     </div>
@@ -95,13 +97,19 @@ const UserBookings = () => {
                               <div className="manage-buttons">
                                 <div className='bottom-button'>
                                 
-                                <OpenModalButton 
-                        modalComponent={<EditBookingForm bookingId={booking.id} bookingData={booking}/>}
-                        buttonText='Edit Reservation'
-                        onButtonClick={closeMenu}
-                        className='edit-rev-button'/>
 
-                            {date1 > today ? <button
+                                {date2 > today ? <OpenModalButton 
+                        modalComponent={<EditBookingForm bookingId={booking.id} bookingData={booking}/>}
+                        buttonText='Edit Booking'
+                        onButtonClick={closeMenu}
+                        className='edit-rev-button'/> : <div id="no-delete" disabled>Unable to edit if booking date<br></br>has passed.</div>}
+                                {/* <OpenModalButton 
+                        modalComponent={<EditBookingForm bookingId={booking.id} bookingData={booking}/>}
+                        buttonText='Edit Booking'
+                        onButtonClick={closeMenu}
+                        className='edit-rev-button'/> */}
+
+                            {/* {date1 > today ? <button
                                   className="delrev-button"
                                     onClick={async (e) => {
                                       e.preventDefault();
@@ -114,7 +122,22 @@ const UserBookings = () => {
                                     }}
                                   >
                                     Delete Booking
-                                  </button> : <div id="no-delete" disabled>Cannot delete if Check In has passed</div>}
+                                  </button> : <div id="no-delete" disabled>Cannot delete if Check In has passed</div>} */}
+
+<button
+                                  className="delrev-button"
+                                    onClick={async (e) => {
+                                      e.preventDefault();
+                                      const deleted = await dispatch(
+                                        removeBooking(booking.id)
+                                      );
+                                      if (deleted) {
+                                        history.push(`/manage-bookings`);
+                                      }
+                                    }}
+                                  >
+                                    Delete Booking
+                                  </button>
                                   </div>
                               </div>
                             </div>
