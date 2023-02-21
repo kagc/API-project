@@ -38,7 +38,7 @@ const EditReviewForm = ( {reviewId, reviewData} ) => {
     const [review, setReview] = useState(tempReview)
     const [stars, setStars] = useState(`${tempStars}`)
     const [errors, setErrors] = useState([]);
-    console.log("this is reviews", reviewData)
+    // console.log("this is reviews", reviewData)
     // console.log(thisReview)
 
     const [ editedReview, setEditedReview ] = useState('')

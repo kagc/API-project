@@ -7,12 +7,16 @@ import { getAllSpots } from "../../store/spots";
 import OpenModalButton from '../OpenModalButton';
 import EditReviewForm from '../EditReviewForm';
 import './UserBookings.css'
+import EditBookingForm from "../EditBooking";
+import { useModal } from '../../context/Modal';
 
 const UserBookings = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const ulRef = useRef();
   const [showMenu, setShowMenu] = useState(false);
+
+  const { closeModal } = useModal();
 
   const today = new Date()
 
@@ -50,6 +54,7 @@ const UserBookings = () => {
   }, [showMenu]);
 
   const closeMenu = () => setShowMenu(false);
+  
   if(!bookingsObj || !spotsObj) return null
   
   return (
@@ -90,11 +95,12 @@ const UserBookings = () => {
                               <div className="manage-buttons">
                                 <div className='bottom-button'>
                                 
-                                {/* <OpenModalButton 
-                        modalComponent={<EditReviewForm reviewId={review.id} reviewData={review}/>}
-                        buttonText='Edit Review'
+                                <OpenModalButton 
+                        modalComponent={<EditBookingForm bookingId={booking.id} bookingData={booking}/>}
+                        buttonText='Edit Reservation'
                         onButtonClick={closeMenu}
-                        className='edit-rev-button'/> */}
+                        className='edit-rev-button'/>
+
                             {date1 > today ? <button
                                   className="delrev-button"
                                     onClick={async (e) => {

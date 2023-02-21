@@ -6,15 +6,20 @@ import ReviewsBySpot from "../ReviewsBySpot";
 import { useModal } from '../../context/Modal';
 import { getAllReviews } from "../../store/reviews";
 import { getOneSpot } from "../../store/spots";
-import { getAllBookings, getOneBooking, modBooking } from "../../store/bookings";
+import { getAllBookings, getOneBooking, getUserBookings, modBooking } from "../../store/bookings";
 
-const EditBookingForm = ({bookingId}) => {
-    let { spotId } = useParams()
+const EditBookingForm = ({bookingId, bookingData}) => {
+    // let { spotId } = useParams()
     const dispatch = useDispatch()
-    // const ulRef = useRef();
+    const [showMenu, setShowMenu] = useState(false);
+    const ulRef = useRef();
     const history = useHistory()
 
+    const { closeModal } = useModal();
+
     const allBookingsObj = useSelector(state => state.bookings.allBookings)
+    const userBookings = useSelector(state => state.bookings.userBookings[bookingId])
+    console.log("......0", userBookings)
     const allBookings = Object.values(allBookingsObj)
     
     const user = useSelector(state => state.session)
@@ -34,17 +39,18 @@ const EditBookingForm = ({bookingId}) => {
     let oneBooking
     if(allBookings.length > 0){
         oneBooking = allBookings.filter(aBooking => aBooking.id === bookingId)
+        // console.log("ONGBOOKING0", oneBooking)
     }
     // console.log("editform reloaded", oneBooking[0].id)
 
     let minStart
     let minEnd
 
-    if(oneBooking.length === 1){
-        newStart = new Date(oneBooking[0].startDate)
+    if(bookingData){
+        newStart = new Date(bookingData.startDate)
         tempStart = newStart.toJSON().slice(0,10)
         // console.log("tempstart", tempStart)
-        newEnd = new Date(oneBooking[0].endDate)
+        newEnd = new Date(bookingData.endDate)
         tempEnd = newEnd.toJSON().slice(0,10)
         initDiffTime = newEnd.getTime() - newStart.getTime()
         initDiffDays = initDiffTime / (1000 * 60 * 60 * 24)
@@ -63,25 +69,34 @@ const EditBookingForm = ({bookingId}) => {
     // console.log("OOOOOOO", editStartDate)
 
     useEffect(() => {
-        dispatch(getAllReviews(spotId))
-        .then(res => {
-            if(!res) alert('oh no')
-        })
-        
-        dispatch(getOneSpot(spotId))
-        .then(res => {
-            if(!res) {
-                history.push('/page-not-found')
-            }
-        })
-
-        dispatch(getAllBookings(spotId))
+        dispatch(getUserBookings())
         // dispatch(getOneBooking(bookingId))
-    }, [dispatch, spotId, bookingId])
+    }, [dispatch, bookingId])
 
     const reviewsObj = useSelector(state => state.reviews.allReviews)
     const reviews = Object.values(reviewsObj)
     const spot = useSelector(state => state.spots.singleSpot)
+
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+      };
+    
+      useEffect(() => {
+        if (!showMenu) return;
+    
+        const closeMenu = (e) => {
+          if (!ulRef.current.contains(e.target)) {
+            setShowMenu(false);
+          }
+        };
+    
+        document.addEventListener('click', closeMenu);
+    
+        return () => document.removeEventListener("click", closeMenu);
+      }, [showMenu]);
+    
+      const closeMenu = () => setShowMenu(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -107,7 +122,8 @@ const EditBookingForm = ({bookingId}) => {
         )
 
         if (madeBooking) {
-            return history.push(`/manage-bookings`)
+            closeModal()
+            // return history.push(`/manage-bookings`)
         }
 
 
@@ -116,6 +132,7 @@ const EditBookingForm = ({bookingId}) => {
     //   if (user.user === null) return null
     if(!spot || !spot.SpotImages || !reviewsObj || !reviews || !user || !allBookingsObj 
         // || !oneBookingObj
+        || !userBookings
         ) return null
 
     let added = 0
@@ -132,9 +149,10 @@ const EditBookingForm = ({bookingId}) => {
     let avgStars = parseFloat(avg.toPrecision(3))
 
     return (
-        <div className='another-div'>
-                    <div className='floaty-box-holder'>
-                <div className='floaty-box'>
+        <div className="reviewform-holder">
+        {/* <div className='another-div'> */}
+                    {/* <div className='floaty-box-holder'> */}
+                {/* <div className='floaty-box'> */}
                     <div className='topline'>
                     <div>
 
@@ -176,22 +194,12 @@ const EditBookingForm = ({bookingId}) => {
         let date2 = new Date(editEndDate);
         let diffTime = date2.getTime() - date1.getTime()
         let diffDays = diffTime / (1000 * 60 * 60 * 24)
-        
-        // let oneDay = 24 * 60 * 60 * 1000
-        // let splitStart = startDate.split('-')
-        // let splitEnd = endDate.split('-')
-        // console.log(splitStart)
-        // let firstDate = new Date(splitStart[2], splitStart[0], splitStart[1])
-        // let secondDate = new Date(splitEnd[2], splitEnd[0], splitEnd[1])
-        // let diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))
 
         if (date1 < date2){
-            // console.log("AAAAA", diffTime, date1, date2)
             setNumNights(diffDays)
         } else {
             setNumNights(0)
         }
-        // setLimit(startDate.addDays(1).toJSON().slice(0,10))
         }}>
     </input>
 
@@ -212,14 +220,8 @@ const EditBookingForm = ({bookingId}) => {
         let diffTime = date2.getTime() - date1.getTime()
         let diffDays = diffTime / (1000 * 60 * 60 * 24)
 
-        // let oneDay = 24 * 60 * 60 * 1000
-        // let splitStart = startDate.split('-')
-        // let splitEnd = endDate.split('-')
-        // let firstDate = new Date(splitStart[2], splitStart[0], splitStart[1])
-        // let secondDate = new Date(splitEnd[2], splitEnd[0], splitEnd[1])
-        // let diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))
         if (date1 < date2){
-            // console.log("AAAAA", diffTime, date1,date2)
+            
             setNumNights(diffDays)
         } else {
             setNumNights(0)
@@ -254,10 +256,10 @@ const EditBookingForm = ({bookingId}) => {
                        <div className='totalPrice'>
                         <span>Total before taxes</span> <span>${spot.price*numNights}</span>
                        </div>
-                
                 </div>
-            </div>
-                </div>
+                // </div>
+            // </div> 
+                // </div>
     )
 }
 
