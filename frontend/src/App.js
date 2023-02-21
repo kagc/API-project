@@ -10,6 +10,7 @@ import ManageListingsPage from "./components/ManageListingsPage";
 import UserReviews from "./components/UserReviews";
 import PageNotFound from "./components/PageNotFound";
 import UserBookings from "./components/UserBookings";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
