@@ -276,7 +276,54 @@ function SingleSpot() {
 </div>
 {/* ---------------------------------BOOKING------------------------------------- */}
             </div>
-            {pastDate && userBooked !== null && userBooked.length > 0 ? <EditBookingForm bookingId={userBooked[0].id}/> : <div className='another-div'>
+            {pastDate && userBooked !== null && userBooked.length > 0 ? 
+            
+            // <EditBookingForm bookingId={userBooked[0].id}/> 
+            <div className='another-div'>
+                <div className='floaty-box-holder'>
+                <div className='floaty-box'>
+                    <div className='topline'>
+                    <div>
+
+                    <span className='floaty-box-price'><span className='floaty-price'>${spot.price}</span> night</span>
+                    </div>
+
+                    <div>
+
+                    <span><i className="fa-solid fa-star"></i>{reviews.length === 0 ? '0' : avgStars}</span>
+                    <span>·
+                        {/* <OpenModalButton 
+                        modalComponent={<ReviewsBySpot spot={spot}/>}
+                        buttonText={`${reviews.length} reviews`}
+                        onButtonClick={closeMenu}/> */}
+                        {`${reviews.length} reviews`}
+                        </span>
+                        </div>
+                       </div>
+
+
+                        <div className='midholder'>
+    {/* {user.user !== null ? <div></div> : <div></div>} */}
+<div><button onClick={(e) => {
+    e.preventDefault()
+    history.push(`/manage-bookings`)
+}} id="booked-button">Booked! <br></br>Manage Reservation</button></div>
+                        </div>
+
+                        <div className="calc-box">
+                            <div className="calc-equ">${spot.price} {numNights > 0 ? `x ${numNights} night${numNights === 1 ? '' : 's'}` : 'x 0 nights'}</div>
+                            <div>${numNights > 0 ? spot.price*numNights : 0}</div>
+                        </div>
+                       
+                       <div className='totalPrice'>
+                        <span>Total before taxes</span> <span>${spot.price*numNights}</span>
+                       </div>
+                
+                </div>
+            </div>
+            </div>
+
+            : <div className='another-div'>
                     <div className='floaty-box-holder'>
                 <div className='floaty-box'>
                     <div className='topline'>
