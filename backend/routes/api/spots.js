@@ -714,8 +714,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     })
 
     bookingList.forEach(booking => {
-        delete booking.userId
-        delete booking.id
+        // delete booking.userId
+        // delete booking.id
         delete booking.createdAt
         delete booking.updatedAt
     })

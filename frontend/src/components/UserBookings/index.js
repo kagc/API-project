@@ -6,12 +6,17 @@ import { getUserBookings, removeBooking } from '../../store/bookings'
 import { getAllSpots } from "../../store/spots";
 import OpenModalButton from '../OpenModalButton';
 import EditReviewForm from '../EditReviewForm';
+import './UserBookings.css'
 
 const UserBookings = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const ulRef = useRef();
-    const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const today = new Date()
+
+  const month = ["January", "February", "March", "April", "May", "June", "July", "Augst", "September", "October", "November", "December"]
 
   useEffect(() => {
     dispatch(getUserBookings())
@@ -54,6 +59,11 @@ const UserBookings = () => {
         <div className="your-reviews">
           {bookings.length ? (
             bookings.map(booking => {
+
+              let date1 = new Date(booking.startDate)
+              // let sd = newStartDate.toJSON().slice(0,10)
+              let date2 = new Date(booking.endDate)
+              // let ed = newStartDate.toJSON().slice(0,10)
               return (
                 <div key={booking.id}>
                   <Link to={`/spots/${booking.Spot.id}`}>
@@ -69,8 +79,8 @@ const UserBookings = () => {
                             {booking.Spot.city}, {booking.Spot.state}
                           </div>
                         </div>
-                          <div><span className='price'>Check In: {booking.startDate}</span> </div>
-                          <div className='reviewtext-holder'><span className='reviewtext'>Check Out: {booking.endDate}</span></div>
+                          <div><span className='price'>Check In: {month[new Date(booking.startDate).getMonth()]} {new Date(booking.startDate).getDate()}, {new Date(booking.startDate).getFullYear()}</span> </div>
+                          <div className='reviewtext-holder'><span className='reviewtext'>Check Out: {month[new Date(booking.endDate).getMonth()]} {new Date(booking.endDate).getDate()}, {new Date(booking.endDate).getFullYear()}</span></div>
 
                         </div>
                     </div>
@@ -85,8 +95,7 @@ const UserBookings = () => {
                         buttonText='Edit Review'
                         onButtonClick={closeMenu}
                         className='edit-rev-button'/> */}
-
-                                  <button
+                            {date1 > today ? <button
                                   className="delrev-button"
                                     onClick={async (e) => {
                                       e.preventDefault();
@@ -99,7 +108,7 @@ const UserBookings = () => {
                                     }}
                                   >
                                     Delete Booking
-                                  </button>
+                                  </button> : <div id="no-delete" disabled>Cannot delete if Check In has passed</div>}
                                   </div>
                               </div>
                             </div>

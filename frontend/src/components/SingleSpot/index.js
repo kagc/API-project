@@ -7,11 +7,13 @@ import OpenModalMenuItem from '../Navigation/'
 import CreateReviewForm from '../CreateReviewForm';
 import OpenModalButton from '../OpenModalButton';
 import ReviewsBySpot from '../ReviewsBySpot';
-import { createBooking } from '../../store/bookings';
+import { createBooking, getAllBookings, getUserBookings } from '../../store/bookings';
 // import CreateBookingForm from '../CreateBooking';
 import { useModal } from '../../context/Modal';
 import './SingleSpot.css'
 import { getAllReviews, tossReview } from '../../store/reviews'
+import UserBookings from '../UserBookings';
+import EditBookingForm from '../EditBooking';
 
 function SingleSpot() {
     let { spotId } = useParams()
@@ -57,6 +59,8 @@ function SingleSpot() {
             }
         })
 
+        dispatch(getAllBookings(spotId))
+
         // .catch(
         //     async (res) => {
         //         console.log(res)
@@ -73,7 +77,26 @@ function SingleSpot() {
     const reviews = Object.values(reviewsObj)
     const spot = useSelector(state => state.spots.singleSpot)
     const user = useSelector(state => state.session)
-    // console.log('user', user.user.id)
+    const allBookingsObj = useSelector(state => state.bookings.allBookings)
+    const allBookings = Object.values(allBookingsObj)
+    
+    let userBooked
+    // const [pastDate, setPastDate] = useState(false)
+    let pastDate = false
+    if(user.user !== null && allBookings.length > 0){
+        userBooked = allBookings.filter(booking => booking.userId === user.user.id)
+        let now = new Date()
+        if(userBooked.length > 0){
+            let bookingEnd = new Date(userBooked[0].endDate)
+        // console.log("AAAAAAA", now, bookingEnd)
+        if (bookingEnd > now){
+            pastDate = true
+        }
+        }
+        
+    }
+    // console.log("spot reloaded", userBooked[0].id)
+    // console.log('AAAAAAA', userBooked)
     // console.log(avgStars)
 
     const openMenu = () => {
@@ -127,7 +150,7 @@ function SingleSpot() {
       } 
 
     //   if (user.user === null) return null
-    if(!spot || !spot.SpotImages || !reviewsObj || !reviews || !user ) return null
+    if(!spot || !spot.SpotImages || !reviewsObj || !reviews || !user || !allBookingsObj) return null
     
     let added = 0
     let userReviewed
@@ -253,7 +276,7 @@ function SingleSpot() {
 </div>
 {/* ---------------------------------BOOKING------------------------------------- */}
             </div>
-                <div className='another-div'>
+            {pastDate && userBooked !== null && userBooked.length > 0 ? <EditBookingForm bookingId={userBooked[0].id}/> : <div className='another-div'>
                     <div className='floaty-box-holder'>
                 <div className='floaty-box'>
                     <div className='topline'>
@@ -277,9 +300,12 @@ function SingleSpot() {
 
 
                         <div className='midholder'>
+    {/* {user.user !== null ? <div></div> : <div></div>} */}
 <form onSubmit={handleSubmit}>
  <div className='reserve-box'>
     {/* <hr></hr> */}
+
+{/* ---------------------------------CREATE BOOKING------------------------------- */}
     <label>Check-In</label>
     <input
     className="b-input-line"
@@ -350,7 +376,8 @@ function SingleSpot() {
                        <div className='reserve-button-div' 
                     //    title='Unable to make reservations at this time'
                        >
-                        {!numNights > 0 ? <div className="min-not-met">Stay must be one night or longer</div> : <button className='reserve-button'>Reserve Spot</button>}
+                        {user.user !== null ? (!numNights > 0 ? <div className="min-not-met">Stay must be one night or longer</div> : <button className='reserve-button'>Reserve Spot</button>) : <div id="no-delete">Login/Signup to book</div>}
+                        
                        
 
                        </div>
@@ -369,7 +396,8 @@ function SingleSpot() {
                 
                 </div>
             </div>
-                </div>
+                </div> }
+                
             
 </div>
            

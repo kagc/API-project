@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD_BOOKINGS = '/bookings/loadBookings'
 const USER_BOOKINGS = '/bookings/userBookings'
+const ONE_BOOKING = '/bookings/oneBooking'
 const ADD_BOOKING = '/bookings/addBooking'
 const EDIT_BOOKING = '/bookings/editBooking'
 const DELETE_BOOKING = '/bookings/deleteBooking'
@@ -14,6 +15,11 @@ const allBookings = (bookings) => ({
 const usersBookings = (bookings) => ({
     type: USER_BOOKINGS,
     bookings
+})
+
+const singleBooking = (booking) => ({
+    type: ONE_BOOKING,
+    booking
 })
 
 const add = (booking) => ({
@@ -51,6 +57,18 @@ export const getUserBookings = () => async dispatch => {
     }
 }
 
+export const getOneBooking = (bookingId) => async dispatch => {
+    const response = await csrfFetch(`/api/bookings/current`)
+
+    if (response.ok) {
+        const bookings = await response.json()
+        const booking = bookings.Bookings.filter(aBooking => aBooking.id === bookingId)
+        // console.log("HELLOOOOOO", booking)
+        dispatch(singleBooking(booking))
+        return booking
+    }
+}
+
 export const createBooking = (newBooking) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${newBooking.spotId}/bookings`, {
         method: "POST",
@@ -66,8 +84,8 @@ export const createBooking = (newBooking) => async dispatch => {
     }
 }
 
-export const modBooking = (bookingData) => async dispatch => {
-    const response = await csrfFetch(`/api/bookings/${bookingData.id}`, {
+export const modBooking = (bookingData, bookingId) => async dispatch => {
+    const response = await csrfFetch(`/api/bookings/${bookingId}`, {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json'
@@ -95,7 +113,7 @@ export const removeBooking = (bookingId) => async dispatch => {
     }
 }
 
-const initialState = { allBookings: {}, userBookings: {} }
+const initialState = { allBookings: {}, userBookings: {}, oneBooking: {} }
 
 const bookingReducer = (state = initialState, action) => {
     let newState;
@@ -112,6 +130,14 @@ const bookingReducer = (state = initialState, action) => {
             action.bookings.Bookings.forEach(booking => {
                 newState.userBookings[booking.id] = booking
             })
+            return newState
+
+        case ONE_BOOKING:
+            newState = { ...state, oneBooking: {} }
+            action.booking.forEach(book => {
+                newState.oneBooking[book.id] = book
+            })
+            // console.log("JNSJNSDH", newState)
             return newState
 
         case ADD_BOOKING:

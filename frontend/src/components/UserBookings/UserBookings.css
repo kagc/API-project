@@ -1,0 +1,19 @@
+#no-delete {
+    background-color: lightgray;
+    font-family: helvetica;
+    font-size: 14px;
+    font-weight: bold;
+    color: gray;
+    padding: 0.8rem 20px;
+    border: 0px;
+    border-radius: 10px;
+    text-align: center;
+    height: 1rem;
+    margin-bottom: 1rem;
+    /* width: 100%; */
+}
+
+/* #no-delete:hover {
+    cursor: not-allowed;
+    color: gray;
+} */
