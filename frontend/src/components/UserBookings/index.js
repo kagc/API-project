@@ -98,7 +98,7 @@ const UserBookings = () => {
                                 <div className='bottom-button'>
                                 
 
-                                {date2 > today ? <OpenModalButton 
+                                {date2 < today ? <OpenModalButton 
                         modalComponent={<EditBookingForm bookingId={booking.id} bookingData={booking}/>}
                         buttonText='Edit Booking'
                         onButtonClick={closeMenu}
