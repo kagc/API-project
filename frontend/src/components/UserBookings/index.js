@@ -102,14 +102,14 @@ const UserBookings = () => {
                         modalComponent={<EditBookingForm bookingId={booking.id} bookingData={booking}/>}
                         buttonText='Edit Booking'
                         onButtonClick={closeMenu}
-                        className='edit-rev-button'/> : <div id="no-delete" disabled>Unable to edit if booking date<br></br>has passed.</div>}
+                        className='edit-rev-button'/> : <div id="no-delete" disabled>Unable to edit if check out date<br></br>has passed.</div>}
                                 {/* <OpenModalButton 
                         modalComponent={<EditBookingForm bookingId={booking.id} bookingData={booking}/>}
                         buttonText='Edit Booking'
                         onButtonClick={closeMenu}
                         className='edit-rev-button'/> */}
 
-                            {/* {date1 > today ? <button
+                            {date1 > today ? <button
                                   className="delrev-button"
                                     onClick={async (e) => {
                                       e.preventDefault();
@@ -122,9 +122,9 @@ const UserBookings = () => {
                                     }}
                                   >
                                     Delete Booking
-                                  </button> : <div id="no-delete" disabled>Cannot delete if Check In has passed</div>} */}
+                                  </button> : <div id="no-delete2" disabled>Bookings that have started<br></br>cannot be deleted</div>}
 
-<button
+{/* <button
                                   className="delrev-button"
                                     onClick={async (e) => {
                                       e.preventDefault();
@@ -137,7 +137,7 @@ const UserBookings = () => {
                                     }}
                                   >
                                     Delete Booking
-                                  </button>
+                                  </button> */}
                                   </div>
                               </div>
                             </div>

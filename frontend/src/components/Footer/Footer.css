@@ -1,0 +1,217 @@
+/* .foot-container {
+    display: flex;
+    flex-direction: row;
+    position: absolute !important;
+    bottom: 0;
+    width: 100%;
+} */
+
+.footer-container {
+    height: 12rem;
+    /* border-top: solid gray 2px; */
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(219, 219, 219);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    color: rgb(0, 0, 0);
+    padding-top: 1rem;
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+    /* width: 100% */
+    border-top: 1px solid rgb(187, 187, 187);
+    margin-top: 3rem;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    width: 100%;
+    /* min-width: 50%;
+    max-width: 70%; */
+    /* margin-right: 5rem; */
+    /* margin-left: 5rem; */
+}
+
+.footer-links-labels {
+    font-size: 1.1rem;
+    /* font-weight: bold; */
+    color: rgb(0, 0, 0);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /* text-align: left; */
+    padding-bottom: 1rem;
+}
+
+.footer-link-section {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    padding-left: 1rem;
+    width: 35%;
+}
+
+.footer-link-section1 {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* padding-left: 1rem; */
+}
+
+.footer-social-media {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 60%;
+    /* border-bottom: solid lightgray 2px; */
+}
+
+.footer-break {
+    width: 100%;
+    padding-top: 1rem;
+    border-bottom: 1px solid rgb(187, 187, 187);
+}
+
+.footer-legal-links {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 0.9rem;
+    padding-bottom: 1rem;
+}
+
+.footer-bottom-right {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: row;
+}
+
+.footer-logo {
+    height: 10rem;
+    width: auto;
+}
+
+.footer-cat-holder {
+    display: flex;
+    flex-direction: row;
+    width: 25rem;
+}
+
+.footer-cat-column {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-start; */
+    align-items: flex-start;
+    width: 7rem;
+}
+
+.footer-cat-column> a{
+    color: rgb(0, 0, 0);
+    font-size: 0.9rem;
+}
+
+.footer-cat-column> a:hover {
+    color: rgb(0, 0, 0);
+    text-decoration: underline;
+}
+
+.fa-github-alt {
+    font-size: 1.5rem;
+    /* border: solid lightgray 2px;
+    background-color: lightgray; */
+    border-radius: 5px;
+    margin-right: 1rem;
+}
+
+.footer-git-link {
+    /* width: 8rem; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /* margin-right: 10rem; */
+}
+
+.footer-git-link> a {
+    color: rgb(91, 91, 91);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-right: 1rem;
+}
+
+.footer-git-link> a> i:hover {
+    background-color: gray;
+    border: solid gray 2px;
+    color: rgb(91, 91, 91);
+}
+
+.footer-link-box {
+    width: 8rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-link-box> a {
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 0.9rem;
+    width: 8rem;
+}
+
+.footer-link-box> a:hover {
+    color: rgb(0, 0, 0);
+    text-decoration: underline;
+}
+
+.fa-linkedin-in {
+    font-size: 1.5rem;
+    /* border: solid lightgray 2px; */
+    /* background-color: lightgray; */
+    border-radius: 5px;
+    margin-right: 1rem;
+}
+
+/* .fa-linkedin-in:hover {
+    border: solid lightgray 2px;
+    background-color: lightgray;
+    border-radius: 5px;
+} */
+
+.fa-folder-closed {
+    font-size: 1.5rem;
+    /* border: solid lightgray 2px;
+    background-color: lightgray; */
+    border-radius: 5px;
+    margin-right: 1rem;
+}
+
+.fa-angellist{
+    font-size: 1.5rem;
+    /* border: solid lightgray 2px;
+    background-color: lightgray; */
+    border-radius: 5px;
+    /* margin-right: 0.5rem; */
+}
+
+.footer-link-section-last {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    padding-left: 1rem;
+    /* margin-right: 5rem; */
+}

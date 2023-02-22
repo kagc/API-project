@@ -7,6 +7,12 @@ const EDIT_SPOT = 'spots/editSpot'
 const DELETE_SPOT = 'spots/deleteSpot'
 const IMG = 'spots/addImg'
 const USER_SPOTS = 'spots/userSpots'
+const SEARCH_SPOTS = 'spots/searchSpots'
+
+const search = (spots) => ({
+    type: SEARCH_SPOTS,
+    spots
+})
 
 const add = (spot) => ({
     type: ADD_SPOT,
@@ -43,6 +49,11 @@ const eviscerate = (spotId) => ({
     type: DELETE_SPOT,
     spotId
 })
+
+export const findSpots = () => async dispatch => {
+    const response = await fetch(`/api/spots`)
+}
+
 
 export const getAllSpots = () => async dispatch => {
     const response = await fetch(`/api/spots`);
