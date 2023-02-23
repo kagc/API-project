@@ -40,7 +40,16 @@ function App() {
           <Route path='/manage-bookings'>
             <UserBookings />
           </Route>
-          <Route path={['/search/city=:searchTerm', '/search/city=:searchTerm/min=:minimumVal', '/search/city=:searchTerm/max=:maximumVal', '/search/city=:searchTerm/min=:minimumVal/max=:maximumVal',]}>
+          <Route path='/search/city=:searchTerm' exact>
+          <SearchResults />
+        </Route>
+        <Route path='/search/city=:searchTerm/min=:minNum' exact>
+          <SearchResults />
+        </Route>
+        <Route path='/search/city=:searchTerm/max=:maxNum' exact>
+          <SearchResults />
+        </Route>
+        <Route path='/search/city=:searchTerm/min=:minNum/max=:maxNum' exact>
           <SearchResults />
         </Route>
 

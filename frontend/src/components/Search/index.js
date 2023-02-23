@@ -13,7 +13,8 @@ const SearchResults = () => {
     
     const [newSrc, setNewSrc] = useState('')
 
-    let { searchTerm, min, max } = params
+    let { searchTerm, minNum, maxNum } = params
+    console.log(searchTerm, minNum, maxNum)
     const [searchCriteria, setSearchCriteria ] = useState(searchTerm)
 
     const allSpotsObj = useSelector(state => state.spots.allSpots)
@@ -24,13 +25,44 @@ const SearchResults = () => {
       .then(() => setIsLoaded(true))
     }, [dispatch])
 
+    let firstResults = []
     let results = []
     let currentIndex = 0
     // if (category === 'all') {
         if(spots.length) {
             spots.forEach((spot) => {
               if(spot.city.toLowerCase().includes(searchTerm.toLowerCase())){
-                results.push(spot)
+                firstResults.push(spot)
+
+                if(firstResults.length > 0 && maxNum === undefined && minNum !== undefined && minNum > 0){
+                  firstResults.forEach((spot) => {
+                    if(spot.price >= minNum){
+                      results.push(spot)
+                    }
+                  })
+                }
+
+                  else if(firstResults.length > 0 && maxNum !== undefined && minNum === undefined && maxNum > 0){
+                    firstResults.forEach((spot) => {
+                      if(spot.price <= maxNum){
+                        results.push(spot)
+                      }
+                    })
+                  }
+
+                  else if(firstResults.length > 0 && maxNum !== undefined && minNum !== undefined && minNum > 0 && maxNum > minNum){
+                    firstResults.forEach((spot) => {
+                      if(spot.price >= minNum && spot.price <= maxNum){
+                        results.push(spot)
+                      }
+                    })
+                  }
+
+                  else if (firstResults.length > 0 && minNum === undefined && maxNum === undefined){
+                    firstResults.forEach((spot) => {
+                      results.push(spot)
+                    })
+                  }
               }
                 // delete project.creator.email
                 // delete project.creator.id
@@ -57,16 +89,28 @@ const SearchResults = () => {
             })
         // }
     }
+    // console.log("results", results)
 
   return isLoaded && (
-    <div className='all-spots'>
-            {results.length && (results.map(spot => {
+    <div>
+      <div className="search-criteria">
+      {/* <div className="found">{results.length} Result{results.length === 1 ? null : 's'}</div> */}
+        <div className="search-thing">City Keyword:<div className="search-val">{searchTerm}</div>
+        </div>
+        {minNum !== undefined ? <div className="search-thing">Minimum price per night:<div className="search-val">${minNum}</div>
+        </div> : null}
+        {maxNum !== undefined ? <div className="search-thing">Maximum price per night:<div className="search-val">${maxNum}</div>
+        </div> : null}
+        </div>
+        <div className="found">{results.length} Result{results.length === 1 ? null : 's'}:</div>
+    <div className='search-spots'>
+            {results.length ? (results.map(spot => {
                 // console.log('rating', spot.avgRating)
 
                 let avgStars
                 // if (!spot.avgRating || spot.avgRating === null) spot.avgRating = 0
                 if (spot.avgRating > 0) avgStars = parseFloat(spot.avgRating.toPrecision(3))
-               console.log('stars', spot.title, avgStars)
+              //  console.log('stars', spot.title, avgStars)
                if(avgStars === undefined) avgStars = 0
                 return (
                     <Link key={spot.id} to={`/spots/${spot.id}`}>
@@ -85,7 +129,8 @@ const SearchResults = () => {
                         </div>
                     </Link>
                 )
-            }))}
+            })) : (<div className="no-results">Sorry, no results found.</div>)}
+        </div>
         </div>
   )
 }
