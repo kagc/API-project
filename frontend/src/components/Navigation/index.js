@@ -18,8 +18,8 @@ function Navigation({ isLoaded }){
 
   const sessionUser = useSelector(state => state.session.user);
   const [searchCriteria, setSearchCriteria ] = useState("")
-  const [min, setMin] = useState('')
-  const [max, setMax] = useState('')
+  const [minNum, setMinNum] = useState('')
+  const [maxNum, setMaxNum] = useState('')
   const [state, setState] = useState('')
 
   let states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
@@ -47,25 +47,25 @@ function Navigation({ isLoaded }){
 
   const submitSearch = async (e) => {
     e.preventDefault()
-    if(min === '' && max === ''){
+    if(minNum === '' && maxNum === ''){
       history.push(`/search/city=${searchCriteria}`)
       setSearchCriteria('')
     }
-    if(min !== '' && max === ''){
-      history.push(`/search/city=${searchCriteria}/min=${min}`)
+    if(minNum !== '' && maxNum === ''){
+      history.push(`/search/city=${searchCriteria}/min=${minNum}`)
       setSearchCriteria('')
-      setMin('')
+      setMinNum('')
     }
-    if(min === '' && max !== ''){
-      history.push(`/search/city=${searchCriteria}/max=${max}`)
+    if(minNum === '' && maxNum !== ''){
+      history.push(`/search/city=${searchCriteria}/max=${maxNum}`)
       setSearchCriteria('')
-      setMax('')
+      setMaxNum('')
     }
-    if(min !== '' && max !== ''){
-      history.push(`/search/city=${searchCriteria}/min=${min}/max=${max}`)
+    if(minNum !== '' && maxNum !== ''){
+      history.push(`/search/city=${searchCriteria}/min=${minNum}/max=${maxNum}`)
       setSearchCriteria('')
-      setMin('')
-      setMax('')
+      setMinNum('')
+      setMaxNum('')
     }
     // alert("Sorry, that function hasn't been implemented yet.")
   }
@@ -105,9 +105,9 @@ function Navigation({ isLoaded }){
                         type="number"
                         className="min-input"
                         placeholder="0 (optional)"
-                        value={min}
+                        value={minNum}
                         onChange={(e) => {
-                          setMin(e.target.value)
+                          setMinNum(e.target.value)
                         }}
                         min="1"
                         title='min'>
@@ -122,11 +122,11 @@ function Navigation({ isLoaded }){
                         type="number"
                         className="min-input"
                         placeholder="100 (optional)"
-                        value={max}
+                        value={maxNum}
                         onChange={(e) => {
-                          setMax(e.target.value)
+                          setMaxNum(e.target.value)
                         }}
-                        min={min !== '' ? +min + 1 : 1}
+                        min={minNum !== '' ? +minNum + 1 : 1}
                         title='max'>
                         </input>
                         </div>
