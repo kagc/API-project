@@ -7,7 +7,7 @@ const SearchInput = () =>
   const history = useHistory();
   return (
     <div>
-      <InputGroup>
+      {/* <InputGroup>
        <Input
         onChange={(e) => {
         setSearch(e.target.value)
@@ -20,7 +20,7 @@ const SearchInput = () =>
           <button onClick={() => history.push(`/search?query=${search}`)} >Search</button>
         </div>
        </InputRightElement>
-      </InputGroup>
+      </InputGroup> */}
     </div>
   )
 }

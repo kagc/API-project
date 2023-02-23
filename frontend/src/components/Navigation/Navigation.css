@@ -32,7 +32,7 @@
     /* justify-content: center; */
     position: relative;
     flex-direction: row;
-    width: 82%;
+    /* width: 82%; */
     justify-content: flex-end;
     /* border: red solid 1px; */
     margin-right: 0px;
@@ -229,4 +229,69 @@
 
 #useremailline {
     margin-bottom: 1rem;
+}
+
+.searchbar-holder {
+    border: solid rgb(184, 184, 184) 1px;
+    border-radius: 30px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    /* width: 100%; */
+    margin-left: 5rem;
+    display: flex;
+    flex-direction: row;
+
+    -webkit-box-shadow:0px 0px 5px 1px rgba(227,227,227,1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(227,227,227,1);
+    box-shadow: 0px 0px 5px 1px rgba(227,227,227,1);
+    }
+
+.searchform {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchform>div> label {
+    font-size: 0.7rem;
+}
+
+#search-button {
+    width: 2rem;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.min-input {
+    border: none;
+    width: 9rem;
+    
+    /* font-size: 0.5rem; */
+}
+
+.dollar-amt {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-section {
+    border-left: 1px rgb(184, 184, 184) solid;
+    padding-left: 0.5rem;
+    /* padding-right: 0.5rem; */
+}
+
+.search-input {
+    border: none;
+}
+
+.nav-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
