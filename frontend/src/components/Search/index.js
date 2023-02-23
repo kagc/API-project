@@ -89,11 +89,22 @@ const SearchResults = () => {
             })
         // }
     }
-    console.log("results", results)
+    // console.log("results", results)
 
   return isLoaded && (
-    <div className='all-spots'>
-            {results.length && (results.map(spot => {
+    <div>
+      <div className="search-criteria">
+      {/* <div className="found">{results.length} Result{results.length === 1 ? null : 's'}</div> */}
+        <div className="search-thing">City Keyword:<div className="search-val">{searchTerm}</div>
+        </div>
+        {minNum !== undefined ? <div className="search-thing">Minimum price per night:<div className="search-val">${minNum}</div>
+        </div> : null}
+        {maxNum !== undefined ? <div className="search-thing">Maximum price per night:<div className="search-val">${maxNum}</div>
+        </div> : null}
+        </div>
+        <div className="found">{results.length} Result{results.length === 1 ? null : 's'}:</div>
+    <div className='search-spots'>
+            {results.length ? (results.map(spot => {
                 // console.log('rating', spot.avgRating)
 
                 let avgStars
@@ -118,7 +129,8 @@ const SearchResults = () => {
                         </div>
                     </Link>
                 )
-            }))}
+            })) : (<div className="no-results">Sorry, no results found.</div>)}
+        </div>
         </div>
   )
 }
