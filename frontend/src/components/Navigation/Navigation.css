@@ -32,7 +32,7 @@
     /* justify-content: center; */
     position: relative;
     flex-direction: row;
-    width: 82%;
+    /* width: 82%; */
     justify-content: flex-end;
     /* border: red solid 1px; */
     margin-right: 0px;
@@ -238,14 +238,14 @@
     padding-right: 1rem;
     padding-top: 0.3rem;
     padding-bottom: 0.3rem;
-    width: 100%;
-    margin-left: 10rem;
+    /* width: 100%; */
+    margin-left: 5rem;
     display: flex;
     flex-direction: row;
 
-    -webkit-box-shadow:0px 0px 5px 5px rgba(227,227,227,1);
-    -moz-box-shadow: 0px 0px 5px 5px rgba(227,227,227,1);
-    box-shadow: 0px 0px 5px 5px rgba(227,227,227,1);
+    -webkit-box-shadow:0px 0px 5px 1px rgba(227,227,227,1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(227,227,227,1);
+    box-shadow: 0px 0px 5px 1px rgba(227,227,227,1);
     }
 
 .searchform {
@@ -288,4 +288,10 @@
 
 .search-input {
     border: none;
+}
+
+.nav-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

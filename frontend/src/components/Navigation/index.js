@@ -136,6 +136,7 @@ function Navigation({ isLoaded }){
                          id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
         </div>
+        <div className="nav-right">
 {sessionUser !== null &&
             (<div className='create-holder'>
               <div className='create-spot-button'>
@@ -155,6 +156,7 @@ function Navigation({ isLoaded }){
           <ProfileButton user={sessionUser} />
         </li>
       )}
+      </div>
     </ul>
     </div>
   );
