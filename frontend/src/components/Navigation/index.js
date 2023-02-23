@@ -52,7 +52,20 @@ function Navigation({ isLoaded }){
       setSearchCriteria('')
     }
     if(min !== '' && max === ''){
-      history.push(`/search`)
+      history.push(`/search/city=${searchCriteria}/min=${min}`)
+      setSearchCriteria('')
+      setMin('')
+    }
+    if(min === '' && max !== ''){
+      history.push(`/search/city=${searchCriteria}/max=${max}`)
+      setSearchCriteria('')
+      setMax('')
+    }
+    if(min !== '' && max !== ''){
+      history.push(`/search/city=${searchCriteria}/min=${min}/max=${max}`)
+      setSearchCriteria('')
+      setMin('')
+      setMax('')
     }
     // alert("Sorry, that function hasn't been implemented yet.")
   }
@@ -91,7 +104,7 @@ function Navigation({ isLoaded }){
                         $<input
                         type="number"
                         className="min-input"
-                        placeholder="0"
+                        placeholder="0 (optional)"
                         value={min}
                         onChange={(e) => {
                           setMin(e.target.value)
@@ -108,12 +121,12 @@ function Navigation({ isLoaded }){
                         $<input
                         type="number"
                         className="min-input"
-                        placeholder="100"
+                        placeholder="100 (optional)"
                         value={max}
                         onChange={(e) => {
                           setMax(e.target.value)
                         }}
-                        // min="1"
+                        min={min !== '' ? +min + 1 : 1}
                         title='max'>
                         </input>
                         </div>
