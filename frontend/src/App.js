@@ -11,6 +11,7 @@ import UserReviews from "./components/UserReviews";
 import PageNotFound from "./components/PageNotFound";
 import UserBookings from "./components/UserBookings";
 import Footer from "./components/Footer";
+import SearchResults from "./components/Search";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ function App() {
           <Route path='/manage-bookings'>
             <UserBookings />
           </Route>
+          <Route path={['/search/city=:searchTerm', '/search/city=:searchTerm/min=:minimumVal', '/search/city=:searchTerm/max=:maximumVal', '/search/city=:searchTerm/min=:minimumVal/max=:maximumVal',]}>
+          <SearchResults />
+        </Route>
 
           {/* <Route path='/spots/:spotId'>
             Oops, that spot doesn't seem to be in the system.

@@ -230,3 +230,58 @@
 #useremailline {
     margin-bottom: 1rem;
 }
+
+.searchbar-holder {
+    border: solid black 1px;
+    border-radius: 30px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    width: 100%;
+    margin-left: 10rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.searchform {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchform>div> label {
+    font-size: 0.7rem;
+}
+
+#search-button {
+    width: 2rem;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.min-input {
+    border: none;
+    width: 9rem;
+    
+    /* font-size: 0.5rem; */
+}
+
+.dollar-amt {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-section {
+    border-left: 1px black solid;
+    padding-left: 0.5rem;
+    /* padding-right: 0.5rem; */
+}
+
+.search-input {
+    border: none;
+}

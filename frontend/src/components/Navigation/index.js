@@ -6,6 +6,7 @@ import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import OpenModalButton from '../OpenModalButton';
 import CreateSpot from '../CreateSpot';
+import SearchInput from "../Search/SearchBar";
 
 
 function Navigation({ isLoaded }){
@@ -16,7 +17,12 @@ function Navigation({ isLoaded }){
   const history = useHistory()
 
   const sessionUser = useSelector(state => state.session.user);
-  console.log(sessionUser)
+  const [searchCriteria, setSearchCriteria ] = useState("")
+  const [min, setMin] = useState('')
+  const [max, setMax] = useState('')
+  const [state, setState] = useState('')
+
+  let states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
 
   const openMenu = () => {
     if (showMenu) return;
@@ -39,6 +45,17 @@ function Navigation({ isLoaded }){
 
   const closeMenu = () => setShowMenu(false);
 
+  const submitSearch = async (e) => {
+    e.preventDefault()
+    if(min === '' && max === ''){
+      history.push(`/search/city=${searchCriteria}`)
+      setSearchCriteria('')
+    }
+    if(min !== '' && max === ''){
+      history.push(`/search`)
+    }
+    // alert("Sorry, that function hasn't been implemented yet.")
+  }
 
 
   return (
@@ -50,6 +67,62 @@ function Navigation({ isLoaded }){
 
 
       </li>
+
+      <div className="searchbar-holder">
+      <form onSubmit={submitSearch} className="searchform">
+                        <div className=""><label>City Search</label>
+                        <input
+                        className="search-input"
+                        type="text"
+                        // disabled="true"
+                        value={searchCriteria}
+                        onChange={(e) => {
+                            setSearchCriteria(e.target.value)
+                        }}
+                        title="Searchbar"
+                        placeholder="City Name"
+                        required
+                        minLength="3"></input>
+                        </div>
+
+                        <div className='search-section'>
+                        <label>Minimum price per night</label>
+                        <div className="dollar-amt">
+                        $<input
+                        type="number"
+                        className="min-input"
+                        placeholder="0"
+                        value={min}
+                        onChange={(e) => {
+                          setMin(e.target.value)
+                        }}
+                        min="1"
+                        title='min'>
+                        </input>
+                        </div>
+                        </div>
+
+                        <div className="search-section">
+                        <label>Minimum price per night</label>
+                        <div className="dollar-amt">
+                        $<input
+                        type="number"
+                        className="min-input"
+                        placeholder="100"
+                        value={max}
+                        onChange={(e) => {
+                          setMax(e.target.value)
+                        }}
+                        // min="1"
+                        title='max'>
+                        </input>
+                        </div>
+                        </div>
+                        
+                        <button 
+                         id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+        </div>
 {sessionUser !== null &&
             (<div className='create-holder'>
               <div className='create-spot-button'>
