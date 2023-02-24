@@ -7,6 +7,7 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require('sequelize');
 // const { getMaxListeners } = require("../../app");
 const { route } = require("./users");
+const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3")
 
 const router = express.Router();
 
@@ -482,9 +483,13 @@ router.get('/current', requireAuth, async (req, res, next) => {
 })
 
 // Add an Image to a Spot based on the Spot's id
-router.post('/:spotId/images', requireAuth, async (req, res, next) => {
-    let { url, preview } = req.body
+router.post('/:spotId/images', singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+    // let { url, preview } = req.body
+    let { preview } = req.body
     let { spotId } = req.params
+
+    const url = await singlePublicFileUpload(req.file)
+    // console.log("OOOOOO", url)
 
     const spot = await Spot.findByPk(spotId)
 
