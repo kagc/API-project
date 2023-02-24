@@ -16,7 +16,7 @@ const CreateSpot = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
-    const [url, setUrl ] = useState('')
+    const [url, setUrl ] = useState(null)
     const [errors, setErrors] = useState([]);
 
     const { closeModal } = useModal();
@@ -24,6 +24,11 @@ const CreateSpot = () => {
     // useEffect(() => {
     //     console.log(url)
     // }, [url])
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        // console.log(file)
+        if (file) setUrl(file);
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -47,7 +52,7 @@ const CreateSpot = () => {
         // console.log(newSpot)
         // return
         setErrors([]);
-        // return console.log(newImg)
+        // return console.log("!!!!!!",newImg)
 
         const createdSpot = await dispatch(makeSpot(newSpot, newImg))
         // .then(closeModal)
@@ -62,6 +67,14 @@ const CreateSpot = () => {
         if(createdSpot) {
             closeModal()
             history.push(`/spots/${createdSpot.id}`)
+            setAddress("")
+            setCity("")
+            setState("")
+            setCountry("")
+            setName("")
+            setDescription("")
+            setPrice("")
+            setUrl(null)
         }
 
         }
@@ -146,14 +159,16 @@ const CreateSpot = () => {
                 </div>
 
                 <div>
-                    <input type='text'
+                    <input type='file'
                     placeholder='Add an Image (https://...)'
                     className='input-line'
                     required
-                    value={url}
-                    maxlength='255'
-                    title='Image link'
-                    onChange={(e) => setUrl(e.target.value)}></input>
+                    // value={url}
+                    // maxlength='255'
+                    title='Image Upload'
+                    // onChange={(e) => setUrl(e.target.value)}
+                    onChange={updateFile}
+                    ></input>
                 </div>
 
                 <div>

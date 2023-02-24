@@ -93,6 +93,7 @@ export const getUserSpots = () => async dispatch => {
 
 
 export const makeSpot = (newSpot, newImg) => async dispatch => {
+    const { url, preview } = newImg
     const response = await csrfFetch(`/api/spots`, {
         method: 'POST',
         headers: {
@@ -102,17 +103,23 @@ export const makeSpot = (newSpot, newImg) => async dispatch => {
         })
         if(response.ok){
             const createdSpot = await response.json()
+            const formData = new FormData()
+            formData.append("image", url)
+            formData.append("preview", preview)
             const response2 = await csrfFetch(`/api/spots/${createdSpot.id}/images`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'multipart/form-data'
                     },
-                    body: JSON.stringify(newImg)
+                    body: formData
                 })
             
                 if(response2.ok){
                     dispatch(add(createdSpot))
                     return createdSpot
+                }
+                if (response2.status >= 400){
+                    console.log("!!!!!!", response2)
                 }
                 
             }
