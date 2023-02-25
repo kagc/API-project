@@ -1,6 +1,6 @@
 # Sparebnb
 
-[Link to Live Site](https://airbnb-clone-0h30.onrender.com/)
+[Link to Live Site](https://spare-bnb.onrender.com/)
 
 Sparebnb is a website clone, inspired by Airbnb.com.
 Features of Sparebnb include creating a user account, logging in and out of account, creating a spot page with details, loading all spots from database, displaying specific spots based ID, editing and deleting those spots, and creating, viewing, and deleting reviews for each spot.
@@ -30,6 +30,10 @@ This project is built with JavaScript, Sequelize, Express, React, Redux, and Ren
 
 ![manage-reviews](./assets/managereviews.PNG)
 
-To get started, clone the repo to your computer. Cd into the /backend folder, type 'npm start' and hit enter. Cd into the /frontend folder, type 'npm start' and hit enter. The project should be accessible on localhost:3000.
+To get started locally: 
+* clone the repo to your computer
+* 'npm install' in root directory and 'npm start'
+* cd into the /frontend directory, 'npm install' and 'npm start'
+* the project should be accessible on localhost:3000.
 
 [Link to Contact](https://github.com/kagc)

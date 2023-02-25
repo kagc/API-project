@@ -133,29 +133,30 @@ const CreateSpot = () => {
                 onChange={(e) => setState(e.target.value)}></input> */}
                 <select
                 // type="text"
-                className='drop-input-line'
+                className={state !== '' ? 'drop-input-line' : 'gray-drop-input-line'}
                 name="state"
                 placeholder="Tell us which state"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
                 required>
-                    <option value="" disabled>Tell us which State</option>
+                    <option className="disabled-line" value="" disabled selected>Tell us which State</option>
                     {states.map(state => (
-                        <option key={state}
+                        <option className="select-line" key={state}
                         value={state}>{state}</option>
                     ))}
                 </select>
 
 
                 <select 
-                className='drop-input-line'
+                className={country !== '' ? 'drop-input-line' : 'gray-drop-input-line'}
+                required
                     onChange={(e) => setCountry(e.target.value)}
                     placeholder='Country'
                     title='Country'
                     value={country}>
-                        <option value="" disabled>And the Country</option>
-                    <option value='United States'>United States</option>
-                    <option value='Catland'>Catland</option>
+                        <option className="disabled-line" value="" disabled selected>And the Country</option>
+                    <option className="select-line" value='United States'>United States</option>
+                    <option className="select-line" value='Catland'>Catland</option>
 
                 </select>
 
