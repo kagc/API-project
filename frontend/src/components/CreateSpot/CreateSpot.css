@@ -173,9 +173,37 @@ button {
     border-left: 0px;
     border-right: 0px;
     padding-left: 1rem;
+    /* color: gray' */
+    /* background: transparent; */
+    /* border-bottom: 1px solid gray; */
+    height: 2.7rem;
+    /* -webkit-appearance: none; */
+}
+
+.gray-drop-input-line { 
+    width: 100%;
+    /* border-bottom: 0px; */
+    /* padding: 1.5rem; */
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    padding-left: 1rem;
     color: gray;
     /* background: transparent; */
     /* border-bottom: 1px solid gray; */
     height: 2.7rem;
     /* -webkit-appearance: none; */
+}
+
+.select-line {
+    color: black;
+} 
+
+.disabled-line {
+    color: gray;
+}
+
+.disabled-line:invalid,
+.disabled-line option[value=""] {
+  color: #999999;
 }

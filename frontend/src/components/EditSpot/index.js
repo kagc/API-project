@@ -9,13 +9,15 @@ const EditSpot = ({spot}) => {
     // const { spotId } = useParams()
     const dispatch = useDispatch()
     const history = useHistory()
-console.log(spot)
+// console.log(spot)
     // useEffect(() => {
     //     dispatch(getOneSpot(spotId))
     // }, [dispatch, spotId])
 
     // const spot = useSelector(state => state.spots.singleSpot[spotId])
-    console.log('spot', spot)
+    // console.log('spot', spot)
+
+    let states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
 
     const [address, setAddress] = useState(spot.address)
     const [city, setCity] = useState(spot.city)
@@ -112,21 +114,47 @@ console.log(spot)
                 title='City'
                 onChange={(e) => setCity(e.target.value)}></input>
 
-                <input type='text'
+                {/* <input type='text'
                 className='input-line'
                 placeholder='State'
                 required
                 value={state}
                 title='State'
-                onChange={(e) => setState(e.target.value)}></input>
+                onChange={(e) => setState(e.target.value)}></input> */}
+                <select
+                // type="text"
+                className='drop-input-line'
+                name="state"
+                placeholder="Tell us which state"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                required>
+                    <option value="" disabled>State</option>
+                    {states.map(state => (
+                        <option className="select-line" key={state}
+                        value={state}>{state}</option>
+                    ))}
+                </select>
 
-<input type='text'
+{/* <input type='text'
                 placeholder='Country'
                 className='input-line'
                 required
                 value={country}
                 title='Country'
-                onChange={(e) => setCountry(e.target.value)}></input>
+                onChange={(e) => setCountry(e.target.value)}></input> */}
+                <select 
+                required
+                className='drop-input-line'
+                    onChange={(e) => setCountry(e.target.value)}
+                    placeholder='Country'
+                    title='Country'
+                    value={country}>
+                        <option value="" disabled>Country</option>
+                    <option className="select-line" value='United States'>United States</option>
+                    <option className="select-line" value='Catland'>Catland</option>
+
+                </select>
                 
 
                 
