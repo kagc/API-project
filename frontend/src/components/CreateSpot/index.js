@@ -9,6 +9,9 @@ const CreateSpot = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    let states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
+
+
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
@@ -121,30 +124,48 @@ const CreateSpot = () => {
                 title='City'
                 onChange={(e) => setCity(e.target.value)}></input>
 
-                <input type='text'
+                {/* <input type='text'
                 placeholder='Tell us which State'
                 className='input-line'
                 required
                 value={state}
                 title='State'
-                onChange={(e) => setState(e.target.value)}></input>
+                onChange={(e) => setState(e.target.value)}></input> */}
+                <select
+                // type="text"
+                className='drop-input-line'
+                name="state"
+                placeholder="Tell us which state"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                required>
+                    <option value="" disabled>Tell us which State</option>
+                    {states.map(state => (
+                        <option key={state}
+                        value={state}>{state}</option>
+                    ))}
+                </select>
 
-                {/* <select 
-                className='input-line'
+
+                <select 
+                className='drop-input-line'
                     onChange={(e) => setCountry(e.target.value)}
                     placeholder='Country'
+                    title='Country'
                     value={country}>
-                    <option className='input-line' default value='United States'>United States</option>
-                    <option className='input-line' value='Catland'>Catland</option>
-                </select> */}
+                        <option value="" disabled>And the Country</option>
+                    <option value='United States'>United States</option>
+                    <option value='Catland'>Catland</option>
 
-                <input type='text'
+                </select>
+
+                {/* <input type='text'
                 placeholder='And the Country'
                 className='input-line'
                 required
                 value={country}
                 title='Country'
-                onChange={(e) => setCountry(e.target.value)}></input>
+                onChange={(e) => setCountry(e.target.value)}></input> */}
 
                 <div>
                    <input type='text'
@@ -159,9 +180,10 @@ const CreateSpot = () => {
                 </div>
 
                 <div>
+                    <label className="create-label">Add an image</label>
                     <input type='file'
                     placeholder='Add an Image (https://...)'
-                    className='input-line'
+                    className='img-input-line'
                     required
                     // value={url}
                     // maxlength='255'
@@ -185,7 +207,7 @@ const CreateSpot = () => {
                 <div>
                     <input type='number'
                     className='input-line2'
-                    placeholder='Now, set your Price'
+                    placeholder='Now, set your Price per night'
                     min='1'
                     value={price}
                     title='Price'
