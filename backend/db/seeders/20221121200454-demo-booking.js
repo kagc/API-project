@@ -22,20 +22,20 @@ module.exports = {
       {
         spotId: 1,
         userId: 2,
-        startDate: startDate,
-        endDate: startDate.addDays(5)
+        startDate: startDate.addDays(5),
+        endDate: startDate.addDays(10)
       },
       {
         spotId: 2,
         userId: 3,
-        startDate: startDate,
-        endDate: startDate.addDays(5)
+        startDate: startDate.addDays(5),
+        endDate: startDate.addDays(10)
       },
       {
         spotId: 3,
         userId: 1,
-        startDate: startDate,
-        endDate: startDate.addDays(5)
+        startDate: startDate.addDays(5),
+        endDate: startDate.addDays(10)
       },
     ], {})
     /**
