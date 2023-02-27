@@ -14,6 +14,7 @@ import './SingleSpot.css'
 import { getAllReviews, tossReview } from '../../store/reviews'
 import UserBookings from '../UserBookings';
 import EditBookingForm from '../EditBooking';
+import haircover from '../../images/haircover.png'
 
 function SingleSpot() {
     let { spotId } = useParams()
@@ -238,8 +239,8 @@ function SingleSpot() {
 </div>
 
 <div className='extra-infobox'>
-<img className='aircover' src='https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg' ></img>
-<span className='subdeet2'>Every booking includes a thick blanket to cover yourself with for when the cats have their scheduled 3AM zoomies through the air.</span>
+<img className='aircover' src={`${haircover}`} ></img>
+<span className='subdeet2'>Every booking includes enough cat hair to thoroughly cover every inch of your clothing.</span>
 
 </div>
 

@@ -189,6 +189,7 @@ const CreateSpot = () => {
                     // value={url}
                     // maxlength='255'
                     title='Image Upload'
+                    accept="image/*"
                     // onChange={(e) => setUrl(e.target.value)}
                     onChange={updateFile}
                     ></input>
