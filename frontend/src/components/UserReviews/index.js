@@ -7,11 +7,13 @@ import { getAllReviews, getUsersReviews, tossReview } from "../../store/reviews"
 import { getAllSpots } from "../../store/spots";
 import OpenModalButton from '../OpenModalButton';
 import EditReviewForm from '../EditReviewForm';
+import errImage from '../../images/placeholder-house.jpg'
 
 const UserReviews = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const ulRef = useRef();
+  const [newSrc, setNewSrc] = useState('')
     const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
@@ -97,8 +99,19 @@ const UserReviews = () => {
                     <div>
                       <div
                         className="preview-image"
-                        style={{
-                          backgroundImage: `url('${review.Spot.previewImage}')` }}></div>
+                        // style={{
+                        //   backgroundImage: `url('${review.Spot.previewImage}')` }}
+                          >
+                            <img 
+                                        className="previewer-image" 
+                                        onError={(e)=>{
+                                            if(e.target.src !== errImage) {
+                                            setNewSrc(errImage)
+                                            e.target.src = errImage
+                                            }
+                                        }}
+                                    src={`${review.Spot.previewImage}`}></img>
+                          </div>
                       <div className="spots-details2">
                         <div className="spots-details-top">
                           <div className="manage-spotname">{review.Spot.name}</div>
