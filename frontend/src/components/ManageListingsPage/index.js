@@ -9,12 +9,14 @@ import { Link, Route, useHistory } from "react-router-dom";
 import { getUserSpots, nukeSpot } from "../../store/spots";
 import EditSpot from "../EditSpot";
 import "./ManageListingsPage.css";
+import errImage from '../../images/placeholder-house.jpg'
 
 const ManageListingsPage = () => {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
   const history = useHistory();
+  const [newSrc, setNewSrc] = useState('')
 
   const spotsObj = useSelector((state) => state.spots.userSpots);
   const spots = Object.values(spotsObj);
@@ -75,10 +77,20 @@ const ManageListingsPage = () => {
                     <div>
                       <div
                         className="preview-image"
-                        style={{
-                          backgroundImage: `url('${spot.previewImage}')`,
-                        }}
-                      ></div>
+                        // style={{
+                        //   backgroundImage: `url('${spot.previewImage}')`,
+                        // }}
+                      >
+                         <img 
+                                        className="previewer-image" 
+                                        onError={(e)=>{
+                                            if(e.target.src !== errImage) {
+                                            setNewSrc(errImage)
+                                            e.target.src = errImage
+                                            }
+                                        }}
+                                    src={`${spot.previewImage}`}></img>
+                      </div>
                       <div className="spots-details2">
                         <div className="spots-details-top">
                           <div className="manage-spotname">{spot.name}</div>
