@@ -15,6 +15,7 @@ import { getAllReviews, tossReview } from '../../store/reviews'
 import UserBookings from '../UserBookings';
 import EditBookingForm from '../EditBooking';
 import haircover from '../../images/haircover.png'
+import errImage from '../../images/placeholder-house.jpg'
 
 function SingleSpot() {
     let { spotId } = useParams()
@@ -23,6 +24,7 @@ function SingleSpot() {
     // const [alreadyReviewed, setAlreadyReviewed] = useState(false)
     const ulRef = useRef();
     const history = useHistory()
+    const [newSrc, setNewSrc] = useState('')
 
     Date.prototype.addDays = function(days) {
         var date = new Date(this.valueOf());
@@ -192,7 +194,17 @@ function SingleSpot() {
             <div className='img-container'>
                 {spot.SpotImages.map(image => {
                     return (
-                        <img className='img' key={image.id} src={`${image.url}`}></img>
+                        // <img className='img' key={image.id} src={`${image.url}`}></img>
+                        <img 
+                                        className="img" 
+                                        key={image.id}
+                                        onError={(e)=>{
+                                            if(e.target.src !== errImage) {
+                                            setNewSrc(errImage)
+                                            e.target.src = errImage
+                                            }
+                                        }}
+                                    src={`${image.url}`}></img>
                     )
                 })}
             </div>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import './Search.css'
 import { Link, useHistory, useParams, useLocation } from "react-router-dom";
 import { getAllSpots } from "../../store/spots";
+import errImage from '../../images/placeholder-house.jpg'
 
 const SearchResults = () => {
   const params = useParams()
@@ -90,6 +91,7 @@ const SearchResults = () => {
         // }
     }
     // console.log("results", results)
+    let filteredResults = results.filter((result, index) => results.indexOf(result) === index);
 
   return isLoaded && (
     <div>
@@ -102,9 +104,9 @@ const SearchResults = () => {
         {maxNum !== undefined ? <div className="search-thing">Maximum price per night:<div className="search-val">${maxNum}</div>
         </div> : null}
         </div>
-        <div className="found">{results.length} Result{results.length === 1 ? null : 's'}:</div>
+        <div className="found">{filteredResults.length} Result{filteredResults.length === 1 ? null : 's'}:</div>
     <div className='search-spots'>
-            {results.length ? (results.map(spot => {
+            {filteredResults.length ? (filteredResults.map(spot => {
                 // console.log('rating', spot.avgRating)
 
                 let avgStars
@@ -117,7 +119,18 @@ const SearchResults = () => {
                         <div>
                         <div 
                         className="preview-image"
-                        style={{ backgroundImage: `url('${spot.previewImage}')` }}></div>
+                        // style={{ backgroundImage: `url('${spot.previewImage}')` }}
+                        >
+                          <img 
+                                        className="previewer-image" 
+                                        onError={(e)=>{
+                                            if(e.target.src !== errImage) {
+                                            setNewSrc(errImage)
+                                            e.target.src = errImage
+                                            }
+                                        }}
+                                    src={`${spot.previewImage}`}></img>
+                        </div>
                         <div className='spots-details'>
                             <div className='spots-details-top'>
                             <div className='place'>{spot.city}, {spot.state}</div>
