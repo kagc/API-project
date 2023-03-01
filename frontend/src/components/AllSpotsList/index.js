@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Route, useParams, Link } from 'react-router-dom';
 import { getAllSpots } from '../../store/spots'
 import './AllSpotsList.css'
+import errImage from '../../images/placeholder-house.jpg'
 
 function AllSpotsList() {
 const dispatch = useDispatch()
@@ -10,6 +11,7 @@ const dispatch = useDispatch()
 const spotsObj = useSelector(state => state.spots.allSpots)
 const spots = Object.values(spotsObj)
 // console.log('spotsOb', spotsObj)
+const [newSrc, setNewSrc] = useState('')
 
 useEffect(() => {
     dispatch(getAllSpots())
@@ -32,7 +34,19 @@ if(!spotsObj || !spots || spots.length === 0) return null
                         <div>
                         <div 
                         className="preview-image"
-                        style={{ backgroundImage: `url('${spot.previewImage}')` }}></div>
+                        // style={{ backgroundImage: `url('${spot.previewImage}')` }}
+                        >
+
+                                        <img 
+                                        className="previewer-image" 
+                                        onError={(e)=>{
+                                            if(e.target.src !== errImage) {
+                                            setNewSrc(errImage)
+                                            e.target.src = errImage
+                                            }
+                                        }}
+                                    src={`${spot.previewImage}`}></img>
+                        </div>
                         <div className='spots-details'>
                             <div className='spots-details-top'>
                             <div className='place'>{spot.city}, {spot.state}</div>
