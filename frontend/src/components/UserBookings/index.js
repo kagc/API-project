@@ -9,12 +9,14 @@ import OpenModalButton from '../OpenModalButton';
 import './UserBookings.css'
 import EditBookingForm from "../EditBooking";
 // import { useModal } from '../../context/Modal';
+import errImage from '../../images/placeholder-house.jpg'
 
 const UserBookings = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const ulRef = useRef();
   const [showMenu, setShowMenu] = useState(false);
+  const [newSrc, setNewSrc] = useState('')
 
   // const { closeModal } = useModal();
 
@@ -75,8 +77,19 @@ const UserBookings = () => {
                     <div>
                       <div
                         className="preview-image"
-                        style={{
-                          backgroundImage: `url('${booking.Spot.previewImage}')` }}></div>
+                        // style={{
+                        //   backgroundImage: `url('${booking.Spot.previewImage}')` }}
+                          >
+                            <img 
+                                        className="previewer-image" 
+                                        onError={(e)=>{
+                                            if(e.target.src !== errImage) {
+                                            setNewSrc(errImage)
+                                            e.target.src = errImage
+                                            }
+                                        }}
+                                    src={`${booking.Spot.previewImage}`}></img>
+                          </div>
                       <div className="spots-details2">
                         <div className="spots-details-top">
                           <div className="manage-spotname">{booking.Spot.name}</div>
