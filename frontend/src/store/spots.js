@@ -119,7 +119,8 @@ export const makeSpot = (newSpot, newImg) => async dispatch => {
                     return createdSpot
                 }
                 if (response2.status >= 400){
-                    console.log("!!!!!!", response2)
+                    // console.log("!!!!!!", response2)
+                    throw response2
                 }
                 
             }

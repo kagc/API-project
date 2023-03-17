@@ -73,7 +73,7 @@ const EditBookingForm = ({bookingId, bookingData}) => {
         // }
     }
 
-    console.log("NEWSTART", tempStart)
+    // console.log("NEWSTART", tempStart)
     
     const [editStartDate, setEditStartDate] = useState(tempStart)
     const [numNights, setNumNights] = useState(initDiffDays)

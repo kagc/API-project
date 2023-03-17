@@ -15,7 +15,7 @@ const SearchResults = () => {
     const [newSrc, setNewSrc] = useState('')
 
     let { searchTerm, minNum, maxNum } = params
-    console.log(searchTerm, minNum, maxNum)
+    // console.log(searchTerm, minNum, maxNum)
     const [searchCriteria, setSearchCriteria ] = useState(searchTerm)
 
     const allSpotsObj = useSelector(state => state.spots.allSpots)
