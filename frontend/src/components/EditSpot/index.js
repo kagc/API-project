@@ -63,7 +63,7 @@ const EditSpot = ({spot}) => {
         .catch(
             async (res) => {
                 const data = await res.json();
-                console.log(data.errors)
+                // console.log(data.errors)
               if (data && data.errors) setErrors(data.errors);
             }
           );

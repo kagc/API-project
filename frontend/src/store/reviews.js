@@ -121,7 +121,7 @@ export const tossReview = (reviewId) => async dispatch => {
     }
     else {
         const data = await response.json()
-        console.log(data)
+        // console.log(data)
     }
     if(response.status >= 400){
         throw response

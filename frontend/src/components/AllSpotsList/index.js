@@ -27,7 +27,7 @@ if(!spotsObj || !spots || spots.length === 0) return null
                 let avgStars
                 // if (!spot.avgRating || spot.avgRating === null) spot.avgRating = 0
                 if (spot.avgRating > 0) avgStars = parseFloat(spot.avgRating.toPrecision(3))
-               console.log('stars', spot.title, avgStars)
+            //    console.log('stars', spot.title, avgStars)
                if(avgStars === undefined) avgStars = 0
                 return (
                     <Link key={spot.id} to={`/spots/${spot.id}`}>

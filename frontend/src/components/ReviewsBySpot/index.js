@@ -56,7 +56,7 @@ function ReviewsBySpot({spot}) {
     })}
     let avg = added/reviews.length
     let avgStars = parseFloat(avg.toPrecision(3))
-    console.log('user', user)
+    // console.log('user', user)
     // console.log(avgStars)
 
     let thisReview
