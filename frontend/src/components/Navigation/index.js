@@ -116,7 +116,7 @@ function Navigation({ isLoaded }){
                         </div>
 
                         <div className="search-section">
-                        <label>Minimum price per night</label>
+                        <label>Maximum price per night</label>
                         <div className="dollar-amt">
                         $<input
                         type="number"
