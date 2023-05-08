@@ -1,66 +1,77 @@
 .all-spots {
-    /* margin: 0.5em 0px 40px; */
-    /* padding: 0px 0.5em; */
-    margin-top: 10rem;
-    display: flex;
-    flex-wrap: wrap;
-   justify-content: space-around;
-   width: 100%;
+  /* margin: 0.5em 0px 40px; */
+  /* padding: 0px 0.5em; */
+  margin-top: 10rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .preview-image {
-    /* background-size: contain; */
-    background-repeat: no-repeat;
-    background-position: center center;
-    object-fit: cover;
-    /* border: 1px solid #DFDFDF; */
-    margin-bottom: 1em;
-    border-radius: 10px;
-    /* height: 13em;
+  /* background-size: contain; */
+  background-repeat: no-repeat;
+  background-position: center center;
+  object-fit: cover;
+  /* border: 1px solid #DFDFDF; */
+  margin-bottom: 1em;
+  border-radius: 10px;
+  /* height: 13em;
     width: 15em; */
-    overflow: hidden;
-    /* padding: 25px; */
-    /* margin: 2rem; */
-    /* width: 100%; */
-    /* height: 100%; */
-    /* object-fit: fill;
+  overflow: hidden;
+  /* padding: 25px; */
+  /* margin: 2rem; */
+  /* width: 100%; */
+  /* height: 100%; */
+  /* object-fit: fill;
     display: inline-block;
     position: relative;
     overflow:hidden; */
 }
 
 .previewer-image {
-    background-repeat: no-repeat;
-    background-position: center center;
-    /* height: 15rem; */
-    /* margin-bottom: 1em; */
-    width: 100%;
-    height: 13em;
-    width: 15em;
-    /* height: auto%; */
-    /* width: 16rem; */
-    /* padding: 25px; */
-    object-fit: cover;
-    overflow: hidden;
-    border-radius: 10px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* height: 15rem; */
+  /* margin-bottom: 1em; */
+  width: 100%;
+  height: 13em;
+  width: 15em;
+  /* height: auto%; */
+  /* width: 16rem; */
+  /* padding: 25px; */
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .spots-details {
-    margin-bottom: 3em;
-    max-width: 18rem;
+  margin-bottom: 3em;
+  max-width: 18rem;
 }
 
 .spots-details-top {
-    display: flex;
-   justify-content: space-between;
-   margin-bottom: 1em;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
 }
 
 .place {
-    font-weight: bold;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  flex-flow: row wrap;
+  overflow: hidden;
+  max-width: 75%;
 }
 
 .price {
-    font-weight: bold;
+  font-weight: bold;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  flex-flow: row wrap;
+  overflow: hidden;
 }
 
+.spot-card {
+    width: 15rem;
+}

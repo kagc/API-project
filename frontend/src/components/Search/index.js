@@ -136,33 +136,40 @@ const SearchResults = () => {
               //  console.log('stars', spot.title, avgStars)
                if(avgStars === undefined) avgStars = 0
                 return (
-                    <Link key={spot.id} to={`/spots/${spot.id}`}>
-                        <div>
-                        <div 
+                  <Link key={spot.id} to={`/spots/${spot.id}`}>
+                    <div className="spot-card">
+                      <div
                         className="preview-image"
                         // style={{ backgroundImage: `url('${spot.previewImage}')` }}
-                        >
-                          <img 
-                                        className="previewer-image" 
-                                        onError={(e)=>{
-                                            if(e.target.src !== errImage) {
-                                            setNewSrc(errImage)
-                                            e.target.src = errImage
-                                            }
-                                        }}
-                                    src={`${spot.previewImage}`}></img>
+                      >
+                        <img
+                          className="previewer-image"
+                          onError={(e) => {
+                            if (e.target.src !== errImage) {
+                              setNewSrc(errImage);
+                              e.target.src = errImage;
+                            }
+                          }}
+                          src={`${spot.previewImage}`}
+                        ></img>
+                      </div>
+                      <div className="spots-details">
+                        <div className="spots-details-top">
+                          <div className="place">
+                            {spot.city}, {spot.state}
+                          </div>
+                          <div>
+                            <i className="fa-solid fa-star"></i> {avgStars}
+                          </div>
                         </div>
-                        <div className='spots-details'>
-                            <div className='spots-details-top'>
-                            <div className='place'>{spot.city}, {spot.state}</div>
-                            <div><i className="fa-solid fa-star"></i> {avgStars}</div>
-                            </div>
 
-                            <div><span className='price'>${spot.price}</span> night</div>
+                        <div>
+                          <span className="price">${spot.price}</span> night
                         </div>
-                        </div>
-                    </Link>
-                )
+                      </div>
+                    </div>
+                  </Link>
+                );
             })) : (<div className="no-results">Sorry, no results found.</div>)}
         </div>
         </div>
