@@ -155,6 +155,10 @@ export const modSpot = (spotId, editedSpot) => async dispatch => {
     }
 }
 
+export const searchSpots = (spotData) => async dispatch => {
+    const response = await csrfFetch(`/api/spots`)
+}
+
 const initialState = { allSpots: {}, singleSpot: {}, userSpots: {} }
 
 
