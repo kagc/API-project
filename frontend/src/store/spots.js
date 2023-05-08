@@ -155,10 +155,6 @@ export const modSpot = (spotId, editedSpot) => async dispatch => {
     }
 }
 
-export const searchSpots = (spotData) => async dispatch => {
-    const response = await csrfFetch(`/api/spots`)
-}
-
 const initialState = { allSpots: {}, singleSpot: {}, userSpots: {} }
 
 
@@ -168,7 +164,7 @@ const spotReducer = (state = initialState, action) => {
 
         case LOAD_SPOTS:
             // newState = {}
-            newState = { allSpots: {}, singleSpot: {}, userSpots: {} }
+            newState = { ...state, allSpots: {}, singleSpot: {} }
             action.spots.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             })
