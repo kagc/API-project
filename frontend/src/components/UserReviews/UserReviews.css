@@ -36,10 +36,12 @@
 .reviewtext-holder {
     margin-top: 0.5rem;
     width: 100%;
+    overflow-wrap: break-word;
 }
 
 .review-text {
     width: 20%;
+    overflow-wrap: break-word;
 }
 
 .bottom-button {

@@ -1,9 +1,9 @@
 .your-spots {
-    margin-top: 2em;
-    display: flex;
-    flex-wrap: wrap;
-   justify-content: space-around;
-   width: 100%;
+  margin-top: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
 }
 
 /* .manange-listings-holder {
@@ -11,34 +11,40 @@
 } */
 
 .yourspots {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
-.manage-button-holder> button {
-    margin-bottom: 1rem;
-    /* top-margin: 1rem; */
+.manage-button-holder > button {
+  margin-bottom: 1rem;
+  /* top-margin: 1rem; */
 }
 
-.manage-buttons> button {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+.manage-buttons > button {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .manage-spotname {
-    font-weight: bold;
+  font-weight: bold;
+  /* max-width: 10%; */
+  /* overflow-wrap: break-word; */
+  text-overflow: ellipsis;
+  flex-flow: row wrap;
+  overflow: hidden;
+  max-width: 35%;
 }
 
 .reviewtext-holder {
-    margin-top: 0.5rem;
-    width: 100%;
+  margin-top: 0.5rem;
+  width: 100%;
 }
 
 .review-text {
-    width: 20%;
+  width: 20%;
 }
 
 .bottom-button {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 /* .spots-details2 {
@@ -47,6 +53,15 @@
     max-width: 18rem !important;
     display: flex;
     /* justify-content: space-between; */
-    /* flex-direction: column;
+/* flex-direction: column;
     margin-left: 0pc; */
-/* } */ 
+/* } */
+
+.manage-place {
+  /* width: 95%; */
+  /* overflow-wrap: break-word; */
+  text-overflow: ellipsis;
+  flex-flow: row wrap;
+  overflow: hidden;
+  max-width: 65%;
+}

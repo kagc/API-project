@@ -74,22 +74,23 @@ const ManageListingsPage = () => {
               return (
                 <div key={spot.id}>
                   <Link to={`/spots/${spot.id}`}>
-                    <div>
+                    <div className="spot-card">
                       <div
                         className="preview-image"
                         // style={{
                         //   backgroundImage: `url('${spot.previewImage}')`,
                         // }}
                       >
-                         <img 
-                                        className="previewer-image" 
-                                        onError={(e)=>{
-                                            if(e.target.src !== errImage) {
-                                            setNewSrc(errImage)
-                                            e.target.src = errImage
-                                            }
-                                        }}
-                                    src={`${spot.previewImage}`}></img>
+                        <img
+                          className="previewer-image"
+                          onError={(e) => {
+                            if (e.target.src !== errImage) {
+                              setNewSrc(errImage);
+                              e.target.src = errImage;
+                            }
+                          }}
+                          src={`${spot.previewImage}`}
+                        ></img>
                       </div>
                       <div className="spots-details2">
                         <div className="spots-details-top">
@@ -98,7 +99,6 @@ const ManageListingsPage = () => {
                             {spot.city}, {spot.state}
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </Link>
@@ -114,7 +114,7 @@ const ManageListingsPage = () => {
                       {/* </Route> */}
                     </div>
 
-                    <div className='bottom-button'>
+                    <div className="bottom-button">
                       <button
                         onClick={async (e) => {
                           e.preventDefault();

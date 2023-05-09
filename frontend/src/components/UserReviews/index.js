@@ -96,64 +96,78 @@ const UserReviews = () => {
               return (
                 <div key={review.id}>
                   <Link to={`/spots/${review.Spot.id}`}>
-                    <div>
+                    <div className="spot-card">
                       <div
                         className="preview-image"
                         // style={{
                         //   backgroundImage: `url('${review.Spot.previewImage}')` }}
-                          >
-                            <img 
-                                        className="previewer-image" 
-                                        onError={(e)=>{
-                                            if(e.target.src !== errImage) {
-                                            setNewSrc(errImage)
-                                            e.target.src = errImage
-                                            }
-                                        }}
-                                    src={`${review.Spot.previewImage}`}></img>
-                          </div>
+                      >
+                        <img
+                          className="previewer-image"
+                          onError={(e) => {
+                            if (e.target.src !== errImage) {
+                              setNewSrc(errImage);
+                              e.target.src = errImage;
+                            }
+                          }}
+                          src={`${review.Spot.previewImage}`}
+                        ></img>
+                      </div>
                       <div className="spots-details2">
                         <div className="spots-details-top">
-                          <div className="manage-spotname">{review.Spot.name}</div>
+                          <div className="manage-spotname">
+                            {review.Spot.name}
+                          </div>
                           <div className="manage-place">
                             {review.Spot.city}, {review.Spot.state}
                           </div>
                         </div>
-                          <div><span className='price'><i className="fa-solid fa-star"></i>{review.stars}</span> </div>
-                          <div className='reviewtext-holder'><span className='reviewtext'>{review.review}</span></div>
-
+                        <div>
+                          <span className="price">
+                            <i className="fa-solid fa-star"></i>
+                            {review.stars}
+                          </span>{" "}
                         </div>
+                        <div className="reviewtext-holder">
+                          <span className="reviewtext">{review.review}</span>
+                        </div>
+                      </div>
                     </div>
                   </Link>
 
                   <div className="manage-button-holder">
-                              <div className="manage-buttons">
-                                <div className='bottom-button'>
-                                
-                                <OpenModalButton 
-                        modalComponent={<EditReviewForm reviewId={review.id} reviewData={review}/>}
-                        buttonText='Edit Review'
-                        onButtonClick={closeMenu}
-                        className='edit-rev-button'/>
+                    <div className="manage-buttons">
+                      <div className="bottom-button">
+                        <OpenModalButton
+                          modalComponent={
+                            <EditReviewForm
+                              reviewId={review.id}
+                              reviewData={review}
+                            />
+                          }
+                          buttonText="Edit Review"
+                          onButtonClick={closeMenu}
+                          className="edit-rev-button"
+                        />
 
-                                  <button
-                                  className="delrev-button"
-                                    onClick={async (e) => {
-                                      e.preventDefault();
-                                      const deleted = await dispatch(
-                                        tossReview(review.id)
-                                      );
-                                      if (deleted) {
-                                        history.push(`/manage-reviews`);
-                                      }
-                                    }}
-                                  >
-                                    Delete Review
-                                  </button>
-                                  </div>
-                              </div>
-                            </div>
+                        <button
+                          className="delrev-button"
+                          onClick={async (e) => {
+                            e.preventDefault();
+                            const deleted = await dispatch(
+                              tossReview(review.id)
+                            );
+                            if (deleted) {
+                              history.push(`/manage-reviews`);
+                            }
+                          }}
+                        >
+                          Delete Review
+                        </button>
+                      </div>
+                    </div>
                   </div>
+                </div>
                 // </div>
               );
             })
