@@ -43,7 +43,7 @@ const SearchResults = () => {
                   firstResults.length > 0 &&
                   maxNum === undefined &&
                   minNum !== undefined &&
-                  minNum > 0
+                  parseInt(minNum) > 0
                 ) {
                   console.log("only a minNum", spot, minNum);
                   firstResults.forEach((spot) => {
@@ -51,36 +51,36 @@ const SearchResults = () => {
                       results.push(spot);
                     }
                   });
-                  return
+                  return;
                 }
                 // if there's results and there's only a maxNum
                 if (
                   firstResults.length > 0 &&
                   maxNum !== undefined &&
                   minNum === undefined &&
-                  maxNum > 0
+                  parseInt(maxNum) > 0
                 ) {
-                  console.log("only a maxNum", spot, maxNum)
+                  console.log("only a maxNum", spot, maxNum);
                   firstResults.forEach((spot) => {
-                    if (Number(spot.price) <= Number(maxNum)) {
+                    if (parseInt(spot.price) <= parseInt(maxNum)) {
                       results.push(spot);
                     }
                   });
                   return;
-                  // if there's results and there's only a both maxNum and minNum
+                  // if there's results and there's both maxNum and minNum
                 } 
                 if (
                   firstResults.length > 0 &&
                   maxNum !== undefined &&
                   minNum !== undefined &&
-                  minNum > 0 &&
-                  maxNum > minNum
+                  parseInt(minNum) > 0 &&
+                  parseInt(maxNum) > parseInt(minNum)
                 ) {
                   console.log("both", spot, maxNum, minNum);
                   firstResults.forEach((spot) => {
                     if (
-                      Number(spot.price) >= Number(minNum) &&
-                      Number(spot.price) <= Number(maxNum)
+                      parseInt(spot.price) >= parseInt(minNum) &&
+                      parseInt(spot.price) <= parseInt(maxNum)
                     ) {
                       results.push(spot);
                     }
