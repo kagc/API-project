@@ -232,6 +232,7 @@ const CreateSpot = () => {
                   className="input-line2"
                   placeholder="Now, set your Price per night"
                   min="1"
+                  max='99999'
                   value={price}
                   title="Price"
                   onChange={(event) => setPrice(event.target.value)}

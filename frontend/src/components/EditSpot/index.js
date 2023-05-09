@@ -217,6 +217,7 @@ const EditSpot = ({spot}) => {
                   min="1"
                   value={price}
                   title="Price"
+                  max="99999"
                   onChange={(e) => setPrice(e.target.value)}
                 ></input>
               </div>
