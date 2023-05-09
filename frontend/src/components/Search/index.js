@@ -44,7 +44,6 @@ const SearchResults = () => {
       if (spot.city.toLowerCase().includes(searchTerm.toLowerCase())) {
         // console.log("AAAAAAAAAA", spot)
         firstResults.push(spot);
-
         // if there's results and there's only a minNum
         if (
           firstResults.length > 0 &&
@@ -53,9 +52,9 @@ const SearchResults = () => {
           newMin > 0
         ) {
           // console.log("only a minNum", spot.price >= minNum);
-          firstResults.forEach((spot) => {
-            if (spot.price >= newMin) {
-              results.push(spot);
+          firstResults.forEach((aspot) => {
+            if (aspot.price >= newMin) {
+              results.push(aspot);
             }
           });
           return;
@@ -68,9 +67,9 @@ const SearchResults = () => {
           newMax > 0
         ) {
           // console.log("only a maxNum", spot.price <= maxNum, typeof spot.price === typeof maxNum);
-          firstResults.forEach((spot) => {
-            if (spot.price <= newMax) {
-              results.push(spot);
+          firstResults.forEach((aspot) => {
+            if (aspot.price <= newMax) {
+              results.push(aspot);
             }
           });
           return;
@@ -84,9 +83,9 @@ const SearchResults = () => {
           newMax > newMin
         ) {
           // console.log("both", spot.price <= maxNum, spot.price >= minNum);
-          firstResults.forEach((spot) => {
-            if (spot.price >= newMin && spot.price <= newMax) {
-              results.push(spot);
+          firstResults.forEach((aspot) => {
+            if (aspot.price >= newMin && aspot.price <= newMax) {
+              results.push(aspot);
             }
           });
           return;
@@ -98,8 +97,8 @@ const SearchResults = () => {
           maxNum === undefined
         ) {
           // console.log('neither', spot)
-          firstResults.forEach((spot) => {
-            results.push(spot);
+          firstResults.forEach((aspot) => {
+            results.push(aspot);
           });
           return;
         }
