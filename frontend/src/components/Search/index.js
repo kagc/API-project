@@ -47,7 +47,7 @@ const SearchResults = () => {
                 ) {
                   console.log("only a minNum", spot, minNum);
                   firstResults.forEach((spot) => {
-                    if (spot.price >= minNum) {
+                    if (Number(spot.price) >= Number(minNum)) {
                       results.push(spot);
                     }
                   });
@@ -62,7 +62,7 @@ const SearchResults = () => {
                 ) {
                   console.log("only a maxNum", spot, maxNum)
                   firstResults.forEach((spot) => {
-                    if (spot.price <= maxNum) {
+                    if (Number(spot.price) <= Number(maxNum)) {
                       results.push(spot);
                     }
                   });
@@ -78,7 +78,10 @@ const SearchResults = () => {
                 ) {
                   console.log("both", spot, maxNum, minNum);
                   firstResults.forEach((spot) => {
-                    if (spot.price >= minNum && spot.price <= maxNum) {
+                    if (
+                      Number(spot.price) >= Number(minNum) &&
+                      Number(spot.price) <= Number(maxNum)
+                    ) {
                       results.push(spot);
                     }
                   });
