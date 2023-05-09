@@ -38,12 +38,12 @@ const SearchResults = () => {
                 // if there's results and there's only a minNum
                 if (
                   firstResults.length > 0 &&
-                  maxNum === undefined &&
-                  minNum !== undefined &&
-                  minNum > 0
+                  +maxNum === undefined &&
+                  +minNum !== undefined &&
+                  +minNum > 0
                 ) {
                   firstResults.forEach((spot) => {
-                    if (spot.price >= minNum) {
+                    if (+spot.price >= +minNum) {
                       results.push(spot);
                     }
                   });
@@ -51,12 +51,12 @@ const SearchResults = () => {
                 // if there's results and there's only a maxNum
                 else if (
                   firstResults.length > 0 &&
-                  maxNum !== undefined &&
-                  minNum === undefined &&
-                  maxNum > 0
+                  +maxNum !== undefined &&
+                  +minNum === undefined &&
+                  +maxNum > 0
                 ) {
                   firstResults.forEach((spot) => {
-                    if (spot.price <= maxNum) {
+                    if (+spot.price <= +maxNum) {
                       results.push(spot);
                     }
                   });
@@ -64,13 +64,13 @@ const SearchResults = () => {
                   // if there's results and there's only a both maxNum and minNum
                 } else if (
                   firstResults.length > 0 &&
-                  maxNum !== undefined &&
-                  minNum !== undefined &&
-                  minNum > 0 &&
-                  maxNum > minNum
+                  +maxNum !== undefined &&
+                  +minNum !== undefined &&
+                  +minNum > 0 &&
+                  +maxNum > +minNum
                 ) {
                   firstResults.forEach((spot) => {
-                    if (spot.price >= minNum && spot.price <= maxNum) {
+                    if (+spot.price >= +minNum && +spot.price <= +maxNum) {
                       results.push(spot);
                     }
                   });
@@ -78,8 +78,8 @@ const SearchResults = () => {
                   // nonfiltered search
                 } else if (
                   firstResults.length > 0 &&
-                  minNum === undefined &&
-                  maxNum === undefined
+                  +minNum === undefined &&
+                  +maxNum === undefined
                 ) {
                   firstResults.forEach((spot) => {
                     results.push(spot);
@@ -113,6 +113,7 @@ const SearchResults = () => {
     }
     // console.log("results", results)
     let filteredResults = results.filter((result, index) => results.indexOf(result) === index);
+    // let filteredResults = [...results]
 
   return isLoaded && (
     <div>
