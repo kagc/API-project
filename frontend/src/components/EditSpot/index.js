@@ -77,103 +77,118 @@ const EditSpot = ({spot}) => {
 
 
     return (
-        <div className='editspot-holder'>
+      <div className="editspot-holder">
+        <div className="createspot-line-holder">
+          <h1 className="createspot-line">Make Changes</h1>
+        </div>
 
-<div className='createspot-line-holder'>
+        <div className="welcome">
+          {" "}
+          <h3 className="weclome-h3">Edit Your Spot Info</h3>
+        </div>
 
-<h1 className='createspot-line'>Make Changes</h1>
-</div>
+        <div className="form-holder">
+          <form className="editspot-css" onSubmit={handleSubmit}>
+            <ul className="errorlist">
+              {errors.map((error, idx) => (
+                <li key={idx}>{error}</li>
+              ))}
+            </ul>
 
-
-<div className='welcome'> <h3 className='weclome-h3'>Edit Your Spot Info</h3></div>
-
-<div className='form-holder'>
-<form className='editspot-css' onSubmit={handleSubmit}>
-            <ul className='errorlist'>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-                
-                <div className='input-holder'>
-                {/* <label htmlFor='address'>Where's your place located?</label> */}
-                <input type='text'
-                className='input-line'
-                placeholder='Street'
+            <div className="input-holder">
+              {/* <label htmlFor='address'>Where's your place located?</label> */}
+              <input
+                type="text"
+                className="input-line"
+                placeholder="Street"
                 required
                 value={address}
-                id='address'
-                title='Address'
-                onChange={(e) => setAddress(e.target.value)}></input>
+                id="address"
+                title="Address"
+                onChange={(e) => setAddress(e.target.value)}
+              ></input>
 
-                <input type='text'
-                className='input-line'
-                placeholder='City'
+              <input
+                type="text"
+                className="input-line"
+                placeholder="City"
                 required
                 value={city}
-                title='City'
-                onChange={(e) => setCity(e.target.value)}></input>
+                title="City"
+                maxlength="45"
+                onChange={(e) => setCity(e.target.value)}
+              ></input>
 
-                {/* <input type='text'
+              {/* <input type='text'
                 className='input-line'
                 placeholder='State'
                 required
                 value={state}
                 title='State'
                 onChange={(e) => setState(e.target.value)}></input> */}
-                <select
+              <select
                 // type="text"
-                className='drop-input-line'
+                className="drop-input-line"
                 name="state"
                 placeholder="Tell us which state"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
-                required>
-                    <option value="" disabled>State</option>
-                    {states.map(state => (
-                        <option className="select-line" key={state}
-                        value={state}>{state}</option>
-                    ))}
-                </select>
+                required
+              >
+                <option value="" disabled>
+                  State
+                </option>
+                {states.map((state) => (
+                  <option className="select-line" key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
 
-{/* <input type='text'
+              {/* <input type='text'
                 placeholder='Country'
                 className='input-line'
                 required
                 value={country}
                 title='Country'
                 onChange={(e) => setCountry(e.target.value)}></input> */}
-                <select 
+              <select
                 required
-                className='drop-input-line'
-                    onChange={(e) => setCountry(e.target.value)}
-                    placeholder='Country'
-                    title='Country'
-                    value={country}>
-                        <option value="" disabled>Country</option>
-                    <option className="select-line" value='United States'>United States</option>
-                    <option className="select-line" value='Catland'>Catland</option>
+                className="drop-input-line"
+                onChange={(e) => setCountry(e.target.value)}
+                placeholder="Country"
+                title="Country"
+                value={country}
+              >
+                <option value="" disabled>
+                  Country
+                </option>
+                <option className="select-line" value="United States">
+                  United States
+                </option>
+                <option className="select-line" value="Catland">
+                  Catland
+                </option>
+              </select>
 
-                </select>
-                
+              <div>
+                <input
+                  type="text"
+                  className="input-line"
+                  placeholder="Name"
+                  required
+                  //    height='100px'
+                  value={name}
+                  title="Name"
+                  onChange={(e) => setName(e.target.value)}
+                ></input>
+              </div>
 
-                
-                <div>
-                   <input type='text'
-                   className='input-line'
-                   placeholder='Name'
-                   required
-                //    height='100px'
-                   value={name}
-                   title='Name'
-                   onChange={(e) => setName(e.target.value)}></input>
-                </div>
-
-                {/* <div>
+              {/* <div>
                     <h1>Add an image</h1>
                     <h3>Show what your place looks like.</h3>
                 </div> */}
-                {/* <div>
+              {/* <div>
                     <input type='text'
                     placeholder='https://....'
                     required
@@ -181,38 +196,36 @@ const EditSpot = ({spot}) => {
                     onChange={(e) => setUrl(e.target.value)}></input>
                 </div> */}
 
-               
-                <div>
-                    <input type='text'
-                    className='input-line'
-                    placeholder="Description"
-                    value={description}
-                    required
-                    maxlength='255'
-                    title='Description'
-                    onChange={(e) => setDescription(e.target.value)}>
-                    </input>
-                </div>
+              <div>
+                <input
+                  type="text"
+                  className="input-line"
+                  placeholder="Description"
+                  value={description}
+                  required
+                  maxlength="255"
+                  title="Description"
+                  onChange={(e) => setDescription(e.target.value)}
+                ></input>
+              </div>
 
-               
-                <div>
-                    <input type='number'
-                    className='input-line2'
-                    placeholder='Price'
-                    min='1'
-                    value={price}
-                    title='Price'
-                    onChange={(e) => setPrice(e.target.value)}></input>
-                </div>
-
-                </div>
-                <button type='submit'>Submit</button>
-            </form>
-
-</div>
-            
+              <div>
+                <input
+                  type="number"
+                  className="input-line2"
+                  placeholder="Price"
+                  min="1"
+                  value={price}
+                  title="Price"
+                  onChange={(e) => setPrice(e.target.value)}
+                ></input>
+              </div>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
         </div>
-    )
+      </div>
+    );
 }
 
 export default EditSpot

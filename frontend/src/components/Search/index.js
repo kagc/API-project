@@ -35,35 +35,56 @@ const SearchResults = () => {
               if(spot.city.toLowerCase().includes(searchTerm.toLowerCase())){
                 firstResults.push(spot)
 
-                if(firstResults.length > 0 && maxNum === undefined && minNum !== undefined && minNum > 0){
+                // if there's results and there's only a minNum
+                if (
+                  firstResults.length > 0 &&
+                  maxNum === undefined &&
+                  minNum !== undefined &&
+                  minNum > 0
+                ) {
                   firstResults.forEach((spot) => {
-                    if(spot.price >= minNum){
-                      results.push(spot)
+                    if (spot.price >= minNum) {
+                      results.push(spot);
                     }
-                  })
+                  });
                 }
+                // if there's results and there's only a maxNum
+                else if (
+                  firstResults.length > 0 &&
+                  maxNum !== undefined &&
+                  minNum === undefined &&
+                  maxNum > 0
+                ) {
+                  firstResults.forEach((spot) => {
+                    if (spot.price <= maxNum) {
+                      results.push(spot);
+                    }
+                  });
 
-                  else if(firstResults.length > 0 && maxNum !== undefined && minNum === undefined && maxNum > 0){
-                    firstResults.forEach((spot) => {
-                      if(spot.price <= maxNum){
-                        results.push(spot)
-                      }
-                    })
-                  }
+                  // if there's results and there's only a both maxNum and minNum
+                } else if (
+                  firstResults.length > 0 &&
+                  maxNum !== undefined &&
+                  minNum !== undefined &&
+                  minNum > 0 &&
+                  maxNum > minNum
+                ) {
+                  firstResults.forEach((spot) => {
+                    if (spot.price >= minNum && spot.price <= maxNum) {
+                      results.push(spot);
+                    }
+                  });
 
-                  else if(firstResults.length > 0 && maxNum !== undefined && minNum !== undefined && minNum > 0 && maxNum > minNum){
-                    firstResults.forEach((spot) => {
-                      if(spot.price >= minNum && spot.price <= maxNum){
-                        results.push(spot)
-                      }
-                    })
-                  }
-
-                  else if (firstResults.length > 0 && minNum === undefined && maxNum === undefined){
-                    firstResults.forEach((spot) => {
-                      results.push(spot)
-                    })
-                  }
+                  // nonfiltered search
+                } else if (
+                  firstResults.length > 0 &&
+                  minNum === undefined &&
+                  maxNum === undefined
+                ) {
+                  firstResults.forEach((spot) => {
+                    results.push(spot);
+                  });
+                }
               }
                 // delete project.creator.email
                 // delete project.creator.id
@@ -115,33 +136,40 @@ const SearchResults = () => {
               //  console.log('stars', spot.title, avgStars)
                if(avgStars === undefined) avgStars = 0
                 return (
-                    <Link key={spot.id} to={`/spots/${spot.id}`}>
-                        <div>
-                        <div 
+                  <Link key={spot.id} to={`/spots/${spot.id}`}>
+                    <div className="spot-card">
+                      <div
                         className="preview-image"
                         // style={{ backgroundImage: `url('${spot.previewImage}')` }}
-                        >
-                          <img 
-                                        className="previewer-image" 
-                                        onError={(e)=>{
-                                            if(e.target.src !== errImage) {
-                                            setNewSrc(errImage)
-                                            e.target.src = errImage
-                                            }
-                                        }}
-                                    src={`${spot.previewImage}`}></img>
+                      >
+                        <img
+                          className="previewer-image"
+                          onError={(e) => {
+                            if (e.target.src !== errImage) {
+                              setNewSrc(errImage);
+                              e.target.src = errImage;
+                            }
+                          }}
+                          src={`${spot.previewImage}`}
+                        ></img>
+                      </div>
+                      <div className="spots-details">
+                        <div className="spots-details-top">
+                          <div className="place">
+                            {spot.city}, {spot.state}
+                          </div>
+                          <div>
+                            <i className="fa-solid fa-star"></i> {avgStars}
+                          </div>
                         </div>
-                        <div className='spots-details'>
-                            <div className='spots-details-top'>
-                            <div className='place'>{spot.city}, {spot.state}</div>
-                            <div><i className="fa-solid fa-star"></i> {avgStars}</div>
-                            </div>
 
-                            <div><span className='price'>${spot.price}</span> night</div>
+                        <div>
+                          <span className="price">${spot.price}</span> night
                         </div>
-                        </div>
-                    </Link>
-                )
+                      </div>
+                    </div>
+                  </Link>
+                );
             })) : (<div className="no-results">Sorry, no results found.</div>)}
         </div>
         </div>

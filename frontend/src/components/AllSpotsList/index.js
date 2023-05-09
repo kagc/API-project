@@ -31,7 +31,7 @@ if(!spotsObj || !spots || spots.length === 0) return null
                if(avgStars === undefined) avgStars = 0
                 return (
                     <Link key={spot.id} to={`/spots/${spot.id}`}>
-                        <div>
+                        <div className='spot-card'>
                         <div 
                         className="preview-image"
                         // style={{ backgroundImage: `url('${spot.previewImage}')` }}

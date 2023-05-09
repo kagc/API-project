@@ -85,7 +85,7 @@ function ReviewsBySpot({spot}) {
                         {review.User.firstName}
                         </div>
 
-                        <div className='review-contents'>
+                        <div className='spot-review-text'>
                             {review.review}
                         </div>
 
