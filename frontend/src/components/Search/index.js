@@ -26,6 +26,8 @@ const SearchResults = () => {
       .then(() => setIsLoaded(true))
     }, [dispatch])
 
+// console.log("OOOOOOOOO", searchTerm)
+
     let firstResults = []
     let results = []
     let currentIndex = 0
@@ -33,57 +35,66 @@ const SearchResults = () => {
         if(spots.length) {
             spots.forEach((spot) => {
               if(spot.city.toLowerCase().includes(searchTerm.toLowerCase())){
+                // console.log("AAAAAAAAAA", spot)
                 firstResults.push(spot)
 
                 // if there's results and there's only a minNum
                 if (
                   firstResults.length > 0 &&
-                  +maxNum === undefined &&
-                  +minNum !== undefined &&
-                  +minNum > 0
+                  maxNum === undefined &&
+                  minNum !== undefined &&
+                  minNum > 0
                 ) {
+                  // console.log("only a minNum");
                   firstResults.forEach((spot) => {
-                    if (+spot.price >= +minNum) {
+                    if (spot.price >= minNum) {
                       results.push(spot);
                     }
                   });
+                  return
                 }
                 // if there's results and there's only a maxNum
-                else if (
+                if (
                   firstResults.length > 0 &&
-                  +maxNum !== undefined &&
-                  +minNum === undefined &&
-                  +maxNum > 0
+                  maxNum !== undefined &&
+                  minNum === undefined &&
+                  maxNum > 0
                 ) {
+                  // console.log("only a maxNum")
                   firstResults.forEach((spot) => {
-                    if (+spot.price <= +maxNum) {
+                    if (spot.price <= maxNum) {
                       results.push(spot);
                     }
                   });
-
+                  return;
                   // if there's results and there's only a both maxNum and minNum
-                } else if (
+                } 
+                if (
                   firstResults.length > 0 &&
-                  +maxNum !== undefined &&
-                  +minNum !== undefined &&
-                  +minNum > 0 &&
-                  +maxNum > +minNum
+                  maxNum !== undefined &&
+                  minNum !== undefined &&
+                  minNum > 0 &&
+                  maxNum > minNum
                 ) {
+                  // console.log("both")
                   firstResults.forEach((spot) => {
-                    if (+spot.price >= +minNum && +spot.price <= +maxNum) {
+                    if (spot.price >= minNum && spot.price <= maxNum) {
                       results.push(spot);
                     }
                   });
-
+                  return;
                   // nonfiltered search
-                } else if (
+                } 
+                if (
                   firstResults.length > 0 &&
-                  +minNum === undefined &&
-                  +maxNum === undefined
+                  minNum === undefined &&
+                  maxNum === undefined
                 ) {
+                  // console.log('neither')
                   firstResults.forEach((spot) => {
                     results.push(spot);
                   });
+                  return
                 }
               }
                 // delete project.creator.email
